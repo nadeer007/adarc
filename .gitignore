@@ -36,3 +36,4 @@ next-env.d.tsmodule.exports = {
     ignoreBuildErrors: true,
   },
 };
+node_modules
