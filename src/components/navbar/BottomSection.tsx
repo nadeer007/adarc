@@ -6,7 +6,7 @@ import strings from '@/utils/string';
 import Image from 'next/image';
 import Icon from '../includes/Icon';
 import Menu from '../../../public/assets/icons/menu.svg';
-import MenuDropDown from '../../../public/assets/icons/menuDropDown.svg';
+import Dropdownsss from '../../../public/assets/icons/Dropdownsss.svg';
 import { cn } from '@/utils/utils';
 // import useStore from '@/store/useStore';
 import { useRouter } from 'next/navigation';
@@ -111,7 +111,7 @@ function BottomSection() {
                 )}
               >
                 <Icon
-                  src={MenuDropDown}
+                  src={Dropdownsss}
                   alt="menuIcon"
                   width={'24px'}
                   height={'24px'}
