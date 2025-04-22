@@ -63,7 +63,7 @@ function TopSection() {
   return (
     <div className={` bg-[#1F1F1F] h-[44px] text-[#fafafa] text-[12px] flex justify-between `}>
       <div className='navbarWrapper h-[44px] flex justify-between items-center px-[48px]'>
-        <div className='flex gap-6 '>
+        <div className='flex gap-6 max-md:w-full max-md:justify-between '>
 
           <div
             id="google_element"
@@ -74,9 +74,9 @@ function TopSection() {
               
             }}
           ></div>
-          <div className='flex items-center gap-[2px]'>
-            <h6 className='open_sansregular'>Ship to</h6>
-            <div>{getIcon({ icon: 'flag', className: 'w-[32px]' })}</div>
+          <div className='flex  items-center gap-[2px] max-md:pr-14'>
+            <h6 className='hidden sm:block open_sansregular'>Ship to</h6>
+            <div className='hidden sm:block'>{getIcon({ icon: 'flag', className: 'w-[32px]' })}</div>
             <div>
               <DropDownButton
               elbrateMenu ={true}

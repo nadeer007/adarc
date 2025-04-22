@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { Suspense, useEffect, useRef, useState } from 'react'
 import LeftFilterSection from './LeftFilterSection'
 import RightcardSection from './RightcardSection'
 import fetchApiData from '@/config/fetch-api-data';
@@ -197,6 +197,7 @@ console.log(activeFilter,"filterListfilterList");
         }
       </div>
     </div>
+
   </>
   )
 }

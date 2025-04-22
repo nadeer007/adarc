@@ -11,6 +11,7 @@ module.exports = {
     ignoreDuringBuilds: true, // Ignore ESLint errors during builds
   },
   experimental: {
+
     // Add any experimental configurations here
   },
   trailingSlash: true, // Ensure all URLs have a trailing slash

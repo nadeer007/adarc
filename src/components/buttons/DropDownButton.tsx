@@ -26,7 +26,8 @@ export default function DropDownButton({
   setActive,
   selectedItem,
   SetselectedItem,
-  elbrateMenu = false
+  elbrateMenu = false,
+  SideBar = false
 }: any) {
 
 
@@ -36,9 +37,9 @@ export default function DropDownButton({
       <button onClick={onclick} className={cn(' flex flex-row justify-between w-full items-center overflow-hidden', buttonStyle)}>
         <div className='flex'>
           {isIcon && <div className='mr-2 items-center justify-center flex'>
-            <Icon height={accountPage ? '20px' : '24px'} width={accountPage ? '20px' : '24px'} alt={'selectIcon'} src={icon} />
+            <Icon height={accountPage ? '20px' : SideBar ? '15px' : '24px'} width={accountPage ? '20px' : SideBar ? '15px' : '24px'} alt={'selectIcon'} src={icon} />
           </div>}
-          <div className='w-full'  >
+          <div className={`${SideBar ? 'w-full' : 'w-full'}`}>
             <TitleComponent titleClass={titleClass} containerClass={containerClass} title={title} />
           </div>
         </div>
@@ -49,11 +50,11 @@ export default function DropDownButton({
         </div>}
       </button>
       {isActive && elbrateMenu &&
-        <div className={cn('absolute top-[30px]  z-20 bg-black py-1 px-[6px] w-[240px] rounded-[6px]  ')}>
+        <div className={cn('absolute top-[30px]  z-20 bg-black py-1 px-[6px] w-[150px] md:w-[240px] rounded-[6px]  ')}>
           <ul>
-            {Data.emirates.map((emirate,index) => (
-              <li className={cn('px-[10px] py-1 rounded-[4px] ',selectedItem == emirate.title && 'bg-black_shade')} key={index}>
-                <button className='text-[14px] leading-[20px] rubik_regular' onClick={()=>{SetselectedItem(emirate.title);setActive(!isActive)}} >
+            {Data.emirates.map((emirate, index) => (
+              <li className={cn('px-[10px] py-1 rounded-[4px] ', selectedItem == emirate.title && 'bg-black_shade')} key={index}>
+                <button className='text-[14px] leading-[20px] rubik_regular' onClick={() => { SetselectedItem(emirate.title); setActive(!isActive) }} >
                   {emirate?.title}
 
                 </button>

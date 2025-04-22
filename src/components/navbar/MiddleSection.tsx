@@ -90,12 +90,12 @@ function MiddleSection() {
     </div>
     <div className='bg-PRIMARY_BG h-[70px] w-full'>
       <div className='navbarWrapper flex justify-between items-center h-[70px] px-[48px]  '>
-        <div className='flex gap-[25px] w-[60%] max-lg:w-[75%]    '>
+        <div className='flex gap-[25px] w-[65%] max-lg:w-[75%]    '>
           <button onClick={() => setNavMenuActive(!navMenuActive)}
             className='max-sm:flex hidden  justify-center items-center' >
             <Icon className="invert" src={Menu} alt="menuIcon" width={'22px'} height={'22px'} />
           </button>
-          <div className='w-[250px] flex gap-6 items-center '>
+          <div className='max-lg:w-[250px] w-[330px] flex gap-6 items-center '>
             <a href={'/'} className='flex w-full h-full items-center justify-center'>
               <Image src={logo} alt="logo" height={100} width={100} className='w-[250px] block' />
             </a>
@@ -119,7 +119,7 @@ function MiddleSection() {
               }}
               onKeyDown={handleKeyDown}
             />
-            {ismodal &&
+            {!searchvisible && ismodal &&
               <div className='w-full max-h-[300px] bg-[white] absolute top-[46px] overflow-y-scroll no-scrollbar' ref={modalRef}>
                 <ListBox listData={listData} setModal={setModal} setSearch={setSearch} />
               </div>
@@ -132,10 +132,36 @@ function MiddleSection() {
           searchvisible={searchvisible}
         />
       </div>
-
+      {
+        searchvisible && <div className='p-1 relative'>
+          <CustomTextInput
+            setData={setSearch}
+            value={search} icon={MainSearch}
+            imageAlt={'mainSearch'}
+            isIcon={true}
+            className={'mb-0'}
+            inputStyle='bg-[white]'
+            placeholder={'What are you looking for ? '}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChange(e.target.value)}
+            onIconClick={() => {
+              if (search?.trim()) {  // Check if search has a non-empty string
+                router.push(`/adrcfr?q=${search}`);
+              } else {
+                console.log("Search input is empty. Please enter a search term.");
+              }
+            }}
+            onKeyDown={handleKeyDown}
+          />
+            {ismodal &&
+              <div className='w-full max-h-[300px] bg-[white] absolute top-[46px] overflow-y-scroll no-scrollbar' ref={modalRef}>
+                <ListBox listData={listData} setModal={setModal} setSearch={setSearch} />
+              </div>
+            }
+        </div>
+      }
 
     </div>
-    
+
 
   </>
   );

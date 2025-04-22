@@ -12,7 +12,6 @@ import fetchApiData from '@/config/fetch-api-data'
 
 export default function Page() {
 
-
     const router = useRouter()
     const [search, setSearch] = useState('')
     const [orderData,setOrderData] = useState({})
@@ -36,12 +35,9 @@ export default function Page() {
         getData();
     }, []);
 
-    console.log(orderData,"orderDataorderData");
-    
-
     const [activeItem, setActiveItem] = useState(10000)
     return (
-        <div className='px-6 bg-white relative w-full'>
+        <div className='px-6 bg-white relative w-full max-sm:px-3'>
             <div className='w-full sticky top-0 z-10 bg-[white] '>
                 <div className='w-[30%] pb-5'>
                     <CustomTextInput setData={setSearch} value={search} icon={MainSearch} imageAlt={'mainSearch'} isIcon={true} className={'mb-0'} inputStyle='bg-[white]' placeholder={strings.placeHolder.search} />
@@ -56,11 +52,9 @@ export default function Page() {
                         <div className='h-[48px] bg-alice_blue items-center flex px-6 justify-center'>
                             <DropDownButton buttonStyle='bg-alice_blue' isActive={activeItem == index ? true : false} rotate_angle={'-rotate-180'} title={item?.current_status} />
                         </div>
-                        <div className='px-6  flex items-center justify-center'>
+                        <div className='px-6 max-[480px]:px-3  flex items-center justify-center'>
                             <LargeCard onClick={() => router.push(`${item.productTitle}`)} myOrder={true} key={index} product={item} />
-
                         </div>
-            
                     </div>
 
                 )}

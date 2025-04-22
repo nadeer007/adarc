@@ -15,7 +15,10 @@ function MiddleRightSection({ setSearchVisble, searchvisible }: any) {
   const { cartlist } = useZustandStore()
 
 
-  const filterednavBarMiddle = navBarMiddle.map((item) => {
+  const filterednavBarMiddle = navBarMiddle.filter((item) => {
+    if (typeof window !== 'undefined' && window.innerWidth <= 480 && item.label === 'My Account') {
+      return false; // Remove 'My Account' or 'Login' when screen width is 480px or smaller
+    }
     if (item.label === 'My Account' && !userInfo) {
       return {
         ...item,
@@ -23,17 +26,17 @@ function MiddleRightSection({ setSearchVisble, searchvisible }: any) {
         route: '/login',
       };
     }
-    return item;
+    return true;
   });
 
   return (
     <div className='flex gap-4 max-sm:gap-3 max-[480px]:gap-2 '>
       <button className='hidden max-sm:flex justify-center items-center min-w-[26px] h-[26px] '
-        onClick={() => { setSearchVisble(true) }}>
+        onClick={() => { setSearchVisble(!searchvisible) }}>
         <Icon src={searchIcon} width={26} height={26} alt="icon" className="min-w-[20px] inline-block" />
       </button>
 
-      {filterednavBarMiddle?.map((item: any, index) => (<>
+      {/* {filterednavBarMiddle?.map((item: any, index) => (<>
 
         <Link aria-label={`go to ${item?.route}`} key={index} className='flex justify-between items-center gap-1' href={item?.route} >
           <div className='relative'>
@@ -44,7 +47,7 @@ function MiddleRightSection({ setSearchVisble, searchvisible }: any) {
           </div>
           <h5 className='text-[#fff] max-lg:hidden text-[14px] max-[980px]:text-[13px]'>{item?.label}</h5>
         </Link></>
-      ))}
+      ))} */}
 
     </div>
   )

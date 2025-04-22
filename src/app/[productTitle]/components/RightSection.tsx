@@ -212,8 +212,8 @@ const addtoWishlist = async () => {
                     </div>
 
                 </div >
-                <div className='flex justify-between'>
-                    <div className='w-[70%] xl:w-[75%] 2xlm:w-[80%]  flex justify-center items-center'>
+                <div className='flex gap-4 justify-between'>
+                    <div className='w-[100%]  flex justify-center items-center'>
                         <CustomButton onClick={()=>addtoCart('checkout')}  isLoading={isBuyLoading} isButtonClass={true} buttonClass='' title={strings.button.buyNow}     />
                     </div>
                     <div className='w-[48px] flex flex-row justify-center items-center'>

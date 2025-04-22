@@ -6,9 +6,12 @@ import postApiData from '@/config/post-api-data';
 import Image from 'next/image';
 import React, { useEffect, useState, useCallback } from 'react';
 
-function RatingReviewModal({ product }: { product: any }) {
-  const [currentRating, setCurrentRating] = useState<number>(0);
-  const [formData, setFormData] = useState<{ title?: string; review?: string; rating?: number }>({});
+function RatingReviewModal({ product, setRatingModal }: { product: any, setRatingModal:any }) {
+  const [currentRating, setCurrentRating] = useState<number>(product?.rating || 0);
+  const [formData, setFormData] = useState<{ title?: string; review?: string; rating?: number }>({
+    title:product?.title ?? "",
+    review:product?.review ?? ""
+  });
   const [errorFields, setErrorFields] = useState<Record<string, string>>({});
 
   // Handles input change for the textarea
@@ -57,6 +60,7 @@ function RatingReviewModal({ product }: { product: any }) {
 
       if (status_code === 6000) {
         setFormData({});
+        setRatingModal(false)
         setCurrentRating(0);
         console.log('Review submitted successfully.');
       } else if (status_code === 6001 && message?.body) {
@@ -103,7 +107,6 @@ function RatingReviewModal({ product }: { product: any }) {
             <StarRating currentRating={currentRating} setCurrentRating={setCurrentRating} />
           </div>
         </div>
-
         <div className="border-b border-solid border-primary_border">
           <CustomTextInput
             className=""
@@ -118,7 +121,6 @@ function RatingReviewModal({ product }: { product: any }) {
             setErrorFields={setErrorFields}
           />
         </div>
-
         <div>
           <h6 className="rubik_medium text-[16px] mb-3">Add a written review</h6>
           <textarea
@@ -131,7 +133,6 @@ function RatingReviewModal({ product }: { product: any }) {
             className="border border-solid border-input_border rounded-[4px] w-full p-2 mb-1"
           />
         </div>
-
         <CustomButton
           title="Submit Review"
           buttonClass="bg-[#FFE000]"

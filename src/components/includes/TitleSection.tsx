@@ -1,9 +1,13 @@
+import { cn } from '@/utils/utils'
 import Link from 'next/link'
 import React from 'react'
 
-export default function TitleSection({ sectionTitle }: any) {
+export default function TitleSection({ sectionTitle, className }: {
+  sectionTitle: any,
+  className?: any
+}) {
   return (
-    <div className='flex justify-between items-center h-[40px] mb-[24px] border-b-[1px] border-solid border-primary_border '>
+    <div className={cn('flex justify-between items-center h-[40px] mb-[24px] border-b-[1px] border-solid border-primary_border max-[480px]:mx-[10px] ', className)}>
       <div className=''>
         <h2 className='text-xl text-black/95 opensans_semibold'>{sectionTitle}</h2>
       </div>

@@ -8,6 +8,7 @@ import SecondaryMenu from './SecondaryMenu';
 import CustomButton from '../buttons/CustomButton';
 import { useRouter } from 'next/navigation';
 import useZustandStore from '@/store/useStore';
+import Link from 'next/link';
 
 
 function FirstMenu() {
@@ -16,8 +17,6 @@ function FirstMenu() {
   const [isActiveMegaMenu, setActiveMegaMenu] = useState(false)
   const [activeIndex, setActiveIndex] = useState<any>(10000)
   const [data, setData] = useState<any[]>([]); // Adjust type based on your data structure
-
-
 
   const getData = async () => {
     try {
@@ -40,13 +39,24 @@ function FirstMenu() {
 
   return (
     <div className=" w-full rounded-tl-[6px] rounded-bl-[6px]   h-full py-6  flex flex-col justify-between overflow-y-scroll no-scrollbar">
+
       <div className='w-full'>
+        {!isActiveMegaMenu &&
+          <button
+            onClick={() => {
+              router.push("/my-account/my-profile/");
+
+            }}
+            className="min-w-full text-left border-b border-gray-200 border-solid px-9 text-[#222222] pb-2 text-[16px] rubik_medium ">
+            Account
+          </button>
+        }
+
         {!isActiveMegaMenu &&
           <h4 className='px-9 text-[#222222] pb-2 text-[16px] rubik_medium'>
             Shop by Category
           </h4>
         }
-
         {!isActiveMegaMenu && data?.map((section: any, index: any) => (
           <div
             onClick={() => {
@@ -57,8 +67,6 @@ function FirstMenu() {
               else {
                 setActiveMegaMenu(false);
                 setActiveIndex(null)
-
-
               }
             }}
 
@@ -77,14 +85,21 @@ function FirstMenu() {
                 index == activeIndex ? '-rotate-90' : 'rotate-0'
               )}
             >
-              <Icon src={VectorIcon} height={'20px'} width={'20px'} alt={'vectorIcon'} />
+              <Icon src={VectorIcon}
+                height={'20px'}
+                width={'20px'}
+                alt={'vectorIcon'}
+              />
             </div>
           </div>
         ))}
         {
           isActiveMegaMenu &&
           <div className='w-full' >
-            <SecondaryMenu setActiveMegaMenu={setActiveMegaMenu} setActiveIndex={setActiveIndex} data={data?.[activeIndex]?.departments} />
+            <SecondaryMenu
+              setActiveMegaMenu={setActiveMegaMenu}
+              setActiveIndex={setActiveIndex}
+              data={data?.[activeIndex]?.departments} />
           </div>
         }
 
@@ -97,7 +112,7 @@ function FirstMenu() {
               <CustomButton
                 onClick={() => {
                   clearAccessToken()
-                 window.location.reload()
+                  window.location.reload()
                 }}
                 title='Sign out'
                 buttonClass=''
@@ -105,20 +120,19 @@ function FirstMenu() {
                 istTitleClass={true}
                 titleClass='text-[#040C13]
                                        rubik_medium text-[16px]'/>
-            </> :
+            </>
+            :
             <CustomButton
               onClick={handleSignin}
               title='Sign In'
               buttonClass='bg-[#FFE000]'
               isButtonClass={true}
               istTitleClass={true}
-              titleClass='text-[#040C13] rubik_medium text-[16px]'/>
+              titleClass='text-[#040C13] rubik_medium text-[16px]'
+            />
 
         }
-
       </div>
-
-
     </div>
   )
 }

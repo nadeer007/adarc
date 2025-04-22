@@ -32,7 +32,7 @@ export default function ProductMainDetail({ productTitle,product }: any) {
             { product?.short_description.length >= 1 && <div className='py-[16px]  border-b-[.6px] border-solid border-primary_border'>
                 <AboutComponent data={product?.short_description} />
             </div>}
-           {product?.specs.length >= 1 &&  <div className='py-[16px]'>
+           {product?.specs.length >= 1 &&  <div className='hidden md:block py-[16px]'>
                 <SpecGlance data={product?.specs} />
             </div>}
 

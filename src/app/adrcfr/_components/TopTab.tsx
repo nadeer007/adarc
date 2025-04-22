@@ -1,7 +1,7 @@
 import { getIcon } from '@/components/image/Icon';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';  // Add this import
-import React from 'react';
+import React, { Suspense } from 'react';
 import FilterDropdown from '@/components/input/FilterDropdown';
 
 
@@ -52,6 +52,7 @@ function TopTab({ filterList, setListData, priceData, setPriceData, setSortBy, s
     ];
 
     return (
+
         <div className="flex justify-between py-3">
             <div className="flex items-center gap-2 flex-wrap">
                 <div className="flex items-center gap-2">
@@ -127,6 +128,7 @@ function TopTab({ filterList, setListData, priceData, setPriceData, setSortBy, s
                 /></div>
 
         </div>
+
     );
 }
 

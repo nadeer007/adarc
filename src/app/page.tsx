@@ -7,9 +7,12 @@ import MiddleBanner from '@/components/includes/MiddleBanner';
 import BottomBanner from '@/components/includes/BottomBanner';
 import type { Metadata } from 'next'
 import Wrapper from '@/components/includes/Wrapper';
-import RectangleSection from '@/components/includes/RectangleSection';
+// import RectangleSection from '@/components/includes/RectangleSection';
 import Products from '../../data.json';
 import fetchApiData from '@/config/fetch-api-data';
+import dynamic from 'next/dynamic';
+
+const RectangleSection = dynamic(() => import('@/components/includes/ClientRectangleSection'));
 
 const getData = async () => {
   const response = await fetchApiData<any>('products/list-products/');
@@ -54,6 +57,8 @@ const slider_settings = {
   {
     breakpoint: 480,
     settings: {
+      arrows: false,
+      swipeToSlide: true,
       slidesToShow: 2,
       slidesToScroll: 2,
     },
@@ -86,7 +91,7 @@ const Page = async function () {
     <>
 
       <div className='w-full scroll'>
-        <Wrapper className='pt-[139px]'>
+        <Wrapper className='pt-[155px] max-lg:pt-[150px] max-sm:pt-[100px] max-[480px]:pt-[95px] max-[480px]:px-0 '>
           <BannerSection />
           <CategorySection />
           <div className=''>

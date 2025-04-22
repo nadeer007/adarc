@@ -54,8 +54,8 @@ function ProductCard({ className, data, border = true, MoreItems = false }: Prod
         {data?.primary_attachment && <Image
           src={data?.primary_attachment}
           alt={data?.name}
-          width={100}
-          height={100}
+          width={400}
+          height={400}
           loading='lazy'
           className='object-contain w-[100%] h-[100%]'
           // objectFit="contain"

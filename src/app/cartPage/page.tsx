@@ -1,21 +1,23 @@
 'use client'
+export const dynamic = 'force-dynamic';
+
 import React, { useEffect, useState } from 'react'
-import Strings from '../../utils/string'
-import product from '../../../data.json'
+// import Strings from '../../utils/string'
+// import product from '../../../data.json'
 import LargeCard from '@/components/includes/LargeCard'
 import Wrapper from '@/components/includes/Wrapper'
-import CustomButton from '@/components/buttons/CustomButton'
+// import CustomButton from '@/components/buttons/CustomButton'
 import { useRouter } from 'next/navigation';
 import AmountLine from './component/AmountLine'
 import UnderLinedButton from '@/components/buttons/UnderLinedButton'
-import CustomCheckBox from '@/components/input/CustomCheckBox'
-import Icon from '@/components/includes/Icon'
-import GiftIcon from '../../../public/assets/icons/giftIcon.svg'
-import InfoIcon from '../../../public/assets/icons/info.svg'
+// import CustomCheckBox from '@/components/input/CustomCheckBox'
+// import Icon from '@/components/includes/Icon'
+// import GiftIcon from '../../../public/assets/icons/giftIcon.svg'
+// import InfoIcon from '../../../public/assets/icons/info.svg'
 import TitleComponent from '../[productTitle]/components/TitleComponent'
 import fetchApiData from '@/config/fetch-api-data'
 import postApiData from '@/config/post-api-data'
-import { div } from 'framer-motion/client'
+// import { div } from 'framer-motion/client'
 import EmptySection from '@/components/emptyContainer/EmptySection'
 import useZustandStore from '@/store/useStore'
 import PriceDetail from './_components/PriceDetail'
@@ -182,14 +184,16 @@ export default function Page() {
   return (
     <div className='w-full min-h-[100vh]'>
       <Wrapper>
-        {pageLoading ? (
+        {
+        // pageLoading ? (
 
-          <div className='h-[70vh] w-full flex items-center justify-center'>
-          <PageLoader />
+        //   <div className='h-[70vh] w-full flex items-center justify-center'>
+        //   <PageLoader />
 
-          </div>
+        //   </div>
 
-        ) : cartlist?.length > 0 ? (
+        // ) : 
+        cartlist?.length > 0 ? (
           <div className='relative w-full flex flex-row gap-[16px] justify-between'>
             <div className='w-[65.55%]'>
               <div className='h-auto mb-5 w-full border border-solid border-Platinum px-[24px] py-[16px] rounded-[4px]'>

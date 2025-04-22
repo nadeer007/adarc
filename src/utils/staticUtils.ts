@@ -10,6 +10,16 @@ import Storage from '../../public/assets/icons/storage.svg'
 import ShoppingBag from '../../public/assets/icons/shoppingBag.svg'
 import Cart from '../../public/assets/icons/cart.svg'
 import Profile from '../../public/assets/icons/profile.svg'
+import Profile_black from '../../public/assets/icons/profile_icon_black.svg'
+import myOrder_black from '../../public/assets/icons/my_orders_icon.svg'
+import manage_address from '../../public/assets/icons/manage_address.svg'
+import review_ratings from '../../public/assets/icons/ratings_black.svg'
+import my_wishlist from '../../public/assets/icons/wish_list_black.svg'
+
+
+
+
+
 
 
 
@@ -196,19 +206,19 @@ export const accountMenu = [
         items: [
             {
                 id: 1,
-                icon: '',
+                icon: Profile_black,
                 title: 'Profile Information',
                 route: '/my-account/my-profile'
             },
             {
                 id: 2,
-                icon: '',
+                icon: myOrder_black,
                 title: 'My Orders',
                 route: '/my-account/my-orders'
             },
             {
                 id: 3,
-                icon: '',
+                icon: manage_address,
                 title: 'Manage Addresses',
                 route: '/my-account/manage-addresses/'
             },
@@ -219,16 +229,16 @@ export const accountMenu = [
         items: [
             {
                 id: 4,
-                icon: '',
+                icon: review_ratings,
                 title: 'My Reviews & Ratings',
                 route: '/my-account/my-reviews/'
             },
           
             {
                 id: 6,
-                icon: '',
+                icon: my_wishlist,
                 title: 'My Wishlist',
-                route: '/my-account/wishlist'
+                route: '/my-account/wishlist/'
             },
         ]
     }
