@@ -6,7 +6,6 @@ import Cookies from 'js-cookie';
 import DropDownButton from '../buttons/DropDownButton';
 import useZustandStore from '@/store/useStore';
 import dynamic from 'next/dynamic';
-// import Googletrans from './googletrans';
 const Googletrans = dynamic(()=>import ('./googletrans'),{ssr:false}) ;
 
 declare global {
