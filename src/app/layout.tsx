@@ -5,7 +5,7 @@ import HighlightSection from "@/components/includes/HighlightSection";
 import FooterLogin from "@/components/footer/FooterLogin";
 import RootLayoutComponent from "@/components/layout/RootLayout";
 import { Metadata } from "next";
-import GoogleAnalytics from "./GoogleAnalytics";
+// import GoogleAnalytics from "./GoogleAnalytics";
 
 
 
@@ -33,7 +33,7 @@ export default function RootLayout({
               <meta name="apple-mobile-web-app-status-bar" content="#0000ff" />
             </head>
             <body suppressHydrationWarning={true}>
-            <GoogleAnalytics />
+            {/* <GoogleAnalytics /> */}
             {/* Layout UI */}
         <Navbar />
         {children}
