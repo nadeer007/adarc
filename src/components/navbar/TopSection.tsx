@@ -6,7 +6,7 @@ import Cookies from 'js-cookie';
 import DropDownButton from '../buttons/DropDownButton';
 import useZustandStore from '@/store/useStore';
 import dynamic from 'next/dynamic';
-const Googletrans = dynamic(()=>import ('./googletrans'),{ssr:false}) ;
+const Googletrans = dynamic(()=>import ('./Googletrans'),{ssr:false}) ;
 
 declare global {
   interface Window {
