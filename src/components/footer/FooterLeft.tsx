@@ -3,12 +3,12 @@ import React from 'react';
 
 function FooterLeft() {
   const footerLinks = [
-    {
-      header: 'Help & Customer Care',
-      links: [
-        { label: 'Payment Terms', href: '/payment-terms' },
-      ],
-    },
+    // {
+    //   header: 'Help & Customer Care',
+    //   links: [
+    //     { label: 'Payment Terms', href: '/payment-terms' },
+    //   ],
+    // },
     {
       header: 'Customer Service',
       links: [
@@ -17,6 +17,9 @@ function FooterLeft() {
         { label: 'Shipping Policy', href: '/shipping-policy' },
         { label: 'Online Returns Policy', href: '/return-policy' },
         { label: 'Terms And Conditions', href: '/terms-and-conditions' },
+        { label: 'Payment Terms', href: '/payment-terms' },
+        { label: 'Privacy policy', href: '/privacy-policy' },
+
       ],
     },
     {
@@ -51,7 +54,7 @@ function FooterLeft() {
                   <td key={colIndex} className="py-3 px-4 text-left font-normal max-lg:py-2 max-lg:px-2 max-sm:py-1 max-md:px-2">
                     {section.links[rowIndex] && (
                       <Link
-                        href={section.links[rowIndex].href}
+                        href={section?.links[rowIndex].href}
                         className="text-[15px] rubik_regular max-sm:text-[12px] max-lg:text-[14px]"
                         aria-label={`Go to ${section.links[rowIndex].label}`}
                       >
@@ -65,9 +68,9 @@ function FooterLeft() {
           )}
         </tbody>
       </table>
-      <div className="sm:hidden flex flex-wrap justify-between gap-4 mt-6">
-        {[footerLinks[2], footerLinks[1], footerLinks[0]].map((section, index) => (
-          <div key={index} className="w-[48%]">
+      <div className="sm:hidden grid grid-cols-2 justify-between gap-4 mt-6">
+        {footerLinks.map((section, index) => (
+          <div key={index} className="">
             <h3 className="text-base font-semibold mb-2">{section.header}</h3>
             <ul className="flex flex-col gap-1">
               {section.links.map((link, idx) => (
