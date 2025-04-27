@@ -32,7 +32,7 @@ function FooterLeft() {
 
   return (
     <div className=" ">
-      <table className="min-w-full">
+      <table className="min-w-full max-sm:hidden">
         <thead>
           <tr>
             {footerLinks.map((section, index) => (
@@ -65,6 +65,27 @@ function FooterLeft() {
           )}
         </tbody>
       </table>
+      <div className="sm:hidden flex flex-wrap justify-between gap-4 mt-6">
+        {[footerLinks[2], footerLinks[1], footerLinks[0]].map((section, index) => (
+          <div key={index} className="w-[48%]">
+            <h3 className="text-base font-semibold mb-2">{section.header}</h3>
+            <ul className="flex flex-col gap-1">
+              {section.links.map((link, idx) => (
+                <li key={idx}>
+                  <Link
+                    href={link.href}
+                    className="text-[14px] rubik_regular"
+                    aria-label={`Go to ${link.label}`}
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+
     </div>
   );
 }
