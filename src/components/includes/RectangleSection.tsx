@@ -122,7 +122,7 @@ function RectangleSection(
                             {isMobile ? (
                                 <div className="flex overflow-x-scroll px-[10px] py-[5px] gap-[4px]  no-scrollbar ">
                                     {datas?.map((data: any, index: any) => (
-                                        <Link key={index} href={`/product/${data?.slug}`} className="min-w-[168px]">
+                                        <Link key={index} href={`/product/${data?.slug}`} className="min-w-[47.5%]">
                                             <ProductCard data={data} />
                                         </Link>
                                     ))}

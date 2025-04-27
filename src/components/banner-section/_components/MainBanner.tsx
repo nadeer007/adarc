@@ -47,7 +47,7 @@ export default function MainBanner() {
     }, [direction]);
 
     return (
-        <div className="w-[100%] max-sm:px-[15px] relative">
+        <div className="w-[100%] max-sm:px-[5px] relative">
             {/* Right Button */}
             <button 
                 onClick={() => onClick("+")}  
