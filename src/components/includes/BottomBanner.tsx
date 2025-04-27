@@ -16,8 +16,9 @@ export default function BottomBanner() {
     autoplay: true,
     autoplaySpeed: 2000,
     responsive: [
+      
       {
-        breakpoint: 480,
+        breakpoint: 768,
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
@@ -29,12 +30,12 @@ export default function BottomBanner() {
   };
 
   return (
-    <div className="mb-[48px] overflow-hidden ">
+    <div className="mb-[28px] md:mb-[48px] px-[10px] overflow-hidden ">
       <Slider {...settings}>
         {productData?.bannerBottom.map((item, index) => (
-          <div key={index} className="px-[10px] ">
+          <div key={index} className="md:px-[10px]  ">
             <div
-              className="w-full bg-PRIMARY_GREY overflow-hidden"
+              className="w-full  bg-PRIMARY_GREY overflow-hidden" style={{aspectRatio:3}}
             >
               <Image
                 src={item.image}
@@ -42,7 +43,7 @@ export default function BottomBanner() {
                 height={100}
                 alt="banner"
                 loading="lazy"
-                className="w-full h-full object-cover"
+                className="w-full  object-cover"
               />
             </div>
           </div>

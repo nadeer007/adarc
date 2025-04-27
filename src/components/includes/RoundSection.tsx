@@ -7,7 +7,7 @@ import TitleSection from './TitleSection';
 
 export default function RoundSection({ sectionTitle,category=false, data }: any) {
   return (
-    <div className='pb-[48px] max-sm:pb-[20px] ' >
+    <div className='mb-[28px] md:mb-[48px]  ' >
       <TitleSection sectionTitle={sectionTitle} />
         <div className={cn('flex gap-[30px] max-md:gap-[20px] px-[10px] w-[100%]  no-scrollbar  items-baseline ',
         category ? 'overflow-x-scroll ' : 'overflow-scroll'

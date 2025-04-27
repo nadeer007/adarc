@@ -93,7 +93,7 @@ function RectangleSection(
 
 
     return (
-        <div className={cn('mb-[48px]', className)}>
+        <div className={cn('mb-[28px] md:mb-[48px]', className)}>
             {!deals && <TitleSection sectionTitle={sectionTitle} className="mb-1" />}
             {
                 moreItems ?
