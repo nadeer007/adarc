@@ -101,7 +101,7 @@ console.log(apiData,"apiDataapiData");
           <div><RectangleSection className='' datas={products} sectionTitle={'Popular gaming PC'} slider_settings={slider_settings} /></div>
           <div><RectangleSection className='' datas={products} sectionTitle={'Best Selling Graphic Card'} slider_settings={slider_settings} /></div>
           <BrandSection />
-          <div><RectangleSection className='' datas={products} sectionTitle={''} deals={true} /></div>
+          <div><RectangleSection className='max-md:mb-[20px]' datas={products} sectionTitle={''} deals={true} /></div>
           <MiddleBanner />
           <div><RectangleSection className='' datas={products} viewBy={true} sectionTitle={'Viewed by you'} slider_settings={slider_settings} /></div>
           <BottomBanner />

@@ -6,6 +6,7 @@ import Cookies from 'js-cookie';
 import DropDownButton from '../buttons/DropDownButton';
 import useZustandStore from '@/store/useStore';
 import dynamic from 'next/dynamic';
+// import Googletrans from './googletrans';
 const Googletrans = dynamic(()=>import ('./Googletrans'),{ssr:false}) ;
 
 declare global {
@@ -65,7 +66,7 @@ function TopSection({isNavbarTopVisible}:any) {
   return (
     <div className={`   relative   text-[#fafafa] text-[12px] sm:h-[44px]  flex justify-between `}>
       <div className={`navbarWrapper bg-[#1F1F1F] absolute  max-sm duration-700 max-sm:top-0 max-sm:left-0 max-sm:transition-all max-sm:transform   flex  ${isNavbarTopVisible ? ' max-sm:h-[28px] h-[44px] visible opacity-[1] ' : 'h-0 max-sm:-z-10 sm:h-[44px]  max-sm:opacity-0'  } justify-between items-center px-[48px]`}>
-      <div className='flex flex-row-reverse sm:flex-row gap-6 max-md:w-full max-md:justify-between '>
+        <div className='flex flex-row-reverse sm:flex-row gap-6 max-md:w-full max-md:justify-between '>
 
           {/* <div
             id="google_element"

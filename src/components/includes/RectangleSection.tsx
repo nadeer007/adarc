@@ -98,9 +98,9 @@ function RectangleSection(
             {
                 moreItems ?
                     <div className='justify-center items-center flex w-full'>
-                        <div className={cn('flex md:flex-wrap max-md:overflow-x-scroll  items-center gap-y-[20px] ')}>
+                        <div className={cn('flex md:flex-wrap max-md:overflow-x-scroll px-[10px] gap-[4px] items-center gap-y-[20px] ')}>
                             {datas?.map((data: any, index: any) => (
-                                <Link href={`/product/${data?.slug}`} key={index} className='w-1/6 max-xl:w-[20%] max-lg:w-[25%] px-[10px] min-h-[330px] max-md:w-[33%] max-[480px]:w-[50%]'>
+                                <Link href={`/product/${data?.slug}`} key={index} className='w-1/6 max-xl:w-[20%] max-lg:w-[25%]  min-h-[330px] max-md:w-[33%] max-[480px]:w-[47.5%] max-[480px]:min-w-[47.5%]'>
                                     <ProductCard key={index} data={data} MoreItems={true} className='  ' />
                                 </Link>
 
@@ -109,11 +109,11 @@ function RectangleSection(
                     </div>
                     :
                     deals ?
-                        <div className={cn('flex gap-[1%]   items-center justify-between overflow-x-hidden',)}>
+                        <div className={cn('flex items-stretch gap-[1%] sm:px-[20px]  justify-between overflow-x-hidden',)}>
                             {/* <div></div> */}
-                            <DealCard className={cn('min-h-[400px] w-[24%] max-[740px]:w-[31%]   max-md:w-[30%]  max-[480px]:w-[48%] max-[390px]:w-[95%]')} />
+                            <DealCard className={cn('md:max-w-[24%] w-full px-[10px] max-sm:min-h-[120px]')} />
                             {datas?.map((data: any, index: any) => (
-                                index <= maxIndex && <Link className=' w-[24%]   max-[740px]:w-[31%]   max-md:w-[30%] max-[480px]:w-[48%]  ' key={index} href={`/product/${data?.slug}`}><ProductCard data={data} /></Link>
+                                index <= maxIndex && <Link className=' hidden md:block w-[24%]   max-[740px]:w-[31%]   max-md:w-[30%] max-[480px]:w-[48%]  ' key={index} href={`/product/${data?.slug}`}><ProductCard data={data} /></Link>
                             ))}
 
                         </div>

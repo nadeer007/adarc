@@ -29,10 +29,10 @@ export default function BottomBanner() {
   };
 
   return (
-    <div className="mb-[48px] overflow-hidden">
+    <div className="mb-[48px] overflow-hidden ">
       <Slider {...settings}>
         {productData?.bannerBottom.map((item, index) => (
-          <div key={index} className="px-2 max-[480px]:px-0">
+          <div key={index} className="px-[10px] ">
             <div
               className="w-full bg-PRIMARY_GREY overflow-hidden"
             >
