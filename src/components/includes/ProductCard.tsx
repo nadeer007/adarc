@@ -43,9 +43,9 @@ function ProductCard({ className, data, border = true, MoreItems = false }: Prod
     onMouseEnter={hoverCard} // Trigger hover start
     onMouseLeave={unmountHover} // Trigger hover end
     className={cn(
-        'hover:opacity-[.9] px-[16px] py-[12px] rounded-[4px] flex flex-col gap-3 items-center  max-md:px-[10px] max-md:py-[8px] ',
-        border ? 'border border-[#C5CBD5] border-solid' : '',
-        activeHover && 'border border-[#0457C8] border-solid', // Apply border conditionally
+        'hover:opacity-[.9] max-sm:shadow-lg transition-all transform px-[16px] py-[12px] rounded-[4px] flex flex-col gap-3 items-center  max-md:px-[10px] max-md:py-[8px] ',
+        border ? 'border-[.5px] sm:border  border-[#C5CBD5]/50 border-solid' : '',
+        activeHover && 'border border-[#0457C8] border-solid hover:scale-[1.02] ', // Apply border conditionally
         className
     )}
 >
@@ -54,8 +54,8 @@ function ProductCard({ className, data, border = true, MoreItems = false }: Prod
         {data?.primary_attachment && <Image
           src={data?.primary_attachment}
           alt={data?.name}
-          width={400}
-          height={400}
+          width={100}
+          height={100}
           loading='lazy'
           className='object-contain w-[100%] h-[100%]'
           // objectFit="contain"

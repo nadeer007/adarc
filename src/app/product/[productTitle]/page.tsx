@@ -1,12 +1,10 @@
 // src/app/[productTitle]/page.tsx
 import React from 'react';
 import Head from 'next/head';
-// import RecentlyViewed from './components/RecentlyViewed';
+import RecentlyViewed from './components/RecentlyViewed';
 import Wrapper from '@/components/includes/Wrapper';
 import TopSection from './components/TopSection';
 import fetchApiData from '@/config/fetch-api-data';
-import dynamic from 'next/dynamic';
-const RecentlyViewed = dynamic(() => import('./components/RecentlyViewed'));
 
 // Define types for props
 interface Params {

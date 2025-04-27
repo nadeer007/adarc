@@ -1,5 +1,5 @@
 import React from "react";
-import TitleComponent from "@/app/[productTitle]/components/TitleComponent";
+import TitleComponent from "@/app/product/[productTitle]/components/TitleComponent";
 import Link from "next/link";
 import Image from "next/image";
 import LeftArrow from '../../../public/assets/icons/left-arrow.svg'

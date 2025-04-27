@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import LeftFilterSection from './LeftFilterSection'
 import RightcardSection from './RightcardSection'
 import fetchApiData from '@/config/fetch-api-data';
@@ -7,7 +7,7 @@ import BottomMobileFilter from './BottomMobileFilter';
 import SortbyMobileFilter from './SortbyMobileFilter';
 
 
-function FilterComponents() {
+function FilterComponents({ params }: { params?: Promise<{ primarySlug?: string; secondarySlug?: string; tertiarySlug?: string }> }) {
   const searchParams = useSearchParams();
   const [sortBy, setSortBy] = useState<any>({});
   const [activeFilter, setActiveFilter] = useState(false)
@@ -20,10 +20,17 @@ function FilterComponents() {
   const [filteredData, setData] = useState<any>(null);
   const [filterList, setListData] = useState<any[] | null>([]);
   const [tempfilterList, setTempListData] = useState<any[] | null>(filterList);
+  const [resolvedParams, setResolvedParams] = useState<{ primarySlug?: string; secondarySlug?: string; tertiarySlug?: string }>({});
 
   const priceFilterRef = useRef<{ applyFilter: () => void } | null>(null);
-console.log(activeFilter,"filterListfilterList");
 
+  useEffect(() => {
+    if (params) {
+      params.then(resolved => {
+        setResolvedParams(resolved);
+      });
+    }
+  }, [params]);
 
   const generateQueryParams = () => {
     if (!filterList) return '';
@@ -37,6 +44,16 @@ console.log(activeFilter,"filterListfilterList");
       queryParams.push(`max_price=${priceData.max_price}`);
     }
 
+    // Add primary, secondary, and tertiary slug parameters if they exist
+    if (resolvedParams?.primarySlug) {
+      queryParams.push(`${resolvedParams.primarySlug}=true`);
+    }
+    if (resolvedParams?.secondarySlug) {
+      queryParams.push(`${resolvedParams.secondarySlug}=true`);
+    }
+    if (resolvedParams?.tertiarySlug) {
+      queryParams.push(`${resolvedParams.tertiarySlug}=true`);
+    }
 
     filterList.forEach((filter) => {
       if (filter.slug !== 'price') {
@@ -56,6 +73,7 @@ console.log(activeFilter,"filterListfilterList");
 
   const queryParams = generateQueryParams();
 
+  console.log(queryParams,"queryParams");
 
   const getListData = async () => {
     const response = await fetchApiData<any>(`products/list-filters`);
@@ -197,7 +215,6 @@ console.log(activeFilter,"filterListfilterList");
         }
       </div>
     </div>
-
   </>
   )
 }

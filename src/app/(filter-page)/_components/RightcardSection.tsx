@@ -1,5 +1,5 @@
 import ProductCard from '@/components/includes/ProductCard'
-import React, { Suspense } from 'react'
+import React from 'react'
 import TopTab from './TopTab';
 import { useSearchParams } from 'next/navigation';
 import EmptySection from '@/components/emptyContainer/EmptySection';
@@ -25,7 +25,6 @@ function RightcardSection({
     const searchParams = useSearchParams();
     const searchQuery = searchParams.get('q');
     return (
-
         <div className='w-full block max-[480px]:px-[15px]'>
             <TopTab
                 filterList={filterList}
@@ -53,7 +52,6 @@ function RightcardSection({
 
             </div>
         </div>
-
     )
 }
 

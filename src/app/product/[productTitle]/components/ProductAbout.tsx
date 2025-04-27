@@ -1,7 +1,7 @@
 'use client'
 import React, { useState } from 'react'
 import TitleComponent from './TitleComponent'
-import Strings from '../../../utils/string'
+import Strings from '../../../../utils/string'
 import { aboutProduct } from '@/utils/staticUtils'
 import DropDownButton from '@/components/buttons/DropDownButton';
 import { cn } from '@/utils/utils'

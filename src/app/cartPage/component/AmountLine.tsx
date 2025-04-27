@@ -1,4 +1,4 @@
-import TitleComponent from '@/app/[productTitle]/components/TitleComponent'
+import TitleComponent from '@/app/product/[productTitle]/components/TitleComponent'
 import { cn } from '@/utils/utils'
 import React from 'react'
 import Strings from '../../../utils/string'

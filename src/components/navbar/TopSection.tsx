@@ -5,6 +5,9 @@ import strings from '@/utils/string';
 import Cookies from 'js-cookie';
 import DropDownButton from '../buttons/DropDownButton';
 import useZustandStore from '@/store/useStore';
+import dynamic from 'next/dynamic';
+// import Googletrans from './googletrans';
+const Googletrans = dynamic(()=>import ('./googletrans'),{ssr:false}) ;
 
 declare global {
   interface Window {
@@ -13,7 +16,7 @@ declare global {
   }
 }
 
-function TopSection() {
+function TopSection({isNavbarTopVisible}:any) {
   
 
   const language = Cookies.get('googtrans');
@@ -61,11 +64,11 @@ function TopSection() {
 
 
   return (
-    <div className={` bg-[#1F1F1F] h-[44px] text-[#fafafa] text-[12px] flex justify-between `}>
-      <div className='navbarWrapper h-[44px] flex justify-between items-center px-[48px]'>
-        <div className='flex gap-6 max-md:w-full max-md:justify-between '>
+    <div className={`   relative   text-[#fafafa] text-[12px] sm:h-[44px]  flex justify-between `}>
+      <div className={`navbarWrapper bg-[#1F1F1F] absolute  max-sm duration-700 max-sm:top-0 max-sm:left-0 max-sm:transition-all max-sm:transform   flex  ${isNavbarTopVisible ? ' max-sm:h-[28px] h-[44px] visible opacity-[1] ' : 'h-0 max-sm:-z-10 sm:h-[44px]  max-sm:opacity-0'  } justify-between items-center px-[48px]`}>
+      <div className='flex flex-row-reverse sm:flex-row gap-6 max-md:w-full max-md:justify-between '>
 
-          <div
+          {/* <div
             id="google_element"
             style={{
               height: "25px",
@@ -73,9 +76,10 @@ function TopSection() {
               fontSize: "larger",
               
             }}
-          ></div>
+          ></div> */}
+          <Googletrans />
           <div className='flex  items-center gap-[2px] max-md:pr-14'>
-            <h6 className='hidden sm:block open_sansregular'>Ship to</h6>
+            <h6 className=' open_sansregular'>Ship to</h6>
             <div className='hidden sm:block'>{getIcon({ icon: 'flag', className: 'w-[32px]' })}</div>
             <div>
               <DropDownButton

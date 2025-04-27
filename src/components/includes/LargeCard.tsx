@@ -4,7 +4,7 @@ import PriceComponent from './PriceComponent'
 import UnderLinedButton from '../buttons/UnderLinedButton'
 import Strings from '../../utils/string'
 import QuantityButton from '../buttons/QuantityButton'
-import TitleComponent from '@/app/[productTitle]/components/TitleComponent'
+import TitleComponent from '@/app/product/[productTitle]/components/TitleComponent'
 import Tick_icon from "../../../public/assets/icons/tick_blue.svg"
 import { cn } from '@/utils/utils'
 import postApiData from '@/config/post-api-data'

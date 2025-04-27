@@ -47,12 +47,13 @@ export default function SliderImage({ Product }: any) {
 						key={index}
 						className="w-full min-w-full h-[400px] flex items-center justify-center snap-center"
 					>
+						
 						<Image
 							className="w-full min-w-full h-full object-contain"
 							src={image?.attachment}
-							alt={`productImage-${index}`}
-							width={400}
-							height={400}
+							alt={index ? `productImage-${index}`: "products"}
+							width={100}
+							height={100}
 						/>
 					</div>
 				))}

@@ -80,69 +80,27 @@ function RectangleSection(
         );
     };
 
-    // const settings = {
-    //     ...slider_settings,
-    //     infinite: false,
-    //     slidesToShow: slider_settings?.slidesToShow ?? 6,
-    //     slidesToScroll: slider_settings?.slidesToScroll ?? 2,
-    //     swipeToSlide: true,
-    //     nextArrow: <CustomNextArrow />,
-    //     prevArrow: <CustomPrevArrow />,
-    // };
     const settings = {
-        slidesToShow: 6,
-        slidesToScroll: 2,
-        responsive: [{
-          breakpoint: 1280,
-          settings: {
-            slidesToShow: 5,
-            slidesToScroll: 2,
-          },
-        },
-        {
-          breakpoint: 1024,
-          settings: {
-            slidesToShow: 4,
-            slidesToScroll: 2,
-          },
-        },
-        {
-          breakpoint: 768,
-          settings: {
-            slidesToShow: 4,
-            slidesToScroll: 2,
-          },
-        },
-        {
-          breakpoint: 640,
-          settings: {
-            slidesToShow: 3,
-            slidesToScroll: 1,
-          },
-        },
-        {
-          breakpoint: 480,
-          settings: {
-            arrows: false,
-            swipeToSlide: true,
-            slidesToShow: 2,
-            slidesToScroll: 2,
-          },
-        },
-        ],
-      };
+        ...slider_settings,
+        infinite: false,
+        slidesToShow: slider_settings?.slidesToShow ?? 6,
+        slidesToScroll: slider_settings?.slidesToScroll ?? 2,
+        swipeToSlide: true,
+        nextArrow: <CustomNextArrow />,
+        prevArrow: <CustomPrevArrow />,
+    };
 
 
 
     return (
         <div className={cn('mb-[48px]', className)}>
-            {!deals && <TitleSection sectionTitle={sectionTitle} className="" />}
+            {!deals && <TitleSection sectionTitle={sectionTitle} className="mb-1" />}
             {
                 moreItems ?
                     <div className='justify-center items-center flex w-full'>
                         <div className={cn('flex md:flex-wrap max-md:overflow-x-scroll  items-center gap-y-[20px] ')}>
                             {datas?.map((data: any, index: any) => (
-                                <Link href={`/${data?.slug}`} key={index} className='w-1/6 max-xl:w-[20%] max-lg:w-[25%] px-[10px] min-h-[330px] max-md:w-[33%] max-[480px]:w-[50%]'>
+                                <Link href={`/product/${data?.slug}`} key={index} className='w-1/6 max-xl:w-[20%] max-lg:w-[25%] px-[10px] min-h-[330px] max-md:w-[33%] max-[480px]:w-[50%]'>
                                     <ProductCard key={index} data={data} MoreItems={true} className='  ' />
                                 </Link>
 
@@ -155,24 +113,24 @@ function RectangleSection(
                             {/* <div></div> */}
                             <DealCard className={cn('min-h-[400px] w-[24%] max-[740px]:w-[31%]   max-md:w-[30%]  max-[480px]:w-[48%] max-[390px]:w-[95%]')} />
                             {datas?.map((data: any, index: any) => (
-                                index <= maxIndex && <Link className=' w-[24%]   max-[740px]:w-[31%]   max-md:w-[30%] max-[480px]:w-[48%]  ' key={index} href={`${data?.slug}`}><ProductCard data={data} /></Link>
+                                index <= maxIndex && <Link className=' w-[24%]   max-[740px]:w-[31%]   max-md:w-[30%] max-[480px]:w-[48%]  ' key={index} href={`/product/${data?.slug}`}><ProductCard data={data} /></Link>
                             ))}
 
                         </div>
                         :
-                        <div className="relative">
+                        <div className="relative  ">
                             {isMobile ? (
-                                <div className="flex overflow-x-scroll px-[10px] gap-4 pb-2 no-scrollbar">
+                                <div className="flex overflow-x-scroll px-[10px] py-[5px] gap-[4px]  no-scrollbar ">
                                     {datas?.map((data: any, index: any) => (
-                                        <Link key={index} href={`/${data?.slug}`} className="min-w-[150px]">
+                                        <Link key={index} href={`/product/${data?.slug}`} className="min-w-[168px]">
                                             <ProductCard data={data} />
                                         </Link>
                                     ))}
                                 </div>
                             ) : (
-                                <Slider {...settings} className="flex justify-center items-center gap-[20px]">
+                                <Slider {...settings} className="flex justify-center items-center gap-[20px] ">
                                     {datas?.map((data: any, index: any) => (
-                                        <Link key={index} href={`/${data?.slug}`} className="pr-[10px]">
+                                        <Link key={index} href={`/product/${data?.slug}`} className="pr-[10px]">
                                             <ProductCard data={data} />
                                         </Link>
                                     ))}

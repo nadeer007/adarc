@@ -11,7 +11,7 @@ import MiniSearch from '../../../../public/assets/icons/miniSearch.svg';
 import RectangleSection from '@/components/includes/RectangleSection'
 import Products from '../../../../data.json'; 
 import fetchApiData from '@/config/fetch-api-data'
-import TitleComponent from '@/app/[productTitle]/components/TitleComponent'
+import TitleComponent from '@/app/product/[productTitle]/components/TitleComponent'
 import useZustandStore from '@/store/useStore'
 import { div } from 'framer-motion/client'
 import EmptySection from '@/components/emptyContainer/EmptySection'

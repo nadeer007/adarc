@@ -1,5 +1,5 @@
 import React from "react";
-import TitleComponent from "@/app/[productTitle]/components/TitleComponent";
+import TitleComponent from "@/app/product/[productTitle]/components/TitleComponent";
 import Link from "next/link";
 
 export default function MegaMenu({ data ,setActiveMegaMenu, setActiveIndex}: any) {

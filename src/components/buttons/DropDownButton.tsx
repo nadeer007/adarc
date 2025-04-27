@@ -1,6 +1,6 @@
 'use client'
 import React, { useState } from 'react'
-import TitleComponent from '@/app/[productTitle]/components/TitleComponent'
+import TitleComponent from '@/app/product/[productTitle]/components/TitleComponent'
 import { cn } from '@/utils/utils'
 import VectorIcon from '../../../public/assets/icons/vector_black.svg'
 import Icon from '../includes/Icon'

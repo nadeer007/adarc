@@ -1,12 +1,12 @@
 import Link from 'next/link';
 import React, { useEffect, useRef, useState } from 'react';
 import DropDownButton from '../buttons/DropDownButton';
-import TitleComponent from '@/app/[productTitle]/components/TitleComponent';
+import TitleComponent from '@/app/product/[productTitle]/components/TitleComponent';
 import strings from '@/utils/string';
 import Image from 'next/image';
 import Icon from '../includes/Icon';
 import Menu from '../../../public/assets/icons/menu.svg';
-import Dropdownsss from '../../../public/assets/icons/Dropdownsss.svg';
+import MenuDropDown from '../../../public/assets/icons/menuDropDown.svg';
 import { cn } from '@/utils/utils';
 // import useStore from '@/store/useStore';
 import { useRouter } from 'next/navigation';
@@ -48,18 +48,18 @@ function BottomSection() {
   }, [navMenuActive]);
 
   const links = [
-    { label: 'Best Deals', href: '/adrcfr?best-deals=true' },
-    { label: 'Trending', href: '/adrcfr?trending=true' },
-    { label: 'New Releases', href: '/adrcfr?new_arrivals=true' },
-    { label: 'Shop by Brands', href: '/adrcfr?brands=true' },
-    { label: 'Powered by', href: '/adrcfr?best-deals=true' },
+    { label: 'Best Deals', href: '/best-deals' },
+    { label: 'Trending', href: '/trending' },
+    { label: 'New Releases', href: '/new_arrivals' },
+    { label: 'Shop by Brands', href: '/brands/' },
+    { label: 'Powered by', href: '/powered-by' },
   ];
 
 
 
   useEffect(() => {
     const handleClickOutside = (event: any) => {
-      if (menuRef.current && !menuRef.current.contains(event.target)) {
+      if (menuRef.current && !menuRef?.current?.contains(event?.target)) {
         onClose(); // Call the onClose function when clicking outside
       }
     };
@@ -111,7 +111,7 @@ function BottomSection() {
                 )}
               >
                 <Icon
-                  src={Dropdownsss}
+                  src={MenuDropDown}
                   alt="menuIcon"
                   width={'24px'}
                   height={'24px'}
@@ -141,11 +141,11 @@ function BottomSection() {
           </div>
 
           {/* Conditionally render logout button only after client-side rendering */}
-          {isClient && isLoggedIn && (
+          {/* {isClient && isLoggedIn && (
             <button onClick={logout} className="hover:opacity-[.7] text-red-500 max-[980px]:text-[13px]">
               Logout
             </button>
-          )}
+          )} */}
         </div>
       </div>
     </>

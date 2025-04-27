@@ -1,5 +1,5 @@
 'use client'
-import TitleComponent from '@/app/[productTitle]/components/TitleComponent'
+import TitleComponent from '@/app/product/[productTitle]/components/TitleComponent'
 import DropDownButton from '@/components/buttons/DropDownButton'
 import Wrapper from '@/components/includes/Wrapper'
 import { accountMenu } from '@/utils/staticUtils'

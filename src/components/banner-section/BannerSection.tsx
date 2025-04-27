@@ -44,9 +44,9 @@ const BannerSection = async function() {
                 <MainBanner />
 
                 <div className="h-[42%] max-[480px]:hidden flex gap-4">
-                    {productData.banner.map((item, index) => (
+                    {productData?.banner?.map((item, index) => (
                         <div key={index} className="w-[50%]  flex justify-center  overflow-hidden">
-                            <Image src={item.image} alt={`banner-${index}`} height={100} width={100} className='object-cover' loading="lazy" />
+                            <Image src={item?.image} alt={`banner-${index}`} height={100} width={100} className='object-cover' loading="lazy" />
                         </div>
                     ))}
                 </div>

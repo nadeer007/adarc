@@ -367,6 +367,24 @@
       "id": 4,
       "image": "/temp/banner.svg"
     }
+  ],
+  "mainBannerMobile": [
+    {
+      "id": 1,
+      "image": "/temp/mobilebanner.png"
+    },
+    {
+      "id": 2,
+      "image": "/temp/mobilebanner.png"
+    },
+    {
+      "id": 3,
+      "image": "/temp/mobilebanner.png"
+    },
+    {
+      "id": 4,
+      "image": "/temp/mobilebanner.png"
+    }
   ]
 
 }

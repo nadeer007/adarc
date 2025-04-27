@@ -1,6 +1,6 @@
 'use client'
 import React, { useEffect, useRef, useState } from 'react';
-import Strings from '../../../utils/string';
+import Strings from '../../../../utils/string';
 import TitleComponent from './TitleComponent';
 import UnderLinedButton from '@/components/buttons/UnderLinedButton';
 

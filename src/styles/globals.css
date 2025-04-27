@@ -277,3 +277,7 @@ select.goog-te-combo {
   scroll-snap-align: start;
 
 }
+.slick-slider,
+.slick-track {
+  overflow: visible !important;
+}

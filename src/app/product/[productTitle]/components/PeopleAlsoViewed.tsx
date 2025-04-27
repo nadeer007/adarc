@@ -1,6 +1,6 @@
 import RectangleSection from '@/components/includes/RectangleSection'
 import React from 'react'
-import Products from '../../../../data.json';
+// import Products from '../../../../data.json';
 
 
 function PeopleAlsoViewed({data}:any) {

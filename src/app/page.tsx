@@ -80,6 +80,7 @@ const Page = async function () {
 
   generateDeviceId()
   const apiData = await getData();
+console.log(apiData,"apiDataapiData");
 
   let products = null;
   if (apiData?.status_code === 6000) {
