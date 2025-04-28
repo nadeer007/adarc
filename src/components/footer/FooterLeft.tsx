@@ -2,6 +2,7 @@ import Link from 'next/link';
 import React from 'react';
 
 function FooterLeft() {
+  
   const footerLinks = [
     // {
     //   header: 'Help & Customer Care',
