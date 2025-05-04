@@ -63,7 +63,7 @@ function ProductCard({ className, data, border = true, MoreItems = false }: Prod
       </div >
       <div className=''>
         <div className='min-h-[60px]'>
-          <h1 className={cn('   text-left rubik_regular font-normal text-[14px] max-md:text-[13px] three-line-clamp',activeHover && 'text-[#0457C8]')}>
+          <h1 className={cn('   text-left rubik_medium font-normal text-[14px] max-md:text-[13px] three-line-clamp',activeHover && 'text-[#0457C8]')}>
             {data?.name}
           </h1>
         </div>
