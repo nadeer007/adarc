@@ -42,8 +42,8 @@ function ProductCard({ className, data, border = true, MoreItems = false }: Prod
     onMouseEnter={hoverCard} // Trigger hover start
     onMouseLeave={unmountHover} // Trigger hover end
     className={cn(
-        'hover:opacity-[.9]   transition-all transform px-[16px] py-[12px] rounded-[4px] flex flex-col gap-3 items-center  max-md:px-[10px] max-md:py-[8px]',
-        border ? 'border-[.5px] sm:border  border-[#C5CBD5] border-solid' : '',
+        'hover:opacity-[.9]  transition-all transform px-[16px] py-[12px] rounded-[4px] flex flex-col gap-3 items-center  max-md:px-[10px] max-md:py-[8px]',
+        border ? 'border-[.7px] sm:border  border-[#C5CBD5] border-solid ' : '',
         activeHover && 'border border-[#0457C8] border-solid  ', 
         className
     )}
