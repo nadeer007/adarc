@@ -82,6 +82,7 @@ function RectangleSection(
 
     const settings = {
         ...slider_settings,
+        className: '',
         infinite: false,
         slidesToShow: slider_settings?.slidesToShow ?? 6,
         slidesToScroll: slider_settings?.slidesToScroll ?? 2,
@@ -98,9 +99,9 @@ function RectangleSection(
             {
                 moreItems ?
                     <div className='justify-center items-center flex w-full'>
-                        <div className={cn('flex md:flex-wrap max-md:overflow-x-scroll px-[10px] gap-[4px] items-center gap-y-[20px] ')}>
-                            {datas?.map((data: any, index: any) => (
-                                <Link href={`/product/${data?.slug}`} key={index} className='w-1/6 max-xl:w-[20%] max-lg:w-[25%]  min-h-[330px] max-md:w-[33%] max-[480px]:w-[47.5%] max-[480px]:min-w-[47.5%]'>
+                        <div className={cn('flex md:grid md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6  max-md:overflow-x-scroll max-sm:px-[10px] gap-[4px] sm:gap-[20px]  items-center gap-y-[20px] ')}>
+                        {datas?.map((data: any, index: any) => (
+                                <Link href={`/product/${data?.slug}`} key={index} className='min-h-[330px] md:w-full sk:w-[33%] w-[47.5%] min-w-[47.5%] sm:min-w-[33%] sm:w-[33%]'>
                                     <ProductCard key={index} data={data} MoreItems={true} className='  ' />
                                 </Link>
 
@@ -128,7 +129,7 @@ function RectangleSection(
                                     ))}
                                 </div>
                             ) : (
-                                <Slider {...settings} className="flex justify-center items-center gap-[20px] ">
+                                <Slider {...settings} className="flex justify-center items-center gap-[20px]   ">
                                     {datas?.map((data: any, index: any) => (
                                         <Link key={index} href={`/product/${data?.slug}`} className="pr-[10px]">
                                             <ProductCard data={data} />

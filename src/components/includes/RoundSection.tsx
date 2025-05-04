@@ -2,21 +2,22 @@ import React from 'react'
 import RoundProduct from './RoundProduct';
 import { cn } from '@/utils/utils';
 import TitleSection from './TitleSection';
+import Link from 'next/link';
 
 
 
 export default function RoundSection({ sectionTitle,category=false, data }: any) {
   return (
-    <div className='mb-[28px] md:mb-[48px]  ' >
+    <div className='mb-[28px] md:mb-[48px] bg-PRIMARY_GREY p-4 rounded-[6px]  ' >
       <TitleSection sectionTitle={sectionTitle} />
         <div className={cn('flex gap-[30px] max-md:gap-[20px] px-[10px] w-[100%]  no-scrollbar  items-baseline ',
         category ? 'overflow-x-scroll ' : 'overflow-scroll'
         )}>
         {data?.map((item:any, index:any) => (
-        <div key={index} className={cn('items-center',category ? 'w-[13%] max-xl:w-[19%] max-lg:min-w-[23%]  max-lg:max-w-[23%] max-sm:min-w-[20%]  max-sm:max-w-[20%]  ' :'min-w-[16%] w-[16%]' )}>
+        <Link href={''} key={index} className={cn('items-center w-[122px] min-w-[122px] max-w-[122px] mb-2')}>
           <RoundProduct category={category} image={ item?.icon} />
-          { category && <div className='mt-[8px]'><h3 className='font-normal text-[22px] rubik_regular text-center max-lg:text-[16px] max-[480px]:text-[14px]'>{item?.name}</h3></div>}
-        </div>
+          { category && <div className='mt-[8px]'><h1 className='font-normal rubik_regular text-center sm:text-[16px] text-[14px] hover:text-[#0457C8] line-clamp-2'>{item?.name}</h1></div>}
+        </Link>
       ))}
         </div>
       

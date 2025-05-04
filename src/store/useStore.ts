@@ -87,10 +87,16 @@ const useZustandStore = create(
         set({wishlist:newWishlist});
 
       },
-      deliveryLocation: 'Abu Dhabi',
-      setDeliveryLocation: (newLocation: string) => {
-        set({ deliveryLocation: newLocation });
-      },
+      // deliveryLocation: 'Abu Dhabi',
+      // setDeliveryLocation: (newLocation: string) => {
+      //   set({ deliveryLocation: newLocation });
+      // },
+        deliveryLocation: {
+          id: 1,
+          title: 'Abu Dhabi',
+          deliveryTime: 1,
+        },
+        setDeliveryLocation: (newLocation:any) => set({ deliveryLocation: newLocation }),
       language: 'en',
       setLanguage: (newLanguage: string) => {
         set({ language: newLanguage });
@@ -131,7 +137,14 @@ const useZustandStore = create(
         
                 Cookies.remove('accessToken');
                 Cookies.remove('language');
-                set({ accessToken: null, userInfo: null, language: 'en',deliveryLocation :'Abu Dhabi',wishlist:[],cartAmountDetails:{},cartlist:[] }); // Resetting state
+                set({ accessToken: null, userInfo: null, language: 'en',deliveryLocation :{
+                  id: 1,
+                  title: 'Abu Dhabi',
+                  deliveryTime: 1,
+                },
+                wishlist:[],
+                cartAmountDetails:{},
+                cartlist:[] }); 
               },
     }),
     {

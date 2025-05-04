@@ -53,8 +53,14 @@ export default function DropDownButton({
         <div className={cn('absolute top-[30px]  z-20 bg-black py-1 px-[6px] w-[150px] md:w-[240px] rounded-[6px]  ')}>
           <ul>
             {Data.emirates.map((emirate, index) => (
-              <li className={cn('px-[10px] py-1 rounded-[4px] ', selectedItem == emirate.title && 'bg-black_shade')} key={index}>
-                <button className='text-[14px] leading-[20px] rubik_regular' onClick={() => { SetselectedItem(emirate.title); setActive(!isActive) }} >
+              <li className={cn('px-[10px] py-1 rounded-[4px] ', selectedItem?.title == emirate.title && 'bg-black_shade')} key={index}>
+                <button className='text-[14px] leading-[20px] rubik_regular' 
+                // onClick={() => { SetselectedItem(emirate.title); setActive(!isActive) }} 
+                onClick={() => {
+                  SetselectedItem(emirate); // set whole emirate object
+                  setActive(!isActive);
+                }}
+                >
                   {emirate?.title}
 
                 </button>

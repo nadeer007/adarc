@@ -34,8 +34,8 @@ export default function AboutComponent({ data }: any) {
       <div>
         <div
           ref={contentRef}
-          className={`rubik_regular text-[14px] text-shadow_gray ${
-            !isExpanded ? 'line-clamp-6' : ''
+          className={`rubik_regular text-[12px] md:text-[14px] text-shadow_gray ${
+            !isExpanded ? 'line-clamp-6 ' : ''
           }`}
           style={
             !isExpanded

@@ -1,122 +1,130 @@
 import { getIcon } from '@/components/image/Icon';
-import { useSearchParams } from 'next/navigation';
-import Link from 'next/link';  // Add this import
+import { useSearchParams, useRouter, usePathname } from 'next/navigation';
+import Link from 'next/link';
 import React from 'react';
 import FilterDropdown from '@/components/input/FilterDropdown';
 
-
-
-
 function TopTab({ filterList, setListData, priceData, setPriceData, setSortBy, sortBy }: any) {
-    // const capitalizeFirstLetter = (str: string) => {
-    //     if (!str) return ''; // Handle undefined or null gracefully
-    //     return str.charAt(0).toUpperCase() + str.slice(1);
-    // };
-    const searchParams = useSearchParams();  // Fixed typo
-    const formatSearchParams = (searchParams: any) => {
-        if (!searchParams) return '';
+    const searchParams = useSearchParams();
+    const router = useRouter();
+    const pathname = usePathname();
+    
+    const formatSearchParams = (searchParams: any): { key: string; value: string }[] => {
+        if (!searchParams) return [];
         return Object.entries(Object.fromEntries(new URLSearchParams(searchParams)))
-            .map(([key]) =>
-                key
-                    .replace(/[_-]/g, ' ') // Replace underscores and dashes with spaces
-                    .trim()
-                    .replace(/\b\w/g, (char) => char.toUpperCase()) // Capitalize the first letter of each word
-            )
-            .join(', ');
+            .map(([key, value]) => {
+                if (key === 'q') return null; // Skip search query
+                if (key === 'min_price' || key === 'max_price') return null; // Skip price filters as they're handled separately
+                
+                // Handle comma-separated values
+                const values = value.split(',');
+                return values.map(val => ({
+                    key,
+                    value: val
+                        .replace(/[_-]/g, ' ')
+                        .trim()
+                        .replace(/\b\w/g, (char) => char.toUpperCase())
+                }));
+            })
+            .filter(Boolean)
+            .flat() as { key: string; value: string }[];
     };
-    const searchQuery = searchParams.get('q');
-    const removeFilter = (filterId: string, itemName: string) => {
-        setListData((prevList: any[]) =>
-            prevList.map((filter) =>
-                filter.id === filterId
-                    ? {
-                        ...filter,
-                        filter_data: filter.filter_data.map((item: any) =>
-                            item.name === itemName
-                                ? { ...item, is_selected: false } // Only deselect the matched item
-                                : item
-                        ),
-                    }
-                    : filter
-            )
+
+    const removeFilter = (key: string, value: string) => {
+        const params = new URLSearchParams(searchParams.toString());
+        const currentValues = params.get(key)?.split(',') || [];
+        const newValues = currentValues.filter(v => v !== value.toLowerCase());
+        
+        if (newValues.length > 0) {
+            params?.set(key, newValues.join(','));
+        } else {
+            params.delete(key);
+        }
+        
+        // Update URL using Next.js router
+        const newUrl = `${pathname}${params.toString() ? '?' + params.toString() : ''}`;
+        router.push(newUrl);
+    };
+
+    const removePathFilter = (path: string) => {
+        const pathSegments = pathname.split('/').filter(Boolean);
+        const newPathSegments = pathSegments.filter(segment => 
+            segment.toLowerCase() !== path.toLowerCase()
         );
+        
+        // If there are no segments left, go to home page
+        if (newPathSegments.length === 0) {
+            router.push('/');
+            return;
+        }
+        
+        // Otherwise, join the remaining segments
+        const newPath = `/${newPathSegments.join('/')}`;
+        router.push(newPath);
     };
 
-
-    const options = [
-        { label: 'Alphabetical', slug: 'alphabetical' },
+    const options: any[] = [
+        { label: 'Alphabetical', slug: 'a-z' },
+        { label: 'Reverse Alphabetical', slug: 'z-a' },
         { label: 'Newest First', slug: 'newest' },
         { label: 'Oldest First', slug: 'oldest' },
-        { label: 'Price Low to High', slug: 'price_low_high' },
-        { label: 'Price High to Low', slug: 'price_high_low' },
+        { label: 'Price Low to High', slug: 'low' },
+        { label: 'Price High to Low', slug: 'high' },
     ];
+
+    const formattedParams = formatSearchParams(searchParams.toString());
+    const pathSegments = pathname.split('/').filter(Boolean);
+
 
     return (
         <div className="flex justify-between py-3">
             <div className="flex items-center gap-2 flex-wrap">
                 <div className="flex items-center gap-2">
-                    <div className="flex items-center gap-2">
-                        {filterList
-                            ?.filter(
-                                (filter: any) =>
-                                    Array.isArray(filter?.filter_data) &&
-                                    filter.filter_data.some((item: any) => item.is_selected)
-                            )
-                            .map((filter: any) => (
-                                filter.filter_data
-                                    .filter((item: any) => item.is_selected)
-                                    .map((selectedItem: any) => (
-                                        <div
-                                            key={`${filter.id}-${selectedItem.name}`}
-                                            className="flex h-[28px] rounded-[6px] items-center justify-center gap-2 bg-[#EEEEEE] px-2 py-1"
-                                        >
-                                            <div>{selectedItem.name}</div>
-                                            <button onClick={() => removeFilter(filter.id, selectedItem.name)}>
-                                                {getIcon({ icon: "close_icon", className: "w-[8px]" })}
-                                            </button>
-                                        </div>
-                                    ))
-                            ))}
-                    </div>
+                    {/* Display path segments as separate filters */}
+                    {!pathname.includes('/search') && pathSegments.map((segment, index) => (
+                        <div
+                            key={`path-${index}`}
+                            className="flex h-[28px] rounded-[6px] items-center justify-center gap-2 bg-[#EEEEEE] px-2 py-1"
+                        >
+                            <div>{segment.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase())}</div>
+                            <button onClick={() => removePathFilter(segment)}>
+                                {getIcon({ icon: "close_icon", className: "w-[8px]" })}
+                            </button>
+                        </div>
+                    ))}
+                    
+                    {/* Display formatted URL parameters */}
+                    {formattedParams.map((param: any, index: number) => (
+                        <div
+                            key={`${param.key}-${param.value}-${index}`}
+                            className="flex h-[28px] rounded-[6px] items-center justify-center gap-2 bg-[#EEEEEE] px-2 py-1"
+                        >
+                            <div>{param.value}</div>
+                            <button onClick={() => removeFilter(param.key, param.value)}>
+                                {getIcon({ icon: "close_icon", className: "w-[8px]" })}
+                            </button>
+                        </div>
+                    ))}
 
+                    {/* Display price filters */}
+                    {priceData?.min_price !== "0" && priceData?.min_price !== "" && (
+                        <div className="flex h-[28px] rounded-[6px] items-center justify-center gap-2 bg-[#EEEEEE] px-2 py-1">
+                            <div>Min Price: {priceData?.min_price} AED</div>
+                            <button onClick={() => setPriceData({ ...priceData, min_price: "0" })}>
+                                {getIcon({ icon: 'close_icon', className: 'w-[8px]' })}
+                            </button>
+                        </div>
+                    )}
+
+                    {priceData?.max_price !== "0" && priceData?.max_price !== "" && (
+                        <div className="flex h-[28px] rounded-[6px] items-center justify-center gap-2 bg-[#EEEEEE] px-2 py-1">
+                            <div>Max Price: {priceData?.max_price} AED</div>
+                            <button onClick={() => setPriceData({ ...priceData, max_price: "0" })}>
+                                {getIcon({ icon: 'close_icon', className: 'w-[8px]' })}
+                            </button>
+                        </div>
+                    )}
                 </div>
-                {searchParams && searchParams.toString() && !searchQuery &&
-                    <div
-                        key="searchParam"  // Changed to avoid reusing `filter.id`
-                        className="flex h-[28px] rounded-[6px] items-center justify-center gap-2 bg-[#EEEEEE] px-2 py-1"
-                    >
-                        <div>{formatSearchParams(searchParams.toString())}</div>
-                        <Link href="/adrcfr">
-                            {getIcon({ icon: 'close_icon', className: 'w-[8px]' })}
-                        </Link>
-                    </div>}
-                {
-                    priceData?.min_price !== "0" && priceData?.min_price !== "" &&
-                    <div
-                        key="searchParam" // Changed to avoid reusing `filter.id`
-                        className="flex h-[28px] rounded-[6px] items-center justify-center gap-2 bg-[#EEEEEE] px-2 py-1"
-                    >
-                        <div>Min Price:{priceData?.min_price} AED</div>
-                        <button onClick={() => setPriceData({ ...priceData, min_price: "0" })}>
-                            {getIcon({ icon: 'close_icon', className: 'w-[8px]' })}
-                        </button>
-                    </div>
-                }
-
-                {
-                    priceData.max_price !== "0" && priceData.max_price !== "" &&
-                    <div
-                        key="maxSearchParam" // Changed to avoid reusing `filter.id`
-                        className="flex h-[28px] rounded-[6px] items-center justify-center gap-2 bg-[#EEEEEE] px-2 py-1"
-                    >
-                        <div>Max Price:{priceData?.max_price} AED</div>
-                        <button onClick={() => setPriceData({ ...priceData, max_price: "0" })}>
-                            {getIcon({ icon: 'close_icon', className: 'w-[8px]' })}
-                        </button>
-                    </div>
-                }
-
-
             </div>
             <div className='w-[160px] max-[480px]:hidden'>
                 <FilterDropdown
@@ -124,8 +132,8 @@ function TopTab({ filterList, setListData, priceData, setPriceData, setSortBy, s
                     options={options}
                     selectedOption={sortBy}
                     title="Sort by"
-                /></div>
-
+                />
+            </div>
         </div>
     );
 }

@@ -9,11 +9,13 @@ export default function robots(): MetadataRoute.Robots {
         '/login',
         '/signup',
         '/my-account',
+        '/maincheckout',
         '/checkout',
         '/cartPage',
         '/reset-password',
+        '/misc'
       ]
     },
-    sitemap: 'https://adarccomputers.com/sitemap.xml'
+    sitemap: 'https://newadarc.vercel.app/sitemap.xml'
   }
 } 

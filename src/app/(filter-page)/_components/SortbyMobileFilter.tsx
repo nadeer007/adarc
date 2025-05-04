@@ -5,27 +5,18 @@ type Option = {
   slug: string;
 };
 
-type SortbyMobileFilterProps = {
-  handleClick?: (option: Option) => void;
-};
 
-const SortbyMobileFilter: React.FC<SortbyMobileFilterProps> = ({ handleClick }) => {
-  const [selectedOption, setSelectedOption] = useState<Option | null>(null);
+const SortbyMobileFilter: React.FC<any> = ({ handleClick, setSelectedOption, selectedOption  }:any) => {
 
   const options: Option[] = [
-    { label: 'Alphabetical', slug: 'alphabetical' },
+    { label: 'Alphabetical', slug: 'a-z' },
+    { label: 'Reverse Alphabetical', slug: 'z-a' },
     { label: 'Newest First', slug: 'newest' },
     { label: 'Oldest First', slug: 'oldest' },
-    { label: 'Price Low to High', slug: 'price_low_high' },
-    { label: 'Price High to Low', slug: 'price_high_low' },
+    { label: 'Price Low to High', slug: 'low' },
+    { label: 'Price High to Low', slug: 'high' },
   ];
 
-  const handleOptionClick = (option: Option) => {
-    setSelectedOption(option);
-    if (handleClick) {
-      handleClick(option);
-    }
-  };
 
   return (
     <div className="w-full p-3">
@@ -35,7 +26,7 @@ const SortbyMobileFilter: React.FC<SortbyMobileFilterProps> = ({ handleClick }) 
           className={`px-2 text-left w-full p-1 text-[14px] flex justify-between rubik_normal text-[#1D252C] hover:bg-gray-100 ${
             selectedOption?.slug === option.slug ? 'bg-gray-200' : 'bg-transparent'
           }`}
-          onClick={() => handleOptionClick(option)}
+          onClick={() => handleClick(option)}
         >
           {option.label}
           <input

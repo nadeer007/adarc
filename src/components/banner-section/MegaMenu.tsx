@@ -26,7 +26,7 @@ export default function MegaMenu({ data ,setActiveMegaMenu, setActiveIndex}: any
                             {item?.categories?.map((list: any, listIndex: number) => (
                                 <Link
                                     key={listIndex}
-                                    href={`/adrcfr?${list?.slug}=true`}
+                                    href={`/${list?.slug}/`}
                                     className="hover:underline block text-[16px] rubik_regular leading-[24px] mb-[12px]"
                                 >
                                     {list.name}

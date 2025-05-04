@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import DropDownButton from '../buttons/DropDownButton';
+import { useRouter } from 'next/navigation';
 
 type Option = {
   label: string;
@@ -17,7 +18,7 @@ type FilterDropdownProps = {
 const FilterDropdown: React.FC<FilterDropdownProps> = ({ options, setOption, selectedOption , title ,handleClick }) => {
   const [isModal, setModal] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
-
+const router = useRouter()
   useEffect(() => {
     const handleOutsideClick = (event: MouseEvent) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
@@ -35,6 +36,15 @@ const FilterDropdown: React.FC<FilterDropdownProps> = ({ options, setOption, sel
   const handleOptionClick = (option: Option) => {
     setOption(option);
     setModal(false);
+
+    // Update the URL query string when a filter option is selected
+    const params = new URLSearchParams(window.location.search);
+
+    // Use hyphen "-" instead of plus "+" for query parameter format
+    params.set(`${title.replace(' ', '-')}`, option.slug);  // Assuming title is like 'sort-by', 'category', etc.
+
+    // Push the updated query string to the router
+    router.push(`?${params.toString()}`);
   };
 
   return (

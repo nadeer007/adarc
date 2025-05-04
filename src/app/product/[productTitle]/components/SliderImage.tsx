@@ -1,6 +1,9 @@
 "use client";
 import React, { useRef, useState, useEffect } from "react";
 import Image from "next/image";
+import ShareMenu from "./ShareMenu";
+import FullScreenImage from "./FullScreenImage";
+import FullScreenMobileImage from "./FullScreenMobileImage";
 
 export default function SliderImage({ Product }: any) {
 	const containerRef = useRef<HTMLDivElement>(null);
@@ -35,39 +38,67 @@ export default function SliderImage({ Product }: any) {
 		container.addEventListener("scroll", handleScroll, { passive: true });
 		return () => container.removeEventListener("scroll", handleScroll);
 	}, []);
+	const [openShare, setOpenShare] = useState(false);
+
+		const [isModalOpen, setIsModalOpen] = useState(false);
+	
+		const openModal = () => {
+			setIsModalOpen(true);
+		};
+	
+		const closeModal = () => {
+			setIsModalOpen(false);
+		};
 
 	return (
-		<div>
+		<div className="relative w-full">
 			<div
+			onClick={openModal}
 				ref={containerRef}
-				className="no-scrollbar flex items-center min-w-full w-full overflow-x-scroll scroll-snap-x mandatory h-[400px] snap-x snap-mandatory"
-			>
+				className="no-scrollbar flex items-center min-w-full w-full overflow-x-scroll scroll-snap-x mandatory h-[400px] snap-x snap-mandatory">
 				{Product?.attachments.map((image: any, index: number) => (
 					<div
 						key={index}
-						className="w-full min-w-full h-[400px] flex items-center justify-center snap-center"
-					>
-						
+						className="w-full min-w-full h-[400px] flex items-center justify-center snap-center">
 						<Image
 							className="w-full min-w-full h-full object-contain"
 							src={image?.attachment}
-							alt={index ? `productImage-${index}`: "products"}
+							alt={index ? `productImage-${index}` : "products"}
 							width={100}
 							height={100}
 						/>
 					</div>
 				))}
 			</div>
-			<div className="flex items-center justify-center w-full gap-[8px] mt-4">
+			<div className="flex items-center justify-center w-full gap-[8px] mt-4  ">
 				{Product?.attachments.map((_: any, index: number) => (
 					<div
 						key={index}
 						className={`rounded-full h-[8px] w-[8px] transition-all duration-300 ${
-							currentIndex === index ? " bg-[#6D7277] scale-125" : "border border-solid border-[#C5CBD5]"
-						}`}
-					></div>
+							currentIndex === index
+								? " bg-[#6D7277] scale-125"
+								: "border border-solid border-[#C5CBD5]"
+						}`}></div>
 				))}
 			</div>
-		</div>
+
+
+			<button
+			className="absolute bottom-0 right-0 w-[24px] h-[24px] flex items-center justify-center "
+				onClick={() => setOpenShare(!openShare)}
+				>
+				<Image
+					src="/assets/icons/share.svg"
+					alt="share"
+					loading="lazy"
+					width={24}
+					height={24}
+					className="w-full h-full"
+				/>
+			</button>
+
+			{openShare && <ShareMenu openShare={openShare} setOpenShare={setOpenShare} />}
+			{isModalOpen && <FullScreenMobileImage data={Product} closeModal={closeModal} />}
+		</div>              
 	);
 }

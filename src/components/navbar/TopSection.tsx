@@ -62,12 +62,10 @@ function TopSection({isNavbarTopVisible}:any) {
     };
   }, []);
 
-
   return (
     <div className={`   relative   text-[#fafafa] text-[12px] sm:h-[44px]  flex justify-between `}>
       <div className={`navbarWrapper bg-[#1F1F1F] absolute  max-sm duration-700 max-sm:top-0 max-sm:left-0 max-sm:transition-all max-sm:transform   flex  ${isNavbarTopVisible ? ' max-sm:h-[28px] h-[44px] visible opacity-[1] ' : 'h-0 max-sm:-z-10 sm:h-[44px]  max-sm:opacity-0'  } justify-between items-center px-[48px]`}>
         <div className='flex flex-row-reverse sm:flex-row gap-6 max-md:w-full max-md:justify-between '>
-
           {/* <div
             id="google_element"
             style={{
@@ -91,19 +89,18 @@ function TopSection({isNavbarTopVisible}:any) {
                 onclick={() => setDropActivate(!isDropActive)}
                 isActive={isDropActive}
                 dropWhite={true}
-                titleClass='text-white rubik_medium leading-[18px] text-[12px]' title={deliveryLocation} />
+                titleClass='text-white rubik_medium leading-[18px] text-[12px]' title={deliveryLocation?.title} />
             </div>
           </div>
         </div>
         <div className='flex gap-6 max-md:hidden'>
-          {links.map((link, index) => (
-            <Link aria-label={`go to ${link.label}`} key={index} href={link.href}>
-              {link.label}
+          {links?.map((link, index) => (
+            <Link aria-label={`go to ${link?.label}`} key={index} href={link.href}>
+              {link?.label}
             </Link>
           ))}
         </div>
       </div>
-
     </div>
   );
 }

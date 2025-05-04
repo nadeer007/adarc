@@ -37,7 +37,7 @@ export default function RootLayout({
             {/* Layout UI */}
         <Navbar />
         {children}
-        <RootLayoutComponent />
+        <RootLayoutComponent isDescription={false} />
       </body>
     </html>
   )

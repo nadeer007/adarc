@@ -49,6 +49,7 @@ function LeftFilterSection({
                             isActive={active.includes(filter.id)}
                             rotate_angle="rotate-180"
                         />
+
                         {active.includes(filter.id) && (
                             <Component
                                 setListData={setListData}

@@ -17,6 +17,9 @@ import RedWishList from '../../../../../public/assets/icons/redWishlist.svg'
 import useZustandStore from '@/store/useStore'
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/navigation'
+import { format, addDays } from 'date-fns';
+import StikcyButton from './StikcyButton'
+
 
 interface ApiResponse<T> {
     status_code: number;
@@ -26,7 +29,7 @@ interface ApiResponse<T> {
 export default function RightSection({ Product, productTitle, data, }: any) {
 const [isLoading,setLoader] = useState(false)
 const [isBuyLoading,setBuyLoader] = useState(false)
-    const { wishlist, setWishlist, accessToken, setCartlist, setCartAmountDetails } = useZustandStore()
+    const { wishlist, setWishlist, accessToken, setCartlist, setCartAmountDetails,deliveryLocation } = useZustandStore()
     const router = useRouter()
 
 const addtoCart = async (isType:string) => {
@@ -114,10 +117,7 @@ const [isRefresh,setRefresh] = useState(false)
           setWishlist(response?.data?.cart_items)
           setRefresh(!isRefresh)
         }
-    }
-
-  
-   
+    } 
   }
   
 
@@ -173,21 +173,25 @@ const addtoWishlist = async () => {
         setInWishlist(isProductInWishlist || false);
     }, [isRefresh,wishlist]);
 
+    const estimatedDate = addDays(new Date(), deliveryLocation?.deliveryTime);
+    const formattedDate = format(estimatedDate, 'EEEE, d MMMM');
+
+
     return (
-        <div className=' px-4 py-6   rounded-[8px] bg-white_smoke'>
-            <div className='pb-[16px] flex flex-col gap-[16px] border-b border-solid border-Platinum'>
+        <div className=' px-4 py-6 relative   rounded-[8px] bg-white_smoke'>
+            <div className='md:pb-[16px] flex mx-md:items-center md:flex-col gap-[16px] border-b border-solid border-Platinum'>
                 <PriceComponent actualPriceClass='' badge={'save20%'} data={data?.price_details} isHome={false} />
                 {/* <ReturnAvailComponent /> */}
                 <TitleComponent titleClass='text-[12px] rubik_regular text-nickel_grey' title={strings.productPage.inclusiveVAT} />
             </div>
             <div className='flex flex-col py-[16px] gap-[8px] border-b border-solid border-Platinum'>
                 <div className='flex flex-row items-center w-[100%]'>
-                    <p className='text=[12px] text-BLACK leading-[16px] rubik_regular'>Delivery to  <b className='text=[12px] text-BLACK leading-[16px] rubik_medium'>​130, Humaid Alhasm Al Rumaithi street</b></p>
+                    <p className='text=[12px] text-BLACK leading-[16px] rubik_regular'>Delivery to  <b className='text=[12px] text-BLACK leading-[16px] rubik_medium'>{deliveryLocation?.title}</b></p>
 
                 </div>
                 <div className=''>
                     <p>{strings.productPage.deliveryDateTitle}
-                        <b className='text=[12px] text-BLACK leading-[16px] rubik_medium'>{' '}Sunday, 3 November, 7 AM - 9 PM</b>
+                        <b className='text=[12px] text-BLACK leading-[16px] rubik_medium'>{' '}{formattedDate}</b>
                     </p>
                 </div>
 
@@ -198,7 +202,12 @@ const addtoWishlist = async () => {
                         <b className='text=[12px] text-BLACK leading-[14px] rubik_medium'>Adarc computers</b>
                     </p>
                 </div>
-                <div className='flex flex-row justify-between '>
+                <div  id="topproduct" className='w-full'>
+                {/* <StikcyButton /> */}
+                </div>
+                <div id="stop-sticky" className="h-[1px]" />
+
+                <div className='flex flex-row justify-between max-md:mt-4 '>
                     <QuantityButton incrementCount={incrementCount} decrementCount={decrementCount} quantity={quantity} setQuantity={setQuantity} />
                     <div>
                         <div className=''>
@@ -206,13 +215,14 @@ const addtoWishlist = async () => {
                         </div>
                     </div>
                 </div>
-                <div >
+
+                <div className='' >
                     <div className=' my-[8px]'>
                         <CustomButton onClick={addtoCart} isLoading={isLoading} isDisabled={data?.stock < 1} isButtonClass={true} buttonClass=' border-0 bg-button_yellow ' isLeftIcon={true} leftIcon={CartButton} title={data?.stock < 1? 'out of stock' :strings.button.addCart} />
                     </div>
 
                 </div >
-                <div className='flex gap-4 justify-between'>
+                <div className='flex gap-4 justify-between '>
                     <div className='w-[100%]  flex justify-center items-center'>
                         <CustomButton onClick={()=>addtoCart('checkout')}  isLoading={isBuyLoading} isButtonClass={true} buttonClass='' title={strings.button.buyNow}     />
                     </div>

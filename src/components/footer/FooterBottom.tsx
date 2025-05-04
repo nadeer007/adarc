@@ -1,36 +1,61 @@
-import Image from "next/image";
-import React from "react";
-import logo from "../../../public/assets/images/logo.svg";
-import FooterLeft from "./FooterLeft";
-import FooterBottom from "./FooterBottom";
-import DownloadApp from "./DownloadApp";
-import Wrapper from "../includes/Wrapper";
 import { div } from "framer-motion/client";
+import Image from "next/image";
+import Link from "next/link";
+import React from "react";
 
-function Footer() {
+function FooterBottom() {
+	const firstRowData = [
+		// { label: 'About us', link: '/about-us/' },
+		// // { label: 'Customer Service', link: '/customer-service' },
+		// { label: 'Site map', link: '/site-map' },
+		// { label: 'Advanced search', link: '/advanced-search' },
+		// { label: 'Contact us', link: '/contact-us' }
+		{ label: "Payment Terms", link: "/payment-terms" },
+		{ label: "Terms And Conditions", href: "/terms-and-conditions" },
+	];
+
 	return (
-		<div className="bg-PRIMARY_BG">
-			<Wrapper className="  w-full text-[#E3E8EF] !py-[24px] ">
-				<div className="w-full flex justify-between max-[850px]:flex-col  ">
-					<div className="w-[250px] flex p-1 items-baseline mr-[20px] max-sm:hidden max-[850px]:ml-[12px] max-[850px]:mb-[12px]">
-						<Image
-							src={logo}
-							alt="logo"
-							height={100}
-							width={100}
-							className="w-[250px] max-xl:w-[200px]"
-							loading="lazy"
-						/>
+			<div className="text-white  gap-3  pt-2 mt-2 flex flex-col md:flex-row border-t border-solid items-center justify-between">
+				<div className="flex justify-center gap-3 max-md:gap-3 max-sm:flex-wrap">
+					<div className=" flex items-center justify-start">
+						<Link
+							href={"/payment-terms"}
+							className="md:text-[14px] rubik_regular text-[12px] hover:text-[#FDB514] ">
+							Privacy policy
+						</Link>
 					</div>
-					<div className="flex gap-[80px]  max-lg:flex-col  max-xl:gap-[50px] max-lg:gap-[30px] ">
-						<FooterLeft />
-						{/* <DownloadApp /> */}
+					<div className=" border-r-[2px] border-solid "></div>
+
+					<div className="flex items-center justify-start">
+						<Link
+							href={"/terms-and-conditions"}
+							className="md:text-[14px] rubik_regular text-[12px] hover:text-[#FDB514] ">
+							Terms And Conditions
+						</Link>
 					</div>
 				</div>
-				<FooterBottom />
-			</Wrapper>
-		</div>
+				<div>
+					<Image
+						width={200}
+						height={100}
+						alt="paymentAccept"
+						src={"/assets/images/payment.webp"}
+					/>
+				</div>
+
+				{/* <div className="flex justify-center gap-6 mb-4">
+                {icons.map((iconData:any, index) => (
+                    <div key={index}>
+                        {getIcon(iconData)}
+                    </div>
+                ))}
+            </div> */}
+
+				<div className="flex justify-center items-center rubik_regular text-[12px] inter_regular ">
+					© Adarc Computer. All rights reserved.
+				</div>
+			</div>
 	);
 }
 
-export default Footer;
+export default FooterBottom;

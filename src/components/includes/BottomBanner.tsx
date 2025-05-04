@@ -30,7 +30,7 @@ export default function BottomBanner() {
   };
 
   return (
-    <div className="mb-[28px] md:mb-[48px] px-[10px] overflow-hidden ">
+    <div className="mb-[28px] md:mb-[48px] max-sk:px-[10px] overflow-hidden ">
       <Slider {...settings}>
         {productData?.bannerBottom.map((item, index) => (
           <div key={index} className="md:px-[10px]  ">
@@ -39,8 +39,8 @@ export default function BottomBanner() {
             >
               <Image
                 src={item.image}
-                width={100}
-                height={100}
+                width={660}
+                height={220}
                 alt="banner"
                 loading="lazy"
                 className="w-full  object-cover"

@@ -17,7 +17,7 @@ if (apiData?.status_code === 6000) {
   categories = null; 
 };
   return (
-    <div>
+    <div className=''>
       <RoundSection
         sectionTitle="Shop by Category"
         category={true}

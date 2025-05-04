@@ -323,31 +323,44 @@
   "emirates": [
       {
         "id": 1,
-        "title": "Abu Dhabi"
+        "title": "Abu Dhabi",
+        "deliveryTime" : 1
       },
       {
         "id": 2,
-        "title": "Dubai"
+        "title": "Dubai",
+        "deliveryTime" : 2
+
       },
       {
         "id": 3,
-        "title": "Al Ain"
+        "title": "Al Ain",
+        "deliveryTime" : 3
+        
       },
       {
         "id": 4,
-        "title": "Sharjah"
+        "title": "Sharjah",
+        "deliveryTime" : 4
+
       },
       {
         "id": 5,
-        "title": "Fujairah"
+        "title": "Fujairah",
+        "deliveryTime" : 4
+
       },
       {
         "id": 6,
-        "title": "Umm Al-Quwain"
+        "title": "Umm Al-Quwain",
+        "deliveryTime" : 4
+
       },
       {
         "id": 7,
-        "title": "Ras Al Khaimah"
+        "title": "Ras Al Khaimah",
+        "deliveryTime" : 4
+
       }
     ],
     "mainBanner": [

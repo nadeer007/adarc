@@ -38,14 +38,14 @@ function FilterComponents({ params }: { params?: Promise<{ primarySlug?: string;
     // Check if min_price and max_price are not "0" or ""
 
     if (priceData.min_price !== "0" && priceData.min_price !== "") {
-      queryParams.push(`min_price=${priceData.min_price}`);
+      queryParams.push(`min_price=${priceData?.min_price}`);
     }
     if (priceData.max_price !== "0" && priceData.max_price !== "") {
-      queryParams.push(`max_price=${priceData.max_price}`);
+      queryParams.push(`max_price=${priceData?.max_price}`);
     }
 
     // Add primary, secondary, and tertiary slug parameters if they exist
-    if (resolvedParams?.primarySlug) {
+    if (resolvedParams?.primarySlug && resolvedParams?.primarySlug !== "search" ) {
       queryParams.push(`${resolvedParams.primarySlug}=true`);
     }
     if (resolvedParams?.secondarySlug) {
@@ -72,8 +72,6 @@ function FilterComponents({ params }: { params?: Promise<{ primarySlug?: string;
   };
 
   const queryParams = generateQueryParams();
-
-  console.log(queryParams,"queryParams");
 
   const getListData = async () => {
     const response = await fetchApiData<any>(`products/list-filters`);
@@ -123,13 +121,8 @@ function FilterComponents({ params }: { params?: Promise<{ primarySlug?: string;
 
   return (<>
 
-    <div className='w-full flex mt-[12px] max-[480px]:relative'>
-      <LeftFilterSection
-        filterList={filterList}
-        setListData={setListData}
-        priceData={priceData}
-        setPriceData={setPriceData}
-      />
+    <div className=''>
+   
 
       <RightcardSection
         filteredData={filteredData}
@@ -143,78 +136,7 @@ function FilterComponents({ params }: { params?: Promise<{ primarySlug?: string;
 
 
     </div>
-    <div className="w-full hidden max-[480px]:block max-[480px]:sticky bottom-0">
-      {activeFilter && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 z-20  " onClick={() => setActiveFilter(false)}></div>
-      )}
-
-      <div
-        className={`relative z-30 transition-all duration-300 ease-in-out rounded-t-[6%] overflow-hidden bg-[#fff] ${activeFilter ? 'max-h-[70vh]' : 'max-h-0'
-          }`}
-      >
-       <div className='text-center py-3'>{activeType.replace(/-/g, ' ').replace(/\b\w/g, char => char.toUpperCase())}</div>
-
-        {activeType === 'sort-by' ? (
-          <SortbyMobileFilter />
-        ) : (
-          <BottomMobileFilter
-            filterList={tempfilterList}
-            setListData={setTempListData}
-            priceData={priceData}
-            setPriceData={setPriceData}
-            priceFilterRef={priceFilterRef}
-          />
-        )}
-      </div>
-
-      <div className="w-full flex h-[40px] bg-[#F2F6F8] z-30">
-        {!activeFilter ?
-          <>
-            <button
-              className="w-[50%] text-center flex items-center  justify-center"
-              onClick={() => {
-                setActiveFilter(!activeFilter);
-                setActiveType('sort-by');
-              }}
-            >
-              SORT
-            </button>
-
-            <button
-              className="w-[50%] text-center flex items-center justify-center"
-              onClick={() => {
-
-                setActiveFilter(!activeFilter);
-                setActiveType('filter');
-              }
-              }
-            >
-              FILTER
-            </button>
-          </>
-          :
-          <>
-            <button
-              className="w-[50%] bg-[#F2F6F8] z-30 text-center flex items-center justify-center"
-              onClick={() => {
-                setActiveFilter(false);
-                setActiveType('sort-by');
-              }}
-            >
-              CLOSE
-            </button>
-            <button
-              className="w-[50%] bg-[#F2F6F8]  z-30 text-center flex items-center justify-center"
-              onClick={() => {
-                handleApply();
-              }}
-            >
-              APPLY
-            </button>
-          </>
-        }
-      </div>
-    </div>
+    
   </>
   )
 }

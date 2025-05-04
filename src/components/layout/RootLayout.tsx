@@ -5,7 +5,7 @@ import HighlightSection from '../includes/HighlightSection';
 import FooterLogin from '../footer/FooterLogin';
 import Footer from '../footer/Footer';
 
-function RootLayout() {
+function RootLayout({isDescription}:any) {
     const pathname = usePathname();
 
     return (
@@ -14,7 +14,7 @@ function RootLayout() {
                 <FooterLogin />
             ) : (
                 <>
-                    <HighlightSection />
+                    <HighlightSection isDescription={isDescription} />
                     <Footer />
                 </>
             )}

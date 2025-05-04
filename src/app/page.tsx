@@ -92,7 +92,7 @@ console.log(apiData,"apiDataapiData");
     <>
 
       <div className='w-full scroll'>
-        <Wrapper className='pt-[155px] max-lg:pt-[150px] max-sm:pt-[100px] max-[480px]:pt-[95px] max-[480px]:px-0 '>
+        <Wrapper className='lg:pt-[155px] sm:pt-[150px] sk:pt-[100px] pt-[95px] max-[480px]:px-0 '>
           <BannerSection />
           <CategorySection />
           <div className=''>

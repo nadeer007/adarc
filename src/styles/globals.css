@@ -18,35 +18,60 @@
   font-weight: normal;
   font-style: normal;
 }
-@font-face {
+/* @font-face {
   font-family: 'rubik_regular';
   src: url('../../public/assets/fonts/rubik-regular-webfont.woff2') format('woff2'),
     url('../../public/assets/fonts/rubik-regular-webfont.woff') format('woff');
   font-weight: normal;
   font-style: normal;
-}
+} */
 @font-face {
+  font-family: 'rubik_regular';
+  src: url('../../public/assets/fonts/NotoSans-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+/* @font-face {
   font-family: 'rubik_medium';
   src: url('../../public/assets/fonts/Rubik-Medium.woff2') format('woff2'),
     url('../../public/assets/fonts/Rubik-Medium.woff') format('woff');
   font-weight: normal;
   font-style: normal;
-}
+} */
 @font-face {
+  font-family: 'rubik_medium';
+  src: url('../../public/assets/fonts/NotoSans-Medium.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+/* @font-face {
   font-family: 'rubik_semibold';
   src: url('../../public/assets/fonts/Rubik-SemiBold.woff2') format('woff2'),
     url('../../public/assets/fonts/Rubik-SemiBold.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+} */
+@font-face {
+  font-family: 'rubik_semibold';
+  src: url('../../public/assets/fonts/NotoSans-SemiBold.woff') format('woff');
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'rubik_bold';
+  src: url('../../public/assets/fonts/NotoSans-Bold.woff') format('woff');
+    /* url('../../public/assets/fonts/Rubik-Bold.woff') format('woff'); */
+  font-weight: normal;
+  font-style: normal;
+}
+/* @font-face {
+  font-family: 'rubik_bold';
   src: url('../../public/assets/fonts/Rubik-Bold.woff2') format('woff2'),
     url('../../public/assets/fonts/Rubik-Bold.woff') format('woff');
   font-weight: normal;
   font-style: normal;
-}
+} */
 
 
 @font-face {
@@ -277,7 +302,69 @@ select.goog-te-combo {
   scroll-snap-align: start;
 
 }
-.slick-slider,
+/* .slick-slider,
 .slick-track {
+  overflow: hidden !important;
+} */
+/* .slick-slide {
+  overflow-y: visible !important;
+} */
+
+
+/* .slick-list {
   overflow: visible !important;
+} */
+
+.description_product p,
+.description_product li,
+.description_product a,
+.description_product button,
+.description_product div,
+.description_product td,
+.description_product th,
+.description_product tr,
+.description_product span {
+  font-size: 16px !important;
+}
+
+.description_product h1,
+.description_product h2,
+.description_product h3,
+.description_product h4,
+.description_product h5,
+.description_product h6 {
+  font-size: 20px !important;
+}
+
+@media screen and (max-width: 768px) {
+  .description_product p,
+  .description_product li,
+  .description_product a,
+  .description_product button,
+  .description_product div,
+  .description_product td,
+  .description_product th,
+  .description_product tr,
+  .description_product span {
+    font-size: 14px !important;
+  }
+
+  .description_product h1,
+  .description_product h2,
+  .description_product h3,
+  .description_product h4,
+  .description_product h5,
+  .description_product h6 {
+    font-size: 16px !important;
+  }
+  .description_product td{
+    padding-left: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
+  .description_product table{
+    border-radius: 4px !important;
+
+  }
+
 }

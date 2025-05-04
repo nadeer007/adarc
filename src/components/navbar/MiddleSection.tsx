@@ -71,7 +71,7 @@ function MiddleSection() {
 	const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
 		if (e.key === "Enter" && search?.trim()) {
 			// Check if Enter is pressed and search is not empty
-			router.push(`/adrcfr?q=${search}`);
+			router.push(`/search?q=${search}`);
 			setModal(false);
 		}
 	};
@@ -136,7 +136,7 @@ function MiddleSection() {
 								onIconClick={() => {
 									if (search?.trim()) {
 										// Check if search has a non-empty string
-										router.push(`/adrcfr?q=${search}`);
+										router.push(`/search?q=${search}`);
 									} else {
 										console.log(
 											"Search input is empty. Please enter a search term."
@@ -180,7 +180,7 @@ function MiddleSection() {
 							onIconClick={() => {
 								if (search?.trim()) {
 									// Check if search has a non-empty string
-									router.push(`/adrcfr?q=${search}`);
+									router.push(`/search?q=${search}`);
 								} else {
 									console.log(
 										"Search input is empty. Please enter a search term."
