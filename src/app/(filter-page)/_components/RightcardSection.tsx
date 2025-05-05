@@ -3,6 +3,8 @@ import React from 'react'
 import TopTab from './TopTab';
 import { useSearchParams } from 'next/navigation';
 import EmptySection from '@/components/emptyContainer/EmptySection';
+import PaginationComponen from './PaginationComponent';
+import PaginationComponent from './PaginationComponent';
 
 function RightcardSection({
     filteredData,
@@ -11,7 +13,7 @@ function RightcardSection({
     setListData,
     priceData,
     setPriceData,
-    sortBy
+    sortBy,
 }: {
     filteredData: any,
     filterList: any,
@@ -19,7 +21,7 @@ function RightcardSection({
     priceData: any,
     setPriceData: any,
     setSortBy: any
-    sortBy: any
+    sortBy: any,
 
 }) {
     const searchParams = useSearchParams();
@@ -51,6 +53,10 @@ function RightcardSection({
 
 
             </div>
+            <div className='w-full justify-center items-center'>
+                <PaginationComponent />
+            </div>
+
         </div>
     )
 }

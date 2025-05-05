@@ -179,7 +179,7 @@ const addtoWishlist = async () => {
 
     return (
         <div className=' px-4 py-6 relative   rounded-[8px] bg-white_smoke'>
-            <div className='md:pb-[16px] flex mx-md:items-center md:flex-col gap-[16px] border-b border-solid border-Platinum'>
+            <div className='md:pb-[16px] flex max-lg:items-center lg:flex-col gap-[16px] border-b border-solid border-Platinum'>
                 <PriceComponent actualPriceClass='' badge={'save20%'} data={data?.price_details} isHome={false} />
                 {/* <ReturnAvailComponent /> */}
                 <TitleComponent titleClass='text-[12px] rubik_regular text-nickel_grey' title={strings.productPage.inclusiveVAT} />
@@ -224,7 +224,7 @@ const addtoWishlist = async () => {
                 </div >
                 <div className='flex gap-4 justify-between '>
                     <div className='w-[100%]  flex justify-center items-center'>
-                        <CustomButton onClick={()=>addtoCart('checkout')}  isLoading={isBuyLoading} isButtonClass={true} buttonClass='' title={strings.button.buyNow}     />
+                        <CustomButton onClick={()=>addtoCart('checkout')}  isLoading={isBuyLoading} isDisabled={data?.stock < 1} isButtonClass={true} buttonClass='' title={data?.stock < 1? 'Unavailable' : strings.button.buyNow  }     />
                     </div>
                     <div className='w-[48px] flex flex-row justify-center items-center'>
                         <CustomButton  onClick={addtoWishlist} isButtonClass={true} buttonClass='' isLeftIcon={true} leftIcon={isInWishlist ? RedWishList :WishList} isTitle={false} />

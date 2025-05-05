@@ -6,8 +6,6 @@ import MiddleSection from "../navbar/MiddleSection";
 import BottomSection from "../navbar/BottomSection";
 import Breadcrumbs from "../navbar/Breadcrumbs";
 
-
-
 function Navbar() {
 	const pathname = usePathname();
 	const [isNavbarTopVisible, setIsNavbarTopVisible] = useState(true);
@@ -36,9 +34,9 @@ function Navbar() {
 	return (
 		<div
 			className={`z-50 w-full fixed flex flex-col-reverse sm:flex-col   navbar ${
-				isNavbarTopVisible ? "top-0" :"top-0 sm:-top-[44px]"
+				isNavbarTopVisible ? "top-0" : "top-0 sm:-top-[44px]"
 			}`}>
-			<div className={`w-full `}>
+			<div className={` bg-[#1F1F1F]`}>
 				<TopSection isNavbarTopVisible={isNavbarTopVisible} />
 			</div>
 			<MiddleSection />
@@ -47,8 +45,7 @@ function Navbar() {
 			) : (
 				<BottomSection />
 			)}
-			<div className="w-full  ">
-			</div>
+			<div className="w-full  "></div>
 
 			{/* {pathname !== "/" && pathname !== "/wishlist" && pathname !== "/cartPage" && <Breadcrumbs />} */}
 		</div>

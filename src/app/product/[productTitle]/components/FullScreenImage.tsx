@@ -23,7 +23,7 @@ export default function FullScreenImage({ data,closeModal,isActive }: any) {
 							key={index}
 							onClick={() => setActive(index)}
 							className={cn(
-								"cursor-pointer rounded-md overflow-hidden flex items-center border-solid border justify-center",
+								"cursor-pointer rounded-md overflow-hidden  h-[80px] flex items-center border-solid border justify-center",
 								active === index
 									? "border-black"
 									: "border-gray-300"
@@ -34,7 +34,7 @@ export default function FullScreenImage({ data,closeModal,isActive }: any) {
 								alt={`modal-thumb-${index}`}
 								width={80}
 								height={80}
-								className="object-cover w-full h-full"
+								className="object-contain w-[90%] max-h-[90%]"
 							/>
 						</div>
 					))}

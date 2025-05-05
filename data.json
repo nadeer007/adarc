@@ -366,37 +366,31 @@
     "mainBanner": [
     {
       "id": 1,
-      "image": "/temp/banner.svg"
+      "image": "/temp/ban1.webp"
     },
     {
       "id": 2,
-      "image": "/temp/banner.svg"
+      "image": "/temp/banner.webp"
     },
     {
       "id": 3,
-      "image": "/temp/banner.svg"
-    },
-    {
-      "id": 4,
-      "image": "/temp/banner.svg"
+      "image": "/temp/ban2.webp"
     }
+
   ],
   "mainBannerMobile": [
     {
       "id": 1,
-      "image": "/temp/mobilebanner.png"
+      "image": "/temp/ban1.webp"
     },
     {
       "id": 2,
-      "image": "/temp/mobilebanner.png"
+      "image": "/temp/banner.webp"
     },
+
     {
       "id": 3,
-      "image": "/temp/mobilebanner.png"
-    },
-    {
-      "id": 4,
-      "image": "/temp/mobilebanner.png"
+      "image": "/temp/ban2.webp"
     }
   ]
 

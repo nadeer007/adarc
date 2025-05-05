@@ -61,11 +61,11 @@ export default function ProductImage({ data }: any) {
 						)}>
 						{item?.attachment && (
 							<Image
-								className=" w-full h-full object-contain"
+								className=" w-[90%] h-[90%] object-contain"
 								src={item?.attachment}
 								alt="productImages"
-								width={100}
-								height={100}
+								width={400}
+								height={400}
 							/>
 						)}
 					</button>

@@ -35,11 +35,11 @@ function FooterLeft() {
 
   return (
     <div className=" ">
-      <table className="min-w-full ">
+      <table className="min-w-full footerTable">
         <thead>
-          <tr>
+          <tr className='!border-none'>
             {footerLinks.map((section, index) => (
-              <td key={index} className="py-2 px-2 md:px-4 text-[14px]  text-left rubik_semibold md:text-[16px] ">
+              <td key={index} className="py-2 px-2 md:px-4 text-[14px] !text-[white]  text-left rubik_semibold md:text-[16px] ">
                 {section.header}
               </td>
             ))}
@@ -49,9 +49,9 @@ function FooterLeft() {
           {Array.from(
             { length: Math.max(...footerLinks.map(section => section.links.length)) },
             (_, rowIndex) => (
-              <tr key={rowIndex}>
+              <tr className='!border-none' key={rowIndex}>
                 {footerLinks.map((section, colIndex) => (
-                  <td key={colIndex} className="py-1 px-2  md:px-4 text-left rubik_normal ">
+                  <td key={colIndex} className="py-1 px-2 !text-[white] md:px-4 text-left rubik_normal ">
                     {section.links[rowIndex] && (
                       <Link
                         href={section?.links[rowIndex].href}

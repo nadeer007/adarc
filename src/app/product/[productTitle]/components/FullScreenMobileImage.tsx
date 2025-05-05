@@ -91,8 +91,8 @@ export default function FullScreenMobileImage({
             <Image
               src={img.attachment}
               alt={`Thumb-${index}`}
-              width={60}
-              height={60}
+              width={400}
+              height={400}
               className="object-contain w-[90%] h-[90%]rounded"
             />
           </div>

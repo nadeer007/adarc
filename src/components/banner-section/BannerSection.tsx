@@ -30,10 +30,10 @@ const BannerSection = async function() {
         <div className="my-8  w-full flex gap-6 max-sm:mb-4  max-[480px]:mb-2"
         //  style={{ height: 'calc(100vh - 290px)' }}
         >
-            <div className="w-[25%] relative max-[980px]:hidden">
+            <div className="w-[25%] relative z-20 hidden xl:block">
                 <MainMenu data={categories} />
             </div>
-            <div className="w-[75%] max-[980px]:w-[100%] h-full flex flex-col gap-4">
+            <div className="xl:w-[75%] w-[100%] h-full flex flex-col gap-4 overflow-hidden">
                 {/* <div ref={imageref}  className="h-[58%] w-full  flex justify-center   overflow-x-scroll">
                     {productData.mainBanner.map((item) => (
                         // <div className='w-full h-full '>
@@ -43,10 +43,10 @@ const BannerSection = async function() {
                 </div> */}
                 <MainBanner />
 
-                <div className="h-[42%] max-[480px]:hidden flex gap-4">
+                <div className="h-[42%] ]  max-[480px]:hidden flex max-sm:px-[4px] gap-4  " >
                     {productData?.banner?.map((item, index) => (
-                        <div key={index} className="w-[50%]  flex justify-center  overflow-hidden">
-                            <Image src={item?.image} alt={`banner-${index}`} height={100} width={100} className='object-cover' loading="lazy" />
+                        <div key={index} className="w-[50%] flex justify-center rounded-[12px] overflow-hidden " style={{aspectRatio:1.8}}>
+                            <Image src={item?.image} alt={`banner-${index}`} height={180} width={320} className='object-cover w-full h-full' loading="lazy" />
                         </div>
                     ))}
                 </div>

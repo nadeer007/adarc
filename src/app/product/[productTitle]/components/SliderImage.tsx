@@ -64,8 +64,8 @@ export default function SliderImage({ Product }: any) {
 							className="w-full min-w-full h-full object-contain"
 							src={image?.attachment}
 							alt={index ? `productImage-${index}` : "products"}
-							width={100}
-							height={100}
+							width={400}
+							height={400}
 						/>
 					</div>
 				))}

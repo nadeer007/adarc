@@ -1,84 +1,156 @@
-'use client'
-import React, { useRef, useEffect, useState } from 'react';
-import productData from '../../../../data.json';
-import Image from 'next/image';
-import Arrow from '../../../../public/assets/icons/whitearrow.svg';
+"use client";
+import React, { useRef, useEffect, useState } from "react";
+import productData from "../../../../data.json";
+import Image from "next/image";
+import Arrow from "../../../../public/assets/icons/whitearrow.svg";
+import Slider from "react-slick";
+import ScrollIcon from "@/components/includes/ScrollIcon";
+import { GrNext } from "react-icons/gr";
+import { div } from "framer-motion/client";
 
 export default function MainBanner() {
-    const imageref = useRef<HTMLDivElement>(null); 
-    const [direction, setDirection] = useState<"right" | "left">("right"); 
+	const desktopRef = useRef<HTMLDivElement>(null);
+	const mobileRef = useRef<HTMLDivElement>(null);
+	const [direction, setDirection] = useState<"right" | "left">("right");
+	const [isMobile, setIsMobile] = useState(false);
 
-    const scrollBanner = () => {
-        if (imageref.current) {
-            const container = imageref.current;
-            const containerWidth = container.offsetWidth;
+	// Detect screen size
+	useEffect(() => {
+		const handleResize = () => {
+			setIsMobile(window.innerWidth < 640); // Tailwind sm breakpoint
+		};
 
-            if (direction === "right") {
-                container.scrollLeft += containerWidth;
-                if (container.scrollLeft + containerWidth >= container.scrollWidth) {
-                    setDirection("left");
-                }
-            } else {
-                container.scrollLeft -= containerWidth;
-                if (container.scrollLeft <= 0) {
-                    setDirection("right");
-                }
-            }
-        }
-    };
+		handleResize(); // Initial check
+		window.addEventListener("resize", handleResize);
+		return () => window.removeEventListener("resize", handleResize);
+	}, []);
 
-    const onClick = (sign:string) => {
-        if (imageref.current) {
-            const containerWidth = imageref.current.offsetWidth;
+	// Auto-scroll logic
+	const scrollBanner = () => {
+		const container = isMobile ? mobileRef.current : desktopRef.current;
+		if (container) {
+			const containerWidth = container.offsetWidth;
 
-            if (sign === '+') {
-                imageref.current.scrollLeft += containerWidth;
-            }
-            else {
-                imageref.current.scrollLeft -= containerWidth;
-            }
-            
-        }
-    }
+			if (direction === "right") {
+				container.scrollLeft += containerWidth;
+				if (
+					container.scrollLeft + containerWidth >=
+					container.scrollWidth
+				) {
+					setDirection("left");
+				}
+			} else {
+				container.scrollLeft -= containerWidth;
+				if (container.scrollLeft <= 0) {
+					setDirection("right");
+				}
+			}
+		}
+	};
 
-    useEffect(() => {
-        const interval = setInterval(scrollBanner, 2000); 
-        return () => clearInterval(interval); 
-    }, [direction]);
+	const handleClick = (sign: string) => {
+		const container = isMobile ? mobileRef.current : desktopRef.current;
+		if (container) {
+			const containerWidth = container.offsetWidth;
+			container.scrollLeft +=
+				sign === "+" ? containerWidth : -containerWidth;
+		}
+	};
 
-    return (
-        <div className="w-[100%] max-sm:px-[5px] relative">
-            {/* Right Button */}
-            <button 
-                onClick={() => onClick("+")}  
-                className="max-sm:hidden absolute z-10 transform -translate-y-1/2 top-1/2 right-2 w-[32px] h-[32px] rounded-full border border-solid border-white flex items-center justify-center"
-            >
-                <div className="w-[8px] h-[13px] flex items-center justify-center">
-                    <Image src={Arrow} alt={'arrowicon'} width={100} height={100} />
+	useEffect(() => {
+		const interval = setInterval(scrollBanner, 3000); // Adjust delay as needed
+		return () => clearInterval(interval);
+	}, [direction, isMobile]);
+
+	const CustomNextArrow = (props: any) => {
+		const { onClick } = props;
+		return (
+			<div
+				onClick={onClick}
+                className="h-[50px] cursor-pointer hidden w-[50px] min-h-[50px] min-w-[50px] md:flex items-center justify-center rounded-full absolute right-3 top-1/2 -translate-y-1/2 z-10 shadow-xl bg-[#f5f5f5]">
+				<GrNext size='25' />
+			</div>
+		);
+	};
+
+	const CustomPrevArrow = (props: any) => {
+		const { onClick } = props;
+		return (
+			<div
+				onClick={onClick}
+				className="h-[50px] hidden cursor-pointer rotate-180 w-[50px] min-h-[50px] min-w-[50px] md:flex items-center justify-center rounded-full absolute left-3 top-1/2 -translate-y-1/2 z-10 shadow-xl bg-[#f5f5f5]">
+				<GrNext size='25' />
                 </div>
-            </button>
+		);
+	};
 
-            {/* Left Button */}
-            <button 
-                onClick={() => onClick("-")}  
-                className="max-sm:hidden absolute z-10 left-2 transform -translate-y-1/2 rotate-180 top-1/2 w-[32px] h-[32px] rounded-full border border-solid border-white flex items-center justify-center"
-            >
-                <div className="w-[8px] h-[13px] flex items-center justify-center">
-                    <Image src={Arrow} alt={'arrowicon'} width={100} height={100} />
-                </div>
-            </button>
+	var settings = {
+		dots: false,
+		infinite: true,
+		speed: 500,
+		slidesToShow: 1,
+		slidesToScroll: 1,
+		// autoplay: true,
+		autoplaySpeed: 2000,
+		cssEase: "linear",
+		nextArrow: <CustomNextArrow />,
+		prevArrow: <CustomPrevArrow />,
+	};
+	return (
+		<div className="w-full   relative">
+			
 
-            {/* Scrollable Banner */}
-            <div ref={imageref} className="hidden  h-[58%] customer_slider_panel w-[100%] sm:flex overflow-hidden no-scrollbar overflow-x-scroll">
-                {productData.mainBanner.map((item) => (
-                    <Image key={item.id} src={item?.image} alt="banner" height={280} width={1000} className="scroll_image w-full h-full" />
-                ))}
+			{/* Desktop Banner */}
+            <div className="w-full hidden sm:block ">
+            {productData.mainBanner && <Slider {...settings} className="overflow-hidden ">
+				{productData.mainBanner.map((item, index) => (
+					<div key={index} className="w-full max-h-[302px] h-[302px] flex items-center justify-center">
+						<Image
+							src={item.image}
+							alt="banner"
+							width={730}
+							height={302}
+							className="object-cover w-full h-full"
+						/>
+					</div>
+				))}
+			</Slider>}
             </div>
-            <div ref={imageref} className="flex h-[200px] customer_slider_panel w-[100%] sm:hidden overflow-hidden no-scrollbar overflow-x-scroll">
-                {productData.mainBannerMobile.map((item) => (
-                    <Image key={item.id} src={item?.image} alt="banner" height={160} width={335} className="scroll_image w-full h-full" />
-                ))}
-            </div>
-        </div>
-    );
+			
+
+			{/* <div
+				ref={desktopRef}
+				className="hidden sm:flex overflow-x-scroll no-scrollbar w-full min-h-[302px] h-full customer_slider_panel scroll-smooth">
+				{productData.mainBanner.map((item, index) => (
+					<div key={index} className="flex-shrink-0 w-full h-full">
+						<Image
+							src={item.image}
+							alt="banner"
+							width={730}
+							height={302}
+							className="object-cover w-full h-full"
+						/>
+					</div>
+				))}
+			</div> */}
+			{/* Mobile Banner */}
+			<div
+				ref={mobileRef}
+				className="flex sm:hidden overflow-x-scroll no-scrollbar w-full customer_slider_panel">
+				{productData.mainBannerMobile.map((item, index) => (
+                    <div key={index} className="scroll_image w-full h-[200px] min-h-[200px] flex-shrink-0 flex">
+                        <Image
+						
+						src={item.image}
+						alt="banner"
+						width={335}
+						height={160}
+						className=" w-full h-[200px] min-h-[200px]  "
+					/>
+                    </div>
+					
+				))}
+			</div>
+		</div>
+	);
 }

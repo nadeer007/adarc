@@ -63,7 +63,7 @@ function FilterComponents({ params }: { params?: Promise<{ primarySlug?: string;
           .join(',');
 
         if (selectedSlugs) {
-          queryParams.push(`${filter.slug}=${selectedSlugs}`);
+          queryParams.push(`${filter?.slug}=${selectedSlugs}`);
         }
       }
     });

@@ -8,7 +8,7 @@ import Link from 'next/link';
 
 export default function RoundSection({ sectionTitle,category=false, data }: any) {
   return (
-    <div className='mb-[28px] md:mb-[48px] bg-PRIMARY_GREY p-2 sm:p-4 rounded-[6px]  ' >
+    <div className='mb-[28px] md:mb-[48px] bg-PRIMARY_GREY px-[10px] rounded-[6px]  ' >
       <TitleSection sectionTitle={sectionTitle} />
         <div className={cn('flex gap-[10px] sm:gap-[20px] md:gap-[30px] px-[10px] w-[100%]  no-scrollbar  items-baseline ',
         category ? 'overflow-x-scroll ' : 'overflow-scroll'

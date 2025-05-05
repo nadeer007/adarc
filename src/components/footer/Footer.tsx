@@ -31,7 +31,7 @@ function Footer() {
 							/>
 						</div>
 						<div className="w-full pl-1">
-							<p className="text-white text-[14px] leading-[24px]">
+							<p className="text-white text-[12px] rubik_regular leading-[20px] md:text-[14px] md:leading-[24px]">
 								Adarc Computer established in the year 2007, has
 								emerged as a major constituent of the IT
 								Re-distribution industry in every part of UAE.
@@ -49,7 +49,7 @@ function Footer() {
 							</p>
 					<div className="flex sk:flex-row flex-col max-lg:row-span-1 col-span-1/2 max-sk:justify-start  max-sm:justify-between min-w-[30px] min-h-[30px] sk:items-end sm:c lg:items-center py-2 m">
 						<div className="flex  sm:flex-col  max-sm:flex-wrap gap-3">
-							<p className="text-[white] max-sm:hidden  text-left text-sm mt-[20px] lg:mb-[15px]">
+							<p className="text-[white] max-sm:hidden  text-left text-sm mt-[20px]  lg:mt-0 lg:mb-[15px]">
 								Connect us:
 							</p>
 							<Link
@@ -62,7 +62,7 @@ function Footer() {
 								<span className="text-[18px]">
 									&#x1f1e6;&#x1f1ea;
 								</span>
-								<span className="text-[14px] rubik_regular hover:text-[#FDB514] ">
+								<span className=" text-[12px] md:text-[14px] rubik_regular hover:text-[#FDB514] ">
 									{" "}
 									+971 2 676 3999
 								</span>
@@ -74,7 +74,7 @@ function Footer() {
 									<MdEmail />
 								</div>
 
-								<span className="text-[14px] rubik_regular hover:text-[#FDB514]">
+								<span className=" text-[12px] md:text-[14px] rubik_regular hover:text-[#FDB514]">
 									adarccomputer.com
 								</span>
 							</Link>
@@ -87,7 +87,7 @@ function Footer() {
 									<FaLocationDot />
 								</div>
 
-								<span className="text-[14px] rubik_regular hover:text-[#FDB514]">
+								<span className=" text-[12px] md:text-[14px] rubik_regular hover:text-[#FDB514]">
 									Abu Dhabi - Hamdan Bin
 								</span>
 							</Link>
