@@ -133,7 +133,7 @@ export default function MainBanner({data}:any) {
 								key={index}
 								className=" relative w-full pt-[34.27%]  flex items-center justify-center">
 								<Image
-									src={item.image}
+									src={item?.image}
 									alt="banner"
 									width={1100}
 									height={302}
@@ -153,7 +153,7 @@ export default function MainBanner({data}:any) {
 						key={index}
 						className="scroll_image w-full h-[200px] min-h-[200px] flex-shrink-0 flex">
 						<Image
-							src={item.image}
+							src={item?.image}
 							alt="banner"
 							width={335}
 							height={160}

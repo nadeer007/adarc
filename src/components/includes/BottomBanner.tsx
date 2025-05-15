@@ -6,7 +6,7 @@ import Image from 'next/image';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
-export default function BottomBanner() {
+export default function BottomBanner({data}:any) {
   const settings = {
     dots: false,
     infinite: true,
@@ -32,13 +32,13 @@ export default function BottomBanner() {
   return (
     <div className="mb-[28px] md:mb-[48px] max-sk:px-[10px] overflow-hidden ">
       <Slider {...settings}>
-        {productData?.bannerBottom.map((item, index) => (
+        {data?.map((item:any, index:any) => (
           <div key={index} className="md:px-[10px]  ">
             <div
               className="w-full  bg-PRIMARY_GREY overflow-hidden" style={{aspectRatio:3}}
             >
               <Image
-                src={item.image}
+                src={item?.image}
                 width={660}
                 height={220}
                 alt="banner"

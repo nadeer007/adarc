@@ -102,7 +102,7 @@ const Page = async function () {
 
       <div className='w-full scroll'>
         <Wrapper className='lg:pt-[155px] sm:pt-[150px]  pt-[84px] max-sm:px-0 '>
-          <BannerSection data={banners.top} />
+          <BannerSection data={banners?.top} />
           <CategorySection />
           <div className=''>
             <RectangleSection className='' datas={products} sectionTitle={'New Arrival'} slider_settings={slider_settings} />
@@ -113,7 +113,7 @@ const Page = async function () {
           <div><RectangleSection className='max-md:mb-[20px]' datas={products} sectionTitle={''} deals={true} /></div>
           <MiddleBanner data={banners?.middle} />
           <div><RectangleSection className='' datas={products} viewBy={true} sectionTitle={'Viewed by you'} slider_settings={slider_settings} /></div>
-          <BottomBanner />
+          <BottomBanner data={banners?.bottom?.single} />
           <div><RectangleSection className='' datas={products} moreItems={true} sectionTitle={'More items for you'} slider_settings={slider_settings} /></div>
         </Wrapper>
 

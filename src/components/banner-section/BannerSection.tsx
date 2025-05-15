@@ -38,10 +38,10 @@ const BannerSection = async function({data}:any) {
                         // </div>
                     ))}
                 </div> */}
-                <MainBanner data={data.slider} />
+                <MainBanner data={data?.slider} />
 
                 <div className="h-[42%] max-[480px]:hidden flex max-sm:px-[4px] gap-4  " >
-                    {data.single?.map((item:any, index:any) => (
+                    {data?.single?.map((item:any, index:any) => (
                         <div key={index} className="w-[50%] flex justify-center rounded-[12px] overflow-hidden  bg-yellow-200" style={{aspectRatio:1.8}}>
                             <Image src={item?.image} alt={`banner-${index}`} height={180} width={320} className='object-cover w-full h-full' loading="lazy" />
                         </div>
