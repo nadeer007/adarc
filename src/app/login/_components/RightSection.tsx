@@ -7,7 +7,7 @@ import { redirect } from 'next/navigation'
 
 function RightSection() {
     return (
-        <div className='flex flex-col gap-6'>
+        <div className='md:flex flex-col gap-6 hidden  '>
             <div>
                 <h1 className='rubik_medium text-2xl '>Create an Adarc account</h1>
                 <p>For all orders over 500 AED</p>

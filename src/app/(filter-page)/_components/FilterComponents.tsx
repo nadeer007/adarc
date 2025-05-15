@@ -2,13 +2,13 @@ import React, { useEffect, useRef, useState } from 'react'
 import LeftFilterSection from './LeftFilterSection'
 import RightcardSection from './RightcardSection'
 import fetchApiData from '@/config/fetch-api-data';
-import { useSearchParams } from 'next/navigation';
-import BottomMobileFilter from './BottomMobileFilter';
-import SortbyMobileFilter from './SortbyMobileFilter';
+import { usePathname, useSearchParams } from 'next/navigation';
+
 
 
 function FilterComponents({ params }: { params?: Promise<{ primarySlug?: string; secondarySlug?: string; tertiarySlug?: string }> }) {
   const searchParams = useSearchParams();
+  const pathname= usePathname()
   const [sortBy, setSortBy] = useState<any>({});
   const [activeFilter, setActiveFilter] = useState(false)
   const [activeType, setActiveType] = useState<'sort-by' | 'filter'>('filter');
@@ -16,6 +16,8 @@ function FilterComponents({ params }: { params?: Promise<{ primarySlug?: string;
     min_price: "0",
     max_price: "0"
   })
+  const [paginationData , setPagination]= useState({})
+console.log(paginationData,"paginationDataaaaaaa");
 
   const [filteredData, setData] = useState<any>(null);
   const [filterList, setListData] = useState<any[] | null>([]);
@@ -76,19 +78,22 @@ function FilterComponents({ params }: { params?: Promise<{ primarySlug?: string;
   const getListData = async () => {
     const response = await fetchApiData<any>(`products/list-filters`);
     setListData(response?.data);
+    console.log(response?.data,'filtersssss')
     // setTempListData(response?.data)
 
   };
 
   const getData = async () => {
-    const queryString = searchParams ? `${searchParams}&${queryParams}` : `${queryParams}`;
+    const queryString = searchParams  ? `${searchParams}&${queryParams}` : `${queryParams}`;
     const response = await fetchApiData<any>(`products/list-products?${queryString}`);
     console.log(response, "response");
 
     if (response.status_code === 6000) {
       setData(response?.data);
+      setPagination(response?.pagination_data)
     } else if (response.status_code === 6001) {
       setData(null);
+      setPagination({})
     }
   };
 
@@ -132,6 +137,7 @@ function FilterComponents({ params }: { params?: Promise<{ primarySlug?: string;
         setPriceData={setPriceData}
         setSortBy={setSortBy}
         sortBy={sortBy}
+        paginationData={paginationData}
       />
 
 

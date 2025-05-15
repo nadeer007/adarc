@@ -14,6 +14,7 @@ import { hostname } from "os";
 import { Router } from "next/router";
 import useZustandStore from "@/store/useStore";
 import { FormInput } from "@/components/input/FormInput";
+import Image from "next/image";
 
 interface ApiResponse<T> {
     status_code: number;
@@ -32,7 +33,7 @@ function LoginForm() {
         verifyEmail: ''
     });
 
-    const [isError, setError] = useState({
+    const [isError, setError] = useState<any>({
         email: false,
         password: false,
 
@@ -42,15 +43,15 @@ function LoginForm() {
         password: 'something went wrong! check email or  password',
     });
 
-    const [keepSignedIn, setKeepSignedIn] = useState(false);
-    const [loading, setLoading] = useState(false);
-    const [Forgotloading, setForgotLoading] = useState(false);
+    const [keepSignedIn, setKeepSignedIn] = useState<any>(false);
+    const [loading, setLoading] = useState<any>(false);
+    const [Forgotloading, setForgotLoading] = useState<any>(false);
     // const [errorFields, setErrorFields] = useState({
     //     email: '',
     //     password  :''
     // });
-    // const [isError, setError] = useState(false);
-    const [isForgotPass, setForgotPass] = useState(false);
+    // const [isError, setError] = useState<any>(false);
+    const [isForgotPass, setForgotPass] = useState<any>(false);
     const colors = ['#FDB615', '#1F1F1F', '#FDB615', '#1F1F1F'];
 
     const handleForgotPass = async () => {
@@ -58,7 +59,7 @@ function LoginForm() {
         setError(false);
         const hostname = window.location.hostname;
         try {
-            const responseData = await postApiData("users/forget-password/", {
+            const responseData:any = await postApiData("users/forget-password/", {
                 email: formData.verifyEmail,
                 host_name: 'http://localhost:3000/'
 
@@ -135,9 +136,15 @@ function LoginForm() {
         <>
 
 
-            <div className="max-w-[500px] w-[30%] bg-white min-w-[320px] ">
+            <div className=" w-[100%] sm:w-[80%] md:max-w-[30%] flex flex-col bg-[white] md:min-w-[400px] ">
+                <div className="md:hidden max-w-[220px]  sm:max-w-[300px] min-w-[145px]  self-center  flex items-center justify-center" style={{aspectRatio:2}}>
+                    <div className="w-full h-full flex justify-center items-center  ">
+                    <Image src={'/assets/icons/logoAdarc.png'} alt="logo Adarc" width={400} height={190} className="w-full h-full" />
+
+                    </div>
+                </div>
                 <div className="p-6">
-                    <h4 className="text-lg font-bold mb-4">Sign in</h4>
+                    <h4 className="rubik_medium text-2xl  font-bold mb-4">Sign in</h4>
                     <div>
                         <FormInput
                             isLabel={false}

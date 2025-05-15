@@ -41,7 +41,7 @@ const router = useRouter()
     const params = new URLSearchParams(window.location.search);
 
     // Use hyphen "-" instead of plus "+" for query parameter format
-    params.set(`${title.replace(' ', '-')}`, option.slug);  // Assuming title is like 'sort-by', 'category', etc.
+    params.set(`sort`, option.slug);  // Assuming title is like 'sort-by', 'category', etc.
 
     // Push the updated query string to the router
     router.push(`?${params.toString()}`);
@@ -49,7 +49,7 @@ const router = useRouter()
 
   return (
     <div className="relative w-full" ref={dropdownRef}>
-      <div className='border border-solid border-primary_border bg-[#fff] rounded-[6px] px-2'>
+      <div className='border border-solid border-primary_border bg-[#fff] rounded-[6px] px-2 py-1'>
         <DropDownButton
           titleClass="text-[14px] rubik_normal leading-[20px] text-[#1D252C]"
           containerClass=""

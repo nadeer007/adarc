@@ -85,7 +85,7 @@ function FormSection() {
   const handleSignup = async () => {
     setLoading(true);
     try {
-      const responseData = await postApiData<ApiResponse<any>>(
+      const responseData:any = await postApiData<ApiResponse<any>>(
         "users/auth/sign-up/",
         {
           fullname: formData?.fullname,
@@ -170,7 +170,7 @@ function FormSection() {
   const colors = ["#FDB615", "#1F1F1F", "#FDB615", "#1F1F1F"];
 
   return (
-    <div className="max-w-[500px] w-[30%] bg-[#fff] min-w-[320px]">
+    <div className="md:max-w-[500px] md:w-[30%] bg-[#fff] md:min-w-[320px]">
       <div className="w-full flex justify-between h-[8px]">
         {colors.map((color, index) => (
           <div

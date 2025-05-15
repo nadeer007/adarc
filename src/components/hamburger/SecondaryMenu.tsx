@@ -2,7 +2,6 @@ import React from "react";
 import TitleComponent from "@/app/product/[productTitle]/components/TitleComponent";
 import Link from "next/link";
 import Image from "next/image";
-import LeftArrow from '../../../public/assets/icons/left-arrow.svg'
 
 export default function SecondaryMenu({ data, setActiveMegaMenu, setActiveIndex }: any) {
     console.log(data,"datadatadatadata");
@@ -14,19 +13,11 @@ export default function SecondaryMenu({ data, setActiveMegaMenu, setActiveIndex 
                 //     setActiveMegaMenu(false);
                 //     setActiveIndex(null)
                 // }}
-                className=" w-full rounded-tl-[6px] rounded-bl-[6px]   h-full   flex flex-col overflow-y-scroll no-scrollbar">
+                className=" w-full rounded-tl-[6px] rounded-bl-[6px]   h-full relative   flex flex-col  ">
                 <div className="flex flex-col  gap-[12px] items-start  ">
 
-                    <button className=' text-[#222222] px-[7%]  flex items-center gap-4 pb-4 text-[16px] rubik_medium border-[#E2E4E5] border-solid border-b w-full' onClick={() => {
-                        setActiveMegaMenu(false);
-                        setActiveIndex(null);
-                    }}>
-                       <Image src={LeftArrow} alt="LeftArrow" width={100} height={100} className="w-[16px] h-[16px]"/>
-                        <div className="text-[#222222] text-[16px] rubik_medium ">
-                             Main Menu
-                        </div>
-
-                    </button>
+                   
+                    <div className="overflow-y-scroll">
 
                     {data?.map((item: any, index: any) => (
                         <div
@@ -52,6 +43,8 @@ export default function SecondaryMenu({ data, setActiveMegaMenu, setActiveIndex 
                             </div>
                         </div>
                     ))}
+                    </div>
+
                 </div>
             </div>
         </>

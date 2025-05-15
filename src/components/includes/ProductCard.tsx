@@ -7,6 +7,7 @@ import PriceComponent from './PriceComponent';
 interface ProductCardProps {
   className?: string;
   MoreItems?: boolean;
+  onClick?:any;
 
   data: {
     brand:{
@@ -24,7 +25,7 @@ interface ProductCardProps {
   border?: boolean;
 }
 
-function ProductCard({ className, data, border = true, MoreItems = false }: ProductCardProps) { // Default value is true
+function ProductCard({ className,onClick, data, border = true, MoreItems = false }: ProductCardProps) { // Default value is true
   const [activeHover, setActiveHover] = useState(false); // Manage hover state with useState
 
   const hoverCard = () => {
@@ -42,20 +43,21 @@ function ProductCard({ className, data, border = true, MoreItems = false }: Prod
     onMouseEnter={hoverCard} // Trigger hover start
     onMouseLeave={unmountHover} // Trigger hover end
     className={cn(
-        'group hover:opacity-[.9]  transition-all transform px-[16px] py-[12px] rounded-[4px] flex flex-col gap-3 items-center  max-md:px-[10px] max-md:py-[8px]',
+        'group hover:opacity-[.9] overflow-hidden hover:border-[#0457C8] hover:border hover:border-solid   transition-all transform px-[16px] py-[12px] rounded-[4px] flex flex-col gap-3 items-center  max-md:px-[10px] max-md:py-[8px]',
         border ? 'border-[.7px] sm:border  border-[#C5CBD5] border-solid ' : '',
-        activeHover && 'border border-[#0457C8] border-solid  ', 
+        activeHover && '', 
         className
     )}
+    onClick={onClick}
     // style={{ transformOrigin: 'center top' }}
 >
 
-      <div className={cn('w-[100%] min-h-[180px]  hover:scale-[1.1] duration-500 transition-all transform flex justify-center bg-red', MoreItems && '','group-hover:scale-[1.05]') } style={{aspectRatio:'1'}} >
+      <div className={cn('w-[100%] min-h-[180px]  hover:scale-[1.2] duration-500 transition-all transform flex justify-center bg-red', MoreItems && '','group-hover:scale-[1.09]') } style={{ aspectRatio: '1', height: 'auto' }} >
         {data?.primary_attachment && <Image
           src={data?.primary_attachment}
           alt={data?.name}
-          width={100}
-          height={100}
+          width={400}
+          height={400}
           loading='lazy'
           className='object-contain w-[100%] h-[100%]'
           // objectFit="contain"
@@ -63,7 +65,7 @@ function ProductCard({ className, data, border = true, MoreItems = false }: Prod
       </div >
       <div className=''>
         <div className='min-h-[60px]'>
-          <h1 className={cn('   text-left rubik_medium font-normal text-[14px] max-md:text-[13px] three-line-clamp',activeHover && 'text-[#0457C8]')}>
+          <h1 className={cn('   text-left rubik_medium font-normal text-[14px] max-md:text-[13px] three-line-clamp group-hover:text-[#0457C8]',activeHover && '')}>
             {data?.name}
           </h1>
         </div>

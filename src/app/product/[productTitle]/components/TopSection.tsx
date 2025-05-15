@@ -23,14 +23,14 @@ export default async function TopSection({
 			<div
 				id="left-section"
 				className=" flex flex-col overflow-x-hidden  xl:pr-[12px] xl:max-w-[75%] xl:w-[75%] xl:min-w-[75%]">
-				<div className="lg:flex gap-[16px]">
-					<div className="hidden md:block lg:w-[51.58%]">
+				<div className="xl:flex gap-[16px]">
+					<div className="hidden md:block xl:w-[51.58%]">
 						<ProductImage data={Product} />
 					</div>
 					<div className=" md:hidden flex items-center w-full  ">
 						<SliderImage Product={Product} />
 					</div>
-					<div className=" w-full lg:w-[48.42%]">
+					<div className=" w-full xl:w-[48.42%]">
 						<ProductMainDetail
 							productTitle={productTitle}
 							product={Product}

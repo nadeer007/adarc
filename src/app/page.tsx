@@ -16,10 +16,12 @@ const RectangleSection = dynamic(() => import('@/components/includes/ClientRecta
 
 const getData = async () => {
   const response = await fetchApiData<any>('products/list-products/');
-
   return response;
+}
 
-
+const getBannerData = async () => {
+  const response = await fetchApiData<any>('core/list-banners/');
+  return response;
 }
 
 
@@ -43,7 +45,7 @@ const slider_settings = {
   {
     breakpoint: 768,
     settings: {
-      slidesToShow: 4,
+      slidesToShow: 3,
       slidesToScroll: 2,
     },
   },
@@ -77,23 +79,30 @@ const Page = async function () {
     const deviceID = 'device-' + Math.random().toString(36).slice(2, 9) + Math.random().toString(36).slice(2, 9);
     console.log(deviceID, 'deviceID')
   }
-
   generateDeviceId()
-  const apiData = await getData();
-console.log(apiData,"apiDataapiData");
 
+  const apiData = await getData();
   let products = null;
   if (apiData?.status_code === 6000) {
     products = apiData?.data;
   } else {
     products = null;
   };
+
+
+  const bannerData = await getBannerData(); 
+  let banners = null;
+  if (bannerData?.status_code === 6000) {
+    banners = bannerData?.data;
+  }
+
+  
   return (
     <>
 
       <div className='w-full scroll'>
         <Wrapper className='lg:pt-[155px] sm:pt-[150px]  pt-[84px] max-sm:px-0 '>
-          <BannerSection />
+          <BannerSection data={banners.top} />
           <CategorySection />
           <div className=''>
             <RectangleSection className='' datas={products} sectionTitle={'New Arrival'} slider_settings={slider_settings} />
@@ -102,7 +111,7 @@ console.log(apiData,"apiDataapiData");
           <div><RectangleSection className='' datas={products} sectionTitle={'Best Selling Graphic Card'} slider_settings={slider_settings} /></div>
           <BrandSection />
           <div><RectangleSection className='max-md:mb-[20px]' datas={products} sectionTitle={''} deals={true} /></div>
-          <MiddleBanner />
+          <MiddleBanner data={banners?.middle} />
           <div><RectangleSection className='' datas={products} viewBy={true} sectionTitle={'Viewed by you'} slider_settings={slider_settings} /></div>
           <BottomBanner />
           <div><RectangleSection className='' datas={products} moreItems={true} sectionTitle={'More items for you'} slider_settings={slider_settings} /></div>

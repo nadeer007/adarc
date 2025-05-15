@@ -211,7 +211,7 @@ const addtoWishlist = async () => {
                     <QuantityButton incrementCount={incrementCount} decrementCount={decrementCount} quantity={quantity} setQuantity={setQuantity} />
                     <div>
                         <div className=''>
-                            <h6 className='rubik_medium text-[12px] text-gunmetal leading-[14px]'>AED {" "}{quantity * data?.price_details?.actual_price}</h6>
+                            <h6 className='rubik_medium text-[12px] text-gunmetal leading-[14px]'>AED {" "}{Number(quantity * data?.price_details?.actual_price).toFixed(2)}</h6>
                         </div>
                     </div>
                 </div>

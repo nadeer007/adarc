@@ -95,7 +95,7 @@ export default function page() {
           </div>
           <div className='w-[100%]  py-[16px] rounded-[4px] '>
             {wishlist?.map((item: any, index: any) =>
-              <LargeCard removeItem={()=>removeItem(item?.product?.slug)}  wishlist={true}  onClick={() => router.push(`/${item?.product?.slug}`)}  key={index} product={item} />
+              <LargeCard removeItem={()=>removeItem(item?.product?.slug)}  wishlist={true}  onClick={() => router.push(`/product/${item?.product?.slug}`)}  key={index} product={item} />
             )}
           </div>
         </div>

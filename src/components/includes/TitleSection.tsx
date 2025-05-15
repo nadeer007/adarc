@@ -8,7 +8,7 @@ export default function TitleSection({ sectionTitle, className,isViewMore=false 
   isViewMore?:any
 }) {
   return (
-    <div className={cn('flex justify-between items-center h-[40px] mb-[24px]  max-[480px]:mx-[10px] ', className)}>
+    <div className={cn('flex justify-between items-center h-[40px] mb-[24px]  ', className)}>
       <div className=''>
         <h2 className='text-lg md:text-xl text-black/95 opensans_semibold'>{sectionTitle}</h2>
       </div>

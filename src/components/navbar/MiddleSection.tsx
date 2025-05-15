@@ -61,7 +61,6 @@ function MiddleSection() {
 			document.removeEventListener("mousedown", handleClickOutside);
 		};
 	}, [ismodal]);
-	// Fetch data when the component mounts
 
 	const onChange = (value: string) => {
 		setSearch(value);
@@ -88,10 +87,10 @@ function MiddleSection() {
 			<div
 				ref={menuRef}
 				className={cn(
-					"fixed top-0 h-full w-[330px] bg-white m shadow-md z-50 overflow-hidden transition-all duration-500 ease-in-out",
+					"fixed top-0 h-full w-[340px] sm:w-[400px]  bg-white m shadow-md z-50 overflow-hidden transition-all duration-500 ease-in-out",
 					navMenuActive ? "left-0" : "-left-[500px]"
 				)}>
-				<HamburgerMenu />
+				<HamburgerMenu onClose={()=>setNavMenuActive(false)} />
 			</div>
 			<div className="bg-PRIMARY_BG h-[88px] sm:h-[70px] w-full">
 				<div className="navbarWrapper flex justify-between items-center h-[50px] sm:h-[70px]  px-[48px]  ">
@@ -120,7 +119,7 @@ function MiddleSection() {
 								/>
 							</a>
 						</div>
-						<div className="items-center flex w-full relative max-sm:w-[0px]">
+						<div className="items-center z-10 flex w-full relative max-sm:w-[0px]">
 							<CustomTextInput
 								setData={setSearch}
 								value={search}
@@ -147,8 +146,9 @@ function MiddleSection() {
 							/>
 							{!searchvisible && ismodal && (
 								<div
-									className="w-full max-h-[300px] bg-[white] absolute top-[46px] overflow-y-scroll no-scrollbar"
-									ref={modalRef}>
+									className="w-full max-h-[300px] bg-[white] absolute top-[86px] sm:top-[46px] overflow-y-scroll no-scrollbar"
+									// ref={modalRef}
+									>
 									<ListBox
 										listData={listData}
 										setModal={setModal}
@@ -191,8 +191,9 @@ function MiddleSection() {
 						/>
 						{ismodal && (
 							<div
-								className="w-full max-h-[300px] bg-[white] absolute top-[46px] overflow-y-scroll no-scrollbar"
-								ref={modalRef}>
+								className="w-[90%] max-h-[300px] bg-[white] absolute top-[86px] sm:top-[46px] overflow-y-scroll no-scrollbar"
+								// ref={modalRef}
+								>
 								<ListBox
 									listData={listData}
 									setModal={setModal}

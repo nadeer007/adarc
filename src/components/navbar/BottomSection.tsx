@@ -6,6 +6,8 @@ import strings from '@/utils/string';
 import Image from 'next/image';
 import Icon from '../includes/Icon';
 import Menu from '../../../public/assets/icons/menu.svg';
+import dropdownIcon from '../../../public/assets/icons/vector_black.svg';
+
 import MenudropIcons from '../../../public/assets/icons/menudropIcons.svg';
 import { cn } from '@/utils/utils';
 // import useStore from '@/store/useStore';
@@ -14,7 +16,7 @@ import HamburgerMenu from '../hamburger/HamburgerMenu';
 import useZustandStore from '@/store/useStore';
 
 function BottomSection() {
-  const menuRef = useRef(null);
+  const menuRef = useRef<HTMLDivElement>(null);
   const { accessToken, clearAccessToken } = useZustandStore();
   const isLoggedIn = Boolean(accessToken);
   const [isClient, setIsClient] = useState(false);
@@ -52,7 +54,7 @@ function BottomSection() {
     { label: 'Trending', href: '/trending' },
     { label: 'New Releases', href: '/new_arrivals' },
     { label: 'Shop by Brands', href: '/brands/' },
-    { label: 'Powered by', href: '/powered-by' },
+
   ];
 
 
@@ -82,11 +84,11 @@ function BottomSection() {
       <div
         ref={menuRef}
         className={cn(
-          'fixed top-0 h-full w-[330px] bg-white m shadow-md z-50 overflow-hidden transition-all duration-500 ease-in-out',
+          'fixed top-0 h-full w-[340px] sm:w-[400px]  bg-white m shadow-md z-50 overflow-hidden transition-all duration-500 ease-in-out',
           navMenuActive ? 'left-0' : '-left-[500px]'
         )}
       >
-        <HamburgerMenu />
+        <HamburgerMenu onClose={()=>setNavMenuActive(false)} />
       </div>
 
       <div className="bg-white border-b border-[#C5CBD5] border-solid font-normal text-[16px] rubik_regular max-sm:hidden">
@@ -128,7 +130,7 @@ function BottomSection() {
           {/* Links */}
           <div className="h-[44px] w-full flex justify-between items-center gap-5">
             <div className="flex gap-6">
-              {links.map((link, index) => (
+              {links?.map((link, index) => (
                 <Link
                   className="hover:opacity-[.7] text-base leading-5 rubik_regular max-[980px]:text-[13px]"
                   key={index}
@@ -137,8 +139,72 @@ function BottomSection() {
                   {link.label}
                 </Link>
               ))}
+
+
+              <div className="relative group">
+                <div className="flex  gap-1 hover:opacity-[.7]  leading-5 rubik_regular max-[980px]:text-[13px] cursor-pointer">
+                  <h5 className="hover:opacity-[.7] text-base leading-5 rubik_regular max-[980px]:text-[13px]">
+                    Powered by
+                  </h5>
+                  <div className="transform transition-transform duration-300 group-hover:rotate-180">
+                    <Icon
+                      src={dropdownIcon}
+                      alt="dropdown icon"
+                      width={'12px'}
+                      height={'12px'}
+                    />
+                  </div>
+                </div>
+
+                {/* First-level dropdown */}
+                <div className="absolute top-[18px] left-0 bg-white shadow-md mt-2 rounded-md opacity-0 group-hover:opacity-100 group-hover:visible invisible transition-opacity z-50 min-w-[180px]">
+                  <Link
+                    href="/powered-by-msi"
+                    className="block px-4 py-2 hover:bg-gray-100 text-sm"
+                  >
+                    Powered by MSI
+                  </Link>
+
+                  <div className="relative group/submenu">
+                    <div className="flex items-center justify-between px-4 py-2 hover:bg-gray-100 text-sm w-full cursor-pointer">
+                      <Link href="/powered-by-asus" className="w-full">Powered by ASUS</Link>
+
+                      {/* Dropdown Icon for Powered by ASUS */}
+                      <div className="transform transition-transform duration-300 group-hover/submenu:rotate-180">
+                        <Icon
+                          src={dropdownIcon}
+                          alt="dropdown icon"
+                          width={'12px'}
+                          height={'12px'}
+                        />
+                      </div>
+                    </div>
+
+                    {/* Submenu for Powered by ASUS */}
+                    <div className="absolute top-0 left-full bg-white shadow-md rounded-md opacity-0 group-hover/submenu:opacity-100 group-hover/submenu:visible invisible transition-opacity z-50 min-w-[200px]">
+                      <Link
+                        href="/powered-by-asus/powered-by-content-creation"
+                        className="block px-4 py-2 hover:bg-gray-100 text-sm"
+                      >
+                        Content Creation
+                      </Link>
+                      <Link
+                        href="/powered-by-asus/powered-by-asus-gaming"
+                        className="block px-4 py-2 hover:bg-gray-100 text-sm"
+                      >
+                        Gaming PC
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
             </div>
           </div>
+
+          {/* Powered by Dropdown */}
+
+
 
           {/* Conditionally render logout button only after client-side rendering */}
           {/* {isClient && isLoggedIn && (

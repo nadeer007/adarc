@@ -334,3 +334,6 @@ select.goog-te-combo {
 img.no_border{
   border-radius: 0 !important;
 }
+.slick-dots{
+  background-color: #000;
+}

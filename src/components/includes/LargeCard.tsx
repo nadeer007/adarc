@@ -17,6 +17,7 @@ import CancelModal from '@/app/my-account/_components/CancelModal'
 
 import ReturnPaymentModal from '@/app/my-account/_components/ReturnPaymentModal'
 import StarRatings from 'react-star-ratings'
+import { MdDeleteForever, MdOutlineDelete } from 'react-icons/md'
 
 interface ApiResponse<T> {
     status_code: number;
@@ -92,7 +93,6 @@ export default function LargeCard({ ischeckOut, isSelectedItems, setSelectedItem
     const orderData = [{ status: "active", updated_at: "2025-01-12T11:35:11.013071Z" }, { status: "pending", updated_at: "2025-01-12T11:35:11.013071Z" }]
 
     return (
-
         <>
             <Modal isOpen={isratingModal} onClose={() => setRatingModal(false)} className='w-[530px] p-8'>
                 <RatingReviewModal product={product} setRatingModal={setRatingModal}/>
@@ -109,64 +109,31 @@ export default function LargeCard({ ischeckOut, isSelectedItems, setSelectedItem
             </Modal>
 
             <div onClick={onClick} className={cn('relative  cursor-pointer block w-[100%] mt-[12px]  max-lg:mt-0 py-[16px] border-t border-solid border-Platinum hover:opacity-[0.9]', myReviews && 'mt-0, border-0 opacity-[1] py-0', myOrder && 'mt-0, border-0 opacity-[1] py-0', ischeckOut && 'border border-solid rounded-[4px] px-3 py-2')} >
-                {/* {isCart && <button
-                    onClick={(e: any) => {
-                        e.stopPropagation();
 
-                        const isSelected = isSelectedItems.some((item: any) => item.pk === product?.pk);
-
-                        if (isSelected) {
-                            setSelectedItems(isSelectedItems.filter((item: any) => item.pk !== product?.pk));
-                        } else {
-                            setSelectedItems([...isSelectedItems, product]);
-                        }
-                    }}
-                    className={cn(
-                        'flex justify-center items-center top-[10px] left-0 absolute z-10 w-[20px] h-[20px] rounded-[4px] overflow-hidden border border-solid border-gray-400',
-                        isSelectedItems.some((item: any) => item.pk === product?.pk) ? 'bg-blue-500' : 'bg-white'
-                    )}
-                    aria-label="checkbox"
-                >
-                    {isSelectedItems.some((item: any) => item.pk === product?.pk) && (
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 24 24"
-                            fill="white"
-                            className="w-4 h-4"
-                        >
-                            <path d="M9 16.2L4.8 12l-1.4 1.4 6 6 12-12-1.4-1.4z" />
-                        </svg>
-                    )}
-                </button>} */}
-                <div className={cn('items-start  py-[16px] w-[100%] flex justify-between ', ischeckOut && 'py-0 items-center')}>
-                    <div className={cn('flex flex-row max-sm:flex-col w-[71.42%] ', ischeckOut && 'items-center')}>
-                        <div className='w-[96px] h-[104px] min-w-[96px]  justify-center items-center'>
+                <div className={cn('items-start  py-[16px] w-[100%] flex lg:flex-row flex-col justify-between ', ischeckOut && 'py-0 items-center')}>
+                    <div className={cn('flex flex-row max-sm:flex-col lg:w-[71.42%] ', ischeckOut && 'items-center')}>
+                        <div className='w-[96px] h-[104px] min-w-[96px] max-sm:self-center flex   justify-center items-center'>
                             <Image src={product?.product?.primary_attachment} width={100} height={100} className='contain-content' alt='productImage' loading='lazy' />
                         </div>
-                        <div className={cn('mx-[16px] w-[100%]  flex flex-col justify-between', ischeckOut ? 'h-auto' : '')}>
+                        <div className={cn('sm:mx-[16px] w-[100%]  flex flex-col justify-between', ischeckOut ? 'h-auto' : '')}>
                             <div className=''>
-                                <h2 className='rubik_medium text-[16px] max-lg:text-[15px] leading-[24px] text-start text-[shadow_gray]'>
+                                <h1 className='rubik_medium lg:text-[16px] md:text-[14px] text-[12px] leading-[20px] md:leading-[24px] text-start text-[shadow_gray]'>
                                     {product?.product?.name}
-                                </h2>
-                                {ischeckOut && <h2 className='rubik_medium text-[16px] leading-[24px] text-start text-[shadow_gray]'>
+                                </h1>
+                                {ischeckOut && <h1 className='rubik_medium text-[14px] mk:text-[16px] leading-[24px] text-start text-[shadow_gray]'>
                                     quantity : {product?.quantity}
-                                </h2>}
+                                </h1>}
                             </div>
                             {myOrder &&
                                 <div className='flex flex-col w-full'>
                                     <div className='flex mb-2'>
                                         <div className='mr-3 items-center flex'><UnderLinedButton className='no-underline' title={Strings.button.reOrder} /></div>
-
-
                                         {
                                             product?.current_status === "completed" && <div><UnderLinedButton className='text-tang_blue' title={Strings.button.rateReview} onClick={(e: any) => {
                                                 e.stopPropagation(); // Prevents parent div onClick from triggering
                                                 setRatingModal(true); // Open the rating modal
                                             }} /></div>
                                         }
-
-
-
                                     </div>
                                     {
                                         product?.current_status &&
@@ -212,17 +179,12 @@ export default function LargeCard({ ischeckOut, isSelectedItems, setSelectedItem
                                     }
                                 </div>
                             }
-                            {/* {!myOrder &&
-                            (!wishlist ?
-                                <div >
-                                    <ReturnAvailComponent />
-                                </div>
-                                :  */}
+
                             {!ischeckOut && <div><TitleComponent title={product?.product?.stock_status?.status == 'not available' ? 'out of stock' : 'In stock'} titleClass={product?.product?.stock_status?.status == 'not available' ? 'text-error_red' : 'text-avail_green'} /></div>
                             }                            {/* )} */}
                         </div>
                     </div>
-                    <div className=' flex justify-end  items-center '>
+                    <div className=' flex justify-end max-lg:w-full  items-center '>
                         <PriceComponent isHome={false} badge={product?.product?.badge} data={product?.product?.price_details} isOffer={!myOrder ? true : false} />
 
                         {
@@ -291,16 +253,19 @@ export default function LargeCard({ ischeckOut, isSelectedItems, setSelectedItem
                     </div>
                 }
 
-                {!myOrder && !myReviews && <div className='flex flex-row items-end justify-end gap-[40px] '>
+                {!myOrder && !myReviews && <div className='flex flex-row items-end justify-end gap-[20px] sk:gap-[40px] '>
 
                     {!wishlist && !ischeckOut && <div>
                         <UnderLinedButton onClick={(e: any) => { e.stopPropagation(); moveItem() }} title={!wishlist ? Strings.button.moveToWishlist : Strings.button.moveToCart} />
                     </div>}
 
-                    {!ischeckOut && <div>
-                        <UnderLinedButton onClick={(e: any) => { e.stopPropagation(); removeItem() }} title={Strings.button.remove} />
+                    {!ischeckOut && <div className='flex'>
+                        <button className='flex'  onClick={(e: any) => { e.stopPropagation(); removeItem() }}><MdDeleteForever color='red' size={20} />
+                        </button>
+                        {/* <UnderLinedButton title={Strings.button.remove} /> */}
                     </div>}
                     {product?.inStock && <div>
+                        
                         <UnderLinedButton onClick={(e: any) => { e.stopPropagation() }} title={wishlist ? Strings.button.addCart : Strings.button.saveLater} />
                     </div>}
                     {!wishlist && !ischeckOut && product?.product?.stock_status?.status != 'not available' &&

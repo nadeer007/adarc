@@ -4,27 +4,37 @@ import RectangleSection from '@/components/includes/RectangleSection'
 import Wrapper from '@/components/includes/Wrapper'
 import fetchApiData from '@/config/fetch-api-data';
 import React, { useEffect } from 'react'
+import ProductSection from '../_components/ProductSection';
+import { useSearchParams } from 'next/navigation';
 
 function Page() {
-  const [data, setData] = React.useState<any>(null);
-  const getData = async () => {
-      const response = await fetchApiData<any>(`products/list-products`);
-      console.log(response, "response");
-  
-      if (response.status_code === 6000) {
-        setData(response?.data);
-      } else if (response.status_code === 6001) {
-        setData(null);
-      }
-    };
+  const searchParams = useSearchParams();
 
-    useEffect(() => {
-      getData();
-    }, []);
+  const [data, setData] = React.useState<any>(null);
+  const [paginationData, setPagination] = React.useState({})
+  const page = searchParams.get('page') || 1;
+
+  const getData = async () => {
+
+    const response = await fetchApiData<any>(`products/list-products?page=${page}`);
+    console.log(response, "response");
+
+    if (response.status_code === 6000) {
+      setData(response?.data);
+      setPagination(response?.pagination_data)
+    } else if (response.status_code === 6001) {
+      setData(null);
+      setPagination({})
+    }
+  };
+
+  useEffect(() => {
+    getData();
+  }, [searchParams]);
   return (
-    <Wrapper className="">
+    <Wrapper className="max-xl:pt-[120px] max-mc:px-4 max-sm:px-2 max-sl:px-1 max-sk:px-[2px]">
       {/* Section 1 */}
-      <div className="py-10">
+      <div className="">
         <div className=" mx-auto pb-5">
           <div className="flex flex-wrap">
             <div className="w-full md:w-1/2 p-4">
@@ -190,7 +200,9 @@ function Page() {
       </div>
 
       <div>
-        <RectangleSection className='' datas={data} moreItems={true} sectionTitle={'Shop Our Powered By MSI PCs'} poweredBy={true} /></div>
+        <h2 className='text-2xl font-bold mb-4'>Shop Our Powered By MSI PCs</h2>
+        <ProductSection data={data} paginationData={paginationData} cardStyle="w-[19%] max-lg:w-[24%] mb-2 max-sm:w-[32%]"/>
+      </div>
     </Wrapper>
   )
 }

@@ -2,7 +2,7 @@ import React from "react";
 import TitleComponent from "@/app/product/[productTitle]/components/TitleComponent";
 import Link from "next/link";
 
-export default function MegaMenu({ data ,setActiveMegaMenu, setActiveIndex}: any) {
+export default function MegaMenu({ data , section, setActiveMegaMenu, setActiveIndex}: any) {
     return (
         <>
         <div 
@@ -17,19 +17,15 @@ export default function MegaMenu({ data ,setActiveMegaMenu, setActiveIndex}: any
                         className="py-[24px] flex flex-col px-[16px] w-[calc(33.33%-16px)]"
                         style={{height:'auto'}}
                     >
-                        <TitleComponent
-                            title={item.slug}
-                            titleClass="text-[16px] rubik_semibold leading-[24px]"
-                            containerClass=""
-                        />
+                        <Link href={`/${section}/${item?.slug}`} className="text-[16px] rubik_semibold text-[black] leading-[24px]">{item?.name}</Link>
                         <div className="w-full mt-[12px] flex flex-col">
                             {item?.categories?.map((list: any, listIndex: number) => (
                                 <Link
                                     key={listIndex}
-                                    href={`/${list?.slug}/`}
+                                    href={`/${section}/${item?.slug}/${list?.slug}/`}
                                     className="hover:underline block text-[16px] rubik_regular leading-[24px] mb-[12px]"
                                 >
-                                    {list.name}
+                                    {list?.name}
                                 </Link>
                             ))}
                         </div>

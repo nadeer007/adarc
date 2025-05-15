@@ -1,6 +1,6 @@
 "use client"
 import DropDownButton from '@/components/buttons/DropDownButton';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ChekboxSection from './ChekboxSection';
 import PriceFilter from './PriceFilter';
 
@@ -16,11 +16,16 @@ function LeftFilterSection({
     setListData: any
 }) {
     const [active, setActive] = useState<number[]>([]);
-    console.log(filterList, "filterList");
+
+    useEffect(() => {
+        if (filterList?.length) {
+            const allIds = filterList.map((filter: any) => filter.id);
+            setActive(allIds);
+        }
+    }, [filterList]);
 
     const handleClick = (id: number) => {
         setActive(prevActive => {
-            // Toggle the active state of the clicked filter
             if (prevActive.includes(id)) {
                 return prevActive.filter(activeId => activeId !== id);
             } else {
@@ -30,9 +35,9 @@ function LeftFilterSection({
     };
 
     return (
-        <div className="w-[260px] max-lg:w-[240px] max-sm:w-[225px]  block mr-4 p-2 max-w-[260px] max-[480px]:hidden">
+        <div className="w-[260px] max-lg:w-[240px] max-md:w-[210px] max-[710px]:w-[200px] overflow-x-hidden   block mr-4 p-2 max-w-[260px] max-sm:hidden">
             {filterList?.map((filter: any, index: any) => {
-                const isPriceFilter = filter?.slug === "price"; // Check if the slug is "price"
+                const isPriceFilter = filter?.slug === "price";
                 const Component = isPriceFilter ? PriceFilter : ChekboxSection;
 
                 return (
@@ -42,15 +47,15 @@ function LeftFilterSection({
                             }`}
                     >
                         <DropDownButton
-                            titleClass="text-[16px]  rubik_medium leading-[20px] text-[#1D252C]"
+                            titleClass="text-[16px] max-md:text-[14px] rubik_medium leading-[20px] text-[#1D252C]"
                             containerClass=""
                             title={filter?.title}
-                            onclick={() => handleClick(filter.id)}
-                            isActive={active.includes(filter.id)}
+                            onclick={() => handleClick(filter?.id)}
+                            isActive={active.includes(filter?.id)}
                             rotate_angle="rotate-180"
                         />
 
-                        {active.includes(filter.id) && (
+                        {active.includes(filter?.id) && (
                             <Component
                                 setListData={setListData}
                                 filter={filter}

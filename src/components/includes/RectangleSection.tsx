@@ -58,15 +58,9 @@ function RectangleSection({
 	const CustomNextArrow = (props: any) => {
 		const { onClick } = props;
 		return (
-			// <div
-			//     onClick={onClick}
-			//     className="hidden md:block absolute rounded-full -right-3 lg:-right-5 top-1/2 transform -translate-y-1/2 z-40 shadow-[0px_1px_3px_rgba(0,0,0,0.25)] bg-[#f5f5f5]"
-			// >
-			//     <ScrollIcon />
-			// </div>
 			<div
 				onClick={onClick}
-				className="h-[50px] cursor-pointer w-[50px] min-h-[50px] min-w-[50px] flex items-center justify-center rounded-full absolute -right-3 hover:translate-x-2 transform transition-all top-1/2 -translate-y-1/2 z-40 shadow-xl bg-[#f5f5f5]">
+				className="h-[50px] max-sm:hidden cursor-pointer w-[50px] min-h-[50px] min-w-[50px] flex items-center justify-center rounded-full absolute -right-3 hover:translate-x-2 transform transition-all top-1/2 -translate-y-1/2 z-40 shadow-xl bg-[#f5f5f5]">
 				<GrNext size="25" />
 			</div>
 		);
@@ -75,15 +69,9 @@ function RectangleSection({
 	const CustomPrevArrow = (props: any) => {
 		const { onClick } = props;
 		return (
-			// <div
-			//     onClick={onClick}
-			//     className="hidden md:block absolute rounded-full -left-6 lg:-left-7 top-1/2 transform -translate-y-1/2 z-40 shadow-[0px_1px_3px_rgba(0,0,0,0.25)] bg-[#f5f5f5]"
-			// >
-			//     <ScrollIcon left={true} />
-			// </div>
 			<div
 				onClick={onClick}
-				className="h-[50px] cursor-pointer rotate-180 w-[50px] min-h-[50px] min-w-[50px] flex items-center justify-center rounded-full absolute -left-5 top-1/2 hover:-translate-x-2 transform transition-all -translate-y-1/2 z-40 shadow-xl bg-[#f5f5f5]">
+				className="h-[50px] max-sm:hidden cursor-pointer rotate-180 w-[50px] min-h-[50px] min-w-[50px] flex items-center justify-center rounded-full absolute -left-5 top-1/2 hover:-translate-x-2 transform transition-all -translate-y-1/2 z-40 shadow-xl bg-[#f5f5f5]">
 				<GrNext size="25" />
 			</div>
 		);
@@ -101,7 +89,7 @@ function RectangleSection({
 	};
 
 	return (
-		<div className={cn("mb-[28px] md:mb-[48px]", className)}>
+		<div className={cn("mb-[28px] md:mb-[48px] max-sm:px-[10px]", className)}>
 			{!deals && (
 				<TitleSection sectionTitle={sectionTitle} className="mb-1" />
 			)}
@@ -151,7 +139,7 @@ function RectangleSection({
 					{/* <div></div> */}
 					<DealCard
 						className={cn(
-							"md:max-w-[24%] w-full px-[10px] max-sm:min-h-[120px]"
+							"md:max-w-[24%] max-md:mt-4 w-full sm:px-[10px] max-sm:min-h-[120px]"
 						)}
 					/>
 					{datas?.map(
@@ -169,7 +157,7 @@ function RectangleSection({
 			) : (
 				<div className="relative  ">
 					{isMobile ? (
-						<div className="flex overflow-x-scroll px-[10px] py-[5px] gap-[4px]  no-scrollbar ">
+						<div className="flex overflow-x-scroll  py-[5px] gap-[4px]  no-scrollbar ">
 							{datas?.map((data: any, index: any) => (
 								<Link
 									key={index}
@@ -182,7 +170,7 @@ function RectangleSection({
 					) : (
 						<Slider
 							{...settings}
-							className="flex justify-center items-center gap-[20px]   ">
+							className="flex justify-center items-center  gap-[20px]   ">
 							{datas?.map((data: any, index: any) => (
 								<Link
 									key={index}

@@ -14,7 +14,7 @@ function HighlightSection({isDescription=true}:any) {
       {strings.highlightsection.map((item:any, index) => (
         <div key={index} className={`flex flex-col ${isDescription ?'justify-between' : 'justify-center' } items-center text-left gap-2`}>
           <div className={`'flex w-[24px] h-[24px]  items-center ${isDescription ? 'justify-start' : 'justify-center'}  m-1 '`}>{getIcon({ icon: item.icon, className: "w-[24px] h-[24px]" })}</div>
-          <span className={`rubik_regular font-medium text-[16px] text-left w-full ${isDescription ? 'text-left' : 'text-center'}`}>{item.title}</span>
+          <span className={`rubik_regular font-medium text-[12px] sm:text-[14px] mc:text-[16px] text-left w-full ${isDescription ? 'text-left' : 'text-center'}`}>{item.title}</span>
           
           {isDescription && <span className={`text-[12px]  font-normal rubik_regular text-left w-full max-md:hidden  `}>{item.description}</span>}
           <div className=''>

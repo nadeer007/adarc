@@ -164,18 +164,19 @@
       "image": "/temp/ban2.svg"
     }
   ],
+
   "bannerMiddle": [
     {
       "id": 1,
-      "image": "/temp/middleBan1.svg"
+      "image": "/temp/md1.webp"
     },
     {
       "id": 2,
-      "image": "/temp/middleBan2.svg"
+      "image": "/temp/md2.jpg"
     },
     {
       "id": 3,
-      "image": "/temp/middleBan3.svg"
+      "image": "/temp/md3.png"
     }
   ],
   "bannerBottom": [
@@ -391,6 +392,14 @@
     {
       "id": 3,
       "image": "/temp/ban2.webp"
+    }
+  ],
+   "deliveryMethod" : [
+    {
+      "option" : "Delievery to address"
+    },
+    {
+      "option" : "Pick up from store"
     }
   ]
 

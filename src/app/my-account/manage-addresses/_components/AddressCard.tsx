@@ -15,6 +15,7 @@ function AddressCard(
     name,
     defaultlabel = true,
     defaultbutton = true,
+    cartPage = false,
   }:
     {
       address: any,
@@ -23,12 +24,14 @@ function AddressCard(
       setSelectedCountry: any,
       getAddressData: any,
       radioButton?: any,
-      deliveryAddress?:any,
-      setDeliveryAddress?:any,
-      setEdit:any,
-      name:any,
-      defaultlabel?:any,
-      defaultbutton?:any,
+      deliveryAddress?: any,
+      setDeliveryAddress?: any,
+      setEdit: any,
+      name?: any,
+      defaultlabel?: any,
+      defaultbutton?: any,
+      cartPage: any,
+
 
     }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -48,7 +51,7 @@ function AddressCard(
       street_address: address.street_address || "",
       building_name: address.building_name || "",
       apartment_address: address.apartment_address || "",
-      pk:address.pk || ""
+      pk: address.pk || ""
     });
   };
 
@@ -89,6 +92,7 @@ function AddressCard(
       // Handle different status codes
       if (status_code === 6000) {
         getAddressData()
+     
         console.log("Address set as default successfully:");
       } else if (status_code === 6001) {
         console.error("Failed to set default address:", message);
@@ -130,13 +134,18 @@ function AddressCard(
   return (
     <div className='relative border border-solid border-[#E2E4E5] rounded-[6px] py-3 px-4 bg-[#FFF9E94D]'>
       <div className='flex w-full items-start'>
-      {radioButton && (
+        {radioButton && (
           <input
             type="radio"
             name={name}
             value={address.pk}
             checked={deliveryAddress === address?.pk}
-            onChange={() => setDeliveryAddress(address?.pk)}
+            onChange={() => {
+              if (cartPage) {
+                handleSetDefault(address?.pk);
+              }
+              setDeliveryAddress(address?.pk);
+            }}
             className="mr-2 mt-3"
           />
         )}
@@ -168,7 +177,7 @@ function AddressCard(
                 className="absolute top-0 right-0 mt-2  bg-white px-4 py-2  border rounded-[6px] shadow-md z-50"
               >
                 <button
-                  onClick={() => handleEdit(address.pk)}
+                  onClick={() => handleEdit()}
                   className="block text-blue-500 mb-2 w-full rubik_regular text-[12px]  text-left"
                 >
                   Edit
@@ -191,7 +200,7 @@ function AddressCard(
             {address.city.name}, {address.city.region.country.name}
           </p>
 
-          {defaultbutton && !address?.is_default &&
+          {!cartPage && defaultbutton && !address?.is_default &&
             <div className=''>
               <CustomButton
                 onClick={() => handleSetDefault(address?.pk)}

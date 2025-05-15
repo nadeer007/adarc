@@ -38,17 +38,17 @@ function RecentlyViewed({ className }: any) {
 			{
 				breakpoint: 768,
 				settings: {
-					slidesToShow: 4,
-					slidesToScroll: 2,
+				  slidesToShow: 3,
+				  slidesToScroll: 2,
 				},
-			},
-			{
+			  },
+			  {
 				breakpoint: 640,
 				settings: {
-					slidesToShow: 3,
-					slidesToScroll: 1,
+				  slidesToShow: 3,
+				  slidesToScroll: 1,
 				},
-			},
+			  },
 			{
 				breakpoint: 480,
 				settings: {
@@ -67,7 +67,7 @@ function RecentlyViewed({ className }: any) {
 				<RectangleSection
 					className=""
 					datas={recentView}
-					moreItems={false}
+					// moreItems={false}
 					sectionTitle={"Recently Viewed"}
 					slider_settings={slider_settings}
 				/>

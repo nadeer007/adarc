@@ -6,15 +6,12 @@ import MainMenu from './MainMenu';
 import fetchApiData from '@/config/fetch-api-data';
 import MainBanner from './_components/MainBanner';
 
-const BannerSection = async function() {
+const BannerSection = async function({data}:any) {
 
     const getData = async () => {
         const response = await fetchApiData<any>('products/list-all-categories/');
         console.log(response, "reponse");
-
         return response;
-
-
     }
 
     const apiData = await getData();
@@ -41,11 +38,11 @@ const BannerSection = async function() {
                         // </div>
                     ))}
                 </div> */}
-                <MainBanner />
+                <MainBanner data={data.slider} />
 
-                <div className="h-[42%] ]  max-[480px]:hidden flex max-sm:px-[4px] gap-4  " >
-                    {productData?.banner?.map((item, index) => (
-                        <div key={index} className="w-[50%] flex justify-center rounded-[12px] overflow-hidden " style={{aspectRatio:1.8}}>
+                <div className="h-[42%] max-[480px]:hidden flex max-sm:px-[4px] gap-4  " >
+                    {data.single?.map((item:any, index:any) => (
+                        <div key={index} className="w-[50%] flex justify-center rounded-[12px] overflow-hidden  bg-yellow-200" style={{aspectRatio:1.8}}>
                             <Image src={item?.image} alt={`banner-${index}`} height={180} width={320} className='object-cover w-full h-full' loading="lazy" />
                         </div>
                     ))}
