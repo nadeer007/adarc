@@ -9,8 +9,6 @@ import RecentlyViewed from "./components/RecentlyViewed";
 import Script from "next/script";
 import BreadCrumps from "./components/BreadCrumps";
 import StikcyButton from "./components/StikcyButton";
-
-import Cookies from 'js-cookie';
 import { cookies } from "next/headers";
 
 // Define types for props
@@ -51,12 +49,15 @@ const getData = async (productTitle: string) => {
 	return response;
 };
 
-const productDetails = async (productTitle: string) => {
+
+
+
+const productDetails = async (productTitle: string, accessToken?: string) => {
 	try {
 	  const apiUrl = process.env.API_URL;
   
-	  const cookieStore = await cookies();
-	  const accessToken = cookieStore.get("accessToken")?.value;
+	//   const cookieStore = await cookies();
+	//   const accessToken = cookieStore.get("accessToken")?.value;
   
 	  const headers: Record<string, string> = {
 		"Content-Type": "application/json",
@@ -68,10 +69,10 @@ const productDetails = async (productTitle: string) => {
   
 	  const response = await fetch(`${apiUrl}products/view-product/${productTitle}`, {
 		method: "GET",
-		headers :{
-			Authorization : `Bearer ${accessToken}`
-		  }
-		// headers,
+		// headers :{
+		// 	Authorization : `Bearer ${accessToken}`
+		//   }
+		headers,
 		// credentials: "include",
 	  });
   
@@ -89,8 +90,13 @@ const productDetails = async (productTitle: string) => {
 export async function generateMetadata({ params }: { params: Params }) {
 	const { productTitle } = params;
 
+
+
+	const apiData = await fetchApiData<ApiResponse<any>>(
+		`products/view-product/${productTitle}`
+	);
 	// const apiData = await getData(productTitle);
-	const apiData: any = productDetails(params?.productTitle);
+	// const apiData: any = productDetails(params?.productTitle,accessToken);
 	const product = apiData?.data;
 
 	return {
@@ -103,10 +109,14 @@ export async function generateMetadata({ params }: { params: Params }) {
 // This is the server-side page component
 const Page = async ({ params }: { params: Params }) => {
 	const { productTitle } = params;
+	const cookieStore:any= cookies();
+	const accessToken = cookieStore.get("accessToken")?.value;
+
+	const apiData = await productDetails(productTitle, accessToken);
 
 	// const apiData = await getData(productTitle);
 
-	const apiData = await productDetails(params?.productTitle);
+	// const apiData = await productDetails(params?.productTitle,accessToken);
 
 	if (apiData?.status_code !== 6000) {
 		return (
