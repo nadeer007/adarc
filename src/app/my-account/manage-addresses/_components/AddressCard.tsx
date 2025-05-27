@@ -30,7 +30,7 @@ function AddressCard(
       name?: any,
       defaultlabel?: any,
       defaultbutton?: any,
-      cartPage: any,
+      cartPage?: any,
 
 
     }) {
@@ -57,7 +57,7 @@ function AddressCard(
 
   const handleDelete = async (pk: any) => {
     try {
-      const responseData = await postApiData(
+      const responseData = await postApiData<any>(
         `users/delete-address/${pk}/`,
         undefined,
         undefined,
@@ -79,7 +79,7 @@ function AddressCard(
   const handleSetDefault = async (pk: any) => {
     try {
       // Make an API call using postApiData
-      const responseData = await postApiData(
+      const responseData = await postApiData<any>(
         `users/set-address-as-default/${pk}/`,
         undefined,
         undefined,

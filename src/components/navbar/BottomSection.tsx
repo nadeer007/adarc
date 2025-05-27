@@ -51,9 +51,8 @@ function BottomSection() {
 
   const links = [
     { label: 'Best Deals', href: '/best-deals' },
-    { label: 'Trending', href: '/trending' },
-    { label: 'New Releases', href: '/new_arrivals' },
-    { label: 'Shop by Brands', href: '/brands/' },
+    { label: 'Trending', href: '/trending-products' },
+    { label: 'New Releases', href: '/new-arrival' },
 
   ];
 

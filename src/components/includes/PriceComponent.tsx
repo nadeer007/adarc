@@ -2,12 +2,12 @@
 import { cn } from '@/utils/utils'
 import React from 'react'
 
-export default function PriceComponent({actualPriceClass,badge, data,isHome=true}:any) {
+export default function PriceComponent({actualPriceClass,badge, data,isHome=true,}:any) {
   return (
 
     <div className=''>
         <div className='lg:mb-[8px] '>
-            <h2 className={cn('rubik_semibold text-[24px]  text-left leading-[28px] text-gunmetal',actualPriceClass?? null)}> <span className={`${isHome ? 'text-[12px]': 'text-[14px]'}`}>AED</span> {Number(data?.current_price).toFixed(2) }</h2>
+            <h2 className={cn('rubik_semibold text-[19px] sm:text-[24px]  text-left leading-[28px] text-gunmetal',actualPriceClass?? null)}> <span className={`${isHome ? 'text-[12px]': 'text-[14px]'}`}>AED</span> {Number(data?.current_price).toFixed(2) }</h2>
         </div>
         { data?.is_offer ? <div className='flex flex-row items-center gap-[8px] '>
             <div className= 'flex bg-primary_red rounded-[4px] justify-center items-center py-[4px] px-[6px] min-h-[20px] min-w-[57px]'>

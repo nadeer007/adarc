@@ -1,3 +1,4 @@
+import { useSearchParams } from 'next/navigation';
 import React, { useState } from 'react';
 
 
@@ -8,7 +9,7 @@ function MobileCheckboxSection({
   index
 }: any) {
   const [showAll, setShowAll] = useState(false);
-
+  const searchParams = useSearchParams();
 
 
   const handleCheckboxChange = (slug: string) => {

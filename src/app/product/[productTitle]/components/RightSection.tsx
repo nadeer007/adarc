@@ -19,6 +19,7 @@ import Cookies from 'js-cookie';
 import { useRouter } from 'next/navigation'
 import { format, addDays } from 'date-fns';
 import StikcyButton from './StikcyButton'
+import { cn } from '@/utils/utils'
 
 
 interface ApiResponse<T> {
@@ -32,39 +33,84 @@ const [isBuyLoading,setBuyLoader] = useState(false)
     const { wishlist, setWishlist, accessToken, setCartlist, setCartAmountDetails,deliveryLocation } = useZustandStore()
     const router = useRouter()
 
-const addtoCart = async (isType:string) => {
-    isType  ==  'checkout' ? setBuyLoader(true) :setLoader(true);
-    try {
-        const response = await postApiData<ApiResponse<any>>(
-            `carts/add-cart-item/${productTitle}/`,
-            {
-                quantity: quantity,
-                sku_code: Product,
-            },
-            undefined,
-            false,
-            true
-        );
+    document.cookie = "cart_id=test123; path=/; SameSite=None; Secure";
 
-        if (response?.status_code === 6000) {
-            // Cookies.set("cart_id", response?.data?.cart_id, { path: '/', secure: true, sameSite: 'Strict' });
-            // await moveToCheckout()
 
-            console.log("Item added to cart successfully!", response);
-            await getCartList(isType,response?.data?.cart_id)
+// const addtoCart = async (isType:string) => {
+//     isType  ==  'checkout' ? setBuyLoader(true) :setLoader(true);
+//     try {
+//         const response = await postApiData<ApiResponse<any>>(
+//             `carts/add-cart-item/${productTitle}/`,
+//             {
+//                 quantity: quantity,
+//                 sku_code: Product,
+//             },
+//             undefined,
+//             false,
+//             true
+//         );
+
+//         if (response?.status_code === 6000) {
+//             // Cookies.set("cart_id", response?.data?.cart_id, { path: '/', secure: true, sameSite: 'Strict' });
+//             // await moveToCheckout()
+
+//             console.log("Item added to cart successfully!", response);
+//             await getCartList(isType,response?.data?.cart_id)
                 
-        } else {
-            console.error("Failed to add item to cart:", response?.message);
-        }
-    } catch (error) {
-        console.error("An error occurred while adding to cart:", error);
-    } finally {
-        isType  ==  'checkout'? setBuyLoader(false) :setLoader(false);
-    }
-};
+//         } else {
+//             console.error("Failed to add item to cart:", response?.message);
+//         }
+//     } catch (error) {
+//         console.error("An error occurred while adding to cart:", error);
+//     } finally {
+//         isType  ==  'checkout'? setBuyLoader(false) :setLoader(false);
+//     }
+// };
     
+const addtoCart = async (isType: string) => {
+    const API_URL = process.env.NEXT_PUBLIC_API_URL;
+    isType === 'checkout' ? setBuyLoader(true) : setLoader(true);
+  
+    try {
+      const accessToken = Cookies.get("accessToken"); 
+      const headers: Record<string, string> = {
+        "Content-Type": "application/json",
+      };
+  
+      if (accessToken) {
+        headers["Authorization"] = `Bearer ${accessToken}`;
+      }
+  
+      const response = await fetch(`${API_URL}carts/add-cart-item/${productTitle}/`, {
+        method: "POST",
+        headers,
+        body: JSON.stringify({
+          quantity,
+          sku_code: Product,
+        }),
+        credentials: "include", 
+      });
+  
+      if (!response.ok) {
+        const text = await response.text(); 
+        throw new Error(`Error ${response.status}: ${text}`);
+      }
+  
+      const data = await response.json();
+  
+      if (data?.status_code === 6000) {
+        await getCartList(isType, data?.data?.cart_id);
+      } else {
+        console.error("Failed to add to cart:", data?.message);
+      }
+    } catch (err) {
+      console.error("Add to cart failed:", err);
+    } finally {
+      isType === 'checkout' ? setBuyLoader(false) : setLoader(false);
+    }
+  };
+
     const moveToCheckout = async (cartId:string) => {
-        console.log('nadeer')
         setBuyLoader(true)
     try {
         const response = await postApiData<ApiResponse<any>>(
@@ -94,7 +140,6 @@ const addtoCart = async (isType:string) => {
 };
 
     const getCartList = async (isType:string, cartId: string) => {
-        console.log(isType,'hellooooo')
         isType  ==  'checkout'&&  setBuyLoader(true)
 
     const response = await fetchApiData<ApiResponse<any>>('carts/list-cart-items/',{requireAuth:true, checkAccessToken: true})
@@ -150,8 +195,9 @@ const addtoWishlist = async () => {
     const [quantity, setQuantity] = useState(1)
 
     const incrementCount = (e: any) => {
+
         e.stopPropagation();
-        if (quantity < 10) {
+        if (quantity < data?.stock) {
             setQuantity(quantity + 1)
         }
 
@@ -178,9 +224,9 @@ const addtoWishlist = async () => {
 
 
     return (
-        <div className=' px-4 py-6 relative   rounded-[8px] bg-white_smoke'>
-            <div className='md:pb-[16px] flex max-lg:items-center lg:flex-col gap-[16px] border-b border-solid border-Platinum'>
-                <PriceComponent actualPriceClass='' badge={'save20%'} data={data?.price_details} isHome={false} />
+        <div className=' px-4 lg:py-6 md:py-4 py-2 relative   rounded-[8px] bg-white_smoke'>
+            <div className={cn('md:pb-[16px] pb-1 lg:flex-col gap-[16px] flex border-b border-solid border-Platinum', data?.price_details?.is_offer  === true && 'max-lg:items-end' )}>
+                <PriceComponent actualPriceClass='' badge={data?.badge}  isproductPage={true}   data={data?.price_details} isHome={false} />
                 {/* <ReturnAvailComponent /> */}
                 <TitleComponent titleClass='text-[12px] rubik_regular text-nickel_grey' title={strings.productPage.inclusiveVAT} />
             </div>
@@ -208,13 +254,16 @@ const addtoWishlist = async () => {
                 <div id="stop-sticky" className="h-[1px]" />
 
                 <div className='flex flex-row justify-between max-md:mt-4 '>
-                    <QuantityButton incrementCount={incrementCount} decrementCount={decrementCount} quantity={quantity} setQuantity={setQuantity} />
+                    <QuantityButton stock={data?.stock} incrementCount={incrementCount} decrementCount={decrementCount} quantity={quantity} setQuantity={setQuantity} />
                     <div>
                         <div className=''>
                             <h6 className='rubik_medium text-[12px] text-gunmetal leading-[14px]'>AED {" "}{Number(quantity * data?.price_details?.actual_price).toFixed(2)}</h6>
                         </div>
                     </div>
                 </div>
+                {data?.stock > 0 && <div className='mt-2'>
+                            <h6 className='rubik_medium text-[14px] text-gunmetal leading-[14px]'>stock : {data?.stock}</h6>
+                        </div>}
 
                 <div className='' >
                     <div className=' my-[8px]'>

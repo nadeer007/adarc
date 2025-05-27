@@ -9,7 +9,7 @@ import DropDownButton from '@/components/buttons/DropDownButton'
 import CustomTextInput from '@/components/input/CustomTextInput'
 import MiniSearch from '../../../../public/assets/icons/miniSearch.svg';
 import RectangleSection from '@/components/includes/RectangleSection'
-import Products from '../../../../data.json'; 
+import Products from '../../../../data.json';
 import fetchApiData from '@/config/fetch-api-data'
 import TitleComponent from '@/app/product/[productTitle]/components/TitleComponent'
 import useZustandStore from '@/store/useStore'
@@ -26,17 +26,21 @@ interface ApiResponse<T> {
 
 export default function page() {
 
-  const {wishlist,setWishlist} = useZustandStore()
+  const { wishlist, setWishlist } = useZustandStore()
 
   const router = useRouter()
+  const [tempSearch, setTempSearch] = useState('')
   const [search, setSearch] = useState('')
-  const [isRefresh,setRefresh] = useState(false)
-// console.log(wishlist,'dddd')
+
+  console.log(tempSearch, "searchsearch");
+
+  const [isRefresh, setRefresh] = useState(false)
+  // console.log(wishlist,'dddd')
 
   // const [wishList,setWishist] = useState([])
-  const getList =async()=>{
-    const response = await fetchApiData<ApiResponse<any>>('wishlists/list-wishlist-items/',{requireAuth:true})
-    if (response?.status_code == 6000){
+  const getList = async () => {
+    const response = await fetchApiData<ApiResponse<any>>(`wishlists/list-wishlist-items?q=${search}`, { requireAuth: true })
+    if (response?.status_code == 6000) {
       // setWishist(response?.data?.cart_items)
 
       // response?.data?.cart_items.map((item:any)=>{
@@ -44,58 +48,70 @@ export default function page() {
       // })
       setWishlist(response?.data?.cart_items)
     }
-  
-    console.log(response,'cartResponse')
-  }
-  
-  useEffect(()=>{
-    getList()
-  },[isRefresh])
 
-  const removeItem = async (slug:string) => {
-      try {
-          const response = await postApiData<ApiResponse<any>>(
-              `wishlists/add-wishlist-item/${slug}/`,
-              {},
-              undefined,
-              true
-          );
-  
-          if (response?.status_code === 6000) {
-  
-              // await getWishList()
-              setRefresh(!isRefresh)
-              console.log('resoinsse',response)
-              
-              console.log("Item added to cart successfully!", response);
-          } else {
-              console.error("Failed to add item to cart:", response?.message);
-          }
-      } catch (error) {
-          console.error("An error occurred while adding to cart:", error);
-      } finally {
+    console.log(response, 'cartResponse')
+  }
+
+  useEffect(() => {
+    getList()
+  }, [isRefresh,search])
+
+  const removeItem = async (slug: string) => {
+    try {
+      const response = await postApiData<ApiResponse<any>>(
+        `wishlists/add-wishlist-item/${slug}/`,
+        {},
+        undefined,
+        true
+      );
+
+      if (response?.status_code === 6000) {
+
+        // await getWishList()
+        setRefresh(!isRefresh)
+        console.log('resoinsse', response)
+
+        console.log("Item added to cart successfully!", response);
+      } else {
+        console.error("Failed to add item to cart:", response?.message);
       }
+    } catch (error) {
+      console.error("An error occurred while adding to cart:", error);
+    } finally {
+    }
   };
 
 
   return (
     <div className='px-6 bg-white relative w-full'>
-       {wishlist.length > 0 ? <div className='w-full flex justify-between'>
+      {wishlist.length > 0 ? <div className='w-full flex justify-between'>
         <div className='w-full'>
           <div className='py-[16px]'><h1 className='rubik_medium text-[20px] leading-[24px] text-black '>{strings.title.wishlist}</h1></div>
           <div className='flex justify-between items-center'>
-           {wishlist?.length > 0 && <div><TitleComponent title={`${wishlist?.length} items `} /></div>}
-            <div className='flex items-center gap-[12px]'>
+            {wishlist?.length > 0 && <div><TitleComponent title={`${wishlist?.length} items `} /></div>}
+            {/* <div className='flex items-center gap-[12px]'>
               <div><TitleComponent titleClass='rubik_medium' title={'sort by'} /></div>
               <div className=' w-[100px]'><DropDownButton width={'20px'} height={'20px'} titleClass='' containerClass='' title={'Most recent'} /></div>
-            </div>
+            </div> */}
           </div>
-          <div className='w-[40%] mt-[24px]'> 
-          <CustomTextInput setData={setSearch} value={search}   icon={MiniSearch} imageAlt={'mainSearch'} isIcon={true} className={'mb-0'} inputStyle='bg-[white]' placeholder={'Search'} />
+          <div className='w-[40%] mt-[24px]'>
+            <CustomTextInput
+              setData={setTempSearch}
+              onIconClick={() => {
+                setSearch(tempSearch)
+              }}
+             
+              value={tempSearch}
+              icon={MiniSearch}
+              imageAlt={'mainSearch'}
+              isIcon={true}
+              className={'mb-0'}
+              inputStyle='bg-[white]'
+              placeholder={'Search'} />
           </div>
           <div className='w-[100%]  py-[16px] rounded-[4px] '>
             {wishlist?.map((item: any, index: any) =>
-              <LargeCard removeItem={()=>removeItem(item?.product?.slug)}  wishlist={true}  onClick={() => router.push(`/product/${item?.product?.slug}`)}  key={index} product={item} />
+              <LargeCard removeItem={() => removeItem(item?.product?.slug)} wishlist={true} onClick={() => router.push(`/product/${item?.product?.slug}`)} key={index} product={item} />
             )}
           </div>
         </div>
@@ -104,7 +120,7 @@ export default function page() {
 
         </div> */}
 
-        </div> : <div><EmptySection title={'Your Wishlist is Empty'} message={'Save your favorite items here to view them anytime.'} /></div>}
+      </div> : <div><EmptySection title={'Your Wishlist is Empty'} message={'Save your favorite items here to view them anytime.'} /></div>}
     </div>
   )
 }

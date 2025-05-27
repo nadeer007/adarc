@@ -19,13 +19,13 @@ function BottomMobileFilter({
     setListData: any;
     priceFilterRef:any;
 }) {
-    const [active, setActive] = useState<number[]>([]);
+    const [active, setActive] = useState<any>([]);
     const handleClick = (id: number) => {
         setActive([id]);
     };
 
     return (
-        <div className="w-full ">
+        <div className=" w-full z-50 max-h-[60vh] overflow-y-scroll no-scrollbar">
             {filterList?.map((filter: any, index: any) => {
                 const isPriceFilter = filter?.slug === "price"; // Check if the slug is "price"
                 const Component = isPriceFilter ? MobilePriceFilter : ChekboxSection;
@@ -37,7 +37,9 @@ function BottomMobileFilter({
                             }`}
                     >
                         {!active?.length > 0 &&
-                            <div className='flex justify-between w-full ' onClick={() => handleClick(filter.id)}><div>{filter?.title?.charAt(0).toUpperCase() + filter?.title?.slice(1)}</div>
+                            <div className='flex justify-between ' 
+                            
+                            onClick={() => handleClick(filter.id)}><div>{filter?.title?.charAt(0).toUpperCase() + filter?.title?.slice(1)}</div>
 
                                 <Image src={RightArrow} alt="right_arrow" className='h-[16px] w-[16px]'/>
                             </div>

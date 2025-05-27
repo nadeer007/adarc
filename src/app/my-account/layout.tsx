@@ -9,7 +9,7 @@ export default function MyAcountLayout({
     
     return (
         <Wrapper className="pr-0 max-sm:pt-[140px]">
-            <div className='flex w-full  '>
+            <div className='flex w-full   '>
                 <div className="w-[20%] max-lg:w-[22%] max-[850px]:w-auto z-30 top-[170px] h-full mb-5 sticky ">
                     <SideBar />
                 </div>

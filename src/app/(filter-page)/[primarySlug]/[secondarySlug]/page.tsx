@@ -1,14 +1,13 @@
-"use client";
 import React from 'react';
 
 import Wrapper from '@/components/includes/Wrapper';
-import FilterComponents from '../../_components/FilterComponents';
+import FilterPage from '../../_components/FilterPage';
 
-function Page({params}:{params:any}) {
+function Page({params,searchParams}:{params:any,searchParams:any}) {
   
   return (
 
-      <FilterComponents params={params}/>
+      <FilterPage params={params}  searchParams={searchParams}/>
    
   
   );

@@ -51,7 +51,7 @@ export default function ProductAbout({ description, specification }: any) {
 			</div>
 
 			{/* Description Section */}
-			<div className="border-t-[0.6px] border-solid border-primary_border pt-[19px] pb-[12px]">
+			{description?.trim() && <div className="border-t-[0.6px] border-solid border-primary_border pt-[19px] pb-[12px]">
 				<h2 className="rubik_semibold text-[20px] mb-2">Description</h2>
 				<div
 					ref={descRef}
@@ -91,11 +91,11 @@ export default function ProductAbout({ description, specification }: any) {
 						</button>
 					</div>
 				)}
-			</div>
+			</div>}
 
 			{/* Specification Section */}
-			<div className="border-t-[0.6px] border-solid border-primary_border pt-[19px] pb-[12px] mt-[20px]">
-				<h2 className="rubik_semibold text-[20px] mb-2">
+			{specification.trim() && <div className="border-t-[0.6px] border-solid border-primary_border pt-[19px] pb-[12px] mt-[20px]">
+				 <h2 className="rubik_semibold text-[20px] mb-2">
 					Specification
 				</h2>
 				<div
@@ -128,7 +128,7 @@ export default function ProductAbout({ description, specification }: any) {
 						</button>
 					</div>
 				)}
-			</div>
+			</div>}
 		</div>
 	);
 }

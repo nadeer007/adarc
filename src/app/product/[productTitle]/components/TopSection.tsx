@@ -45,12 +45,12 @@ export default async function TopSection({
 					</div>
 				</div>
 
-				<div id="aboutproudct">
+				{(Product?.description?.trim() || Product?.specification?.trim()) && <div id="aboutproudct">
 					<ProductAbout
 						description={Product?.description}
 						specification={Product?.specification}
 					/>
-				</div>
+				</div>}
 				
 				{/* <FrequentlyBought /> */}
 				{/* <PeopleAlsoViewed data={recentProduct} /> */}

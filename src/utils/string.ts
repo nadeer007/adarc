@@ -7,7 +7,7 @@ const strings = {
   },
   button: {
     see_more: 'See more',
-    discover_more:'Discover more exclusive deals',
+    discover_more:'See more exclusive deals',
     viewMore:'View more',
     showLess:'Show Less',
     viewSpecs:'View all specs',

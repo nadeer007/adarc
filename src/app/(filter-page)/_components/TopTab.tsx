@@ -12,7 +12,7 @@ function TopTab({ priceData, sortByOptions, setPriceData, setSortBy, sortBy, fil
 
     const removeFilter = (key: string, slug: string) => {
         const params = new URLSearchParams(searchParams.toString());
-       
+
         const currentValues = params.get(key)?.split(',') || [];
         const newValues = currentValues.filter(v => v !== slug.toLowerCase());
 
@@ -61,16 +61,16 @@ function TopTab({ priceData, sortByOptions, setPriceData, setSortBy, sortBy, fil
 
     const formatSearchParams = (searchParams: any): { key: string; value: string }[] => {
         if (!searchParams) return [];
-        
+
         // Get all entries from URLSearchParams
         const entries = Array.from(new URLSearchParams(searchParams).entries());
-        
+
         // Group entries by key
         const groupedEntries = entries.reduce((acc: { [key: string]: string[] }, [key, value]) => {
             if (key === 'q' || key === 'page' || key === 'min_price' || key === 'max_price') {
                 return acc;
             }
-            
+
             if (!acc[key]) {
                 acc[key] = [];
             }
@@ -80,7 +80,7 @@ function TopTab({ priceData, sortByOptions, setPriceData, setSortBy, sortBy, fil
         }, {});
 
         // Convert grouped entries to the required format
-        return Object.entries(groupedEntries).flatMap(([key, values]) => 
+        return Object.entries(groupedEntries).flatMap(([key, values]) =>
             values.map(value => ({
                 key,
                 slug: value,
@@ -99,8 +99,8 @@ function TopTab({ priceData, sortByOptions, setPriceData, setSortBy, sortBy, fil
         .filter(segment => {
             const segmentStr = Array.isArray(segment) ? segment[0] : segment;
             const primarySlugStr = Array.isArray(params?.primarySlug) ? params.primarySlug[0] : params?.primarySlug;
-            return segmentStr.toLowerCase() !== 'search' && 
-                   segmentStr.toLowerCase() !== primarySlugStr?.toLowerCase();
+            return segmentStr.toLowerCase() !== 'search' &&
+                segmentStr.toLowerCase() !== primarySlugStr?.toLowerCase();
         });
 
     const formatHeading = (slug: string | string[]) => {
@@ -176,14 +176,44 @@ function TopTab({ priceData, sortByOptions, setPriceData, setSortBy, sortBy, fil
                         </div>
                     )}
 
-                    {priceData?.max_price !== "0" && priceData?.max_price !== "" && (
+                    {/* {priceData?.max_price !== "0" && priceData?.max_price !== "" && (
                         <div className="flex h-[28px] rounded-[6px] items-center justify-center gap-2 bg-[#EEEEEE] px-2 py-1">
                             <div className='truncate max-w-[150px] text-[14px] '>Max Price: {priceData?.max_price} AED</div>
                             <button onClick={() => setPriceData({ ...priceData, max_price: "0" })}>
                                 {getIcon({ icon: 'close_icon', className: 'w-[8px] min-w-[8px]' })}
                             </button>
                         </div>
+                    )} */}
+                    {searchParams.get("min_price") && (
+                        <div className="flex h-[28px] rounded-[6px] items-center justify-center gap-2 bg-[#EEEEEE] px-2 py-1">
+                            <div className='truncate max-w-[150px] text-[14px] '>Min Price: {searchParams.get("min_price")} AED</div>
+                            <button onClick={() => {
+                                const params = new URLSearchParams(searchParams.toString());
+                                params.delete("min_price");
+                               
+                                const newUrl = `${pathname}?${params.toString()}`;
+                                router.push(newUrl);
+                            }}>
+                                {getIcon({ icon: 'close_icon', className: 'w-[8px] min-w-[8px]' })}
+                            </button>
+                        </div>
                     )}
+
+                    {searchParams.get("max_price") && (
+                        <div className="flex h-[28px] rounded-[6px] items-center justify-center gap-2 bg-[#EEEEEE] px-2 py-1">
+                            <div className='truncate max-w-[150px] text-[14px] '>Max Price: {searchParams.get("max_price")} AED</div>
+                            <button onClick={() => {
+                                const params = new URLSearchParams(searchParams.toString());
+                                params.delete("max_price");
+                                
+                                const newUrl = `${pathname}?${params.toString()}`;
+                                router.push(newUrl);
+                            }}>
+                                {getIcon({ icon: 'close_icon', className: 'w-[8px] min-w-[8px]' })}
+                            </button>
+                        </div>
+                    )}
+
                 </div>
             </div>
             <div className='w-[160px] min-w-[150px] max-sm:hidden'>

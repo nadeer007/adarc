@@ -10,6 +10,9 @@ import Script from "next/script";
 import BreadCrumps from "./components/BreadCrumps";
 import StikcyButton from "./components/StikcyButton";
 
+import Cookies from 'js-cookie';
+import { cookies } from "next/headers";
+
 // Define types for props
 interface Params {
 	productTitle: string;
@@ -48,10 +51,46 @@ const getData = async (productTitle: string) => {
 	return response;
 };
 
+const productDetails = async (productTitle: string) => {
+	try {
+	  const apiUrl = process.env.API_URL;
+  
+	  const cookieStore = await cookies();
+	  const accessToken = cookieStore.get("accessToken")?.value;
+  
+	  const headers: Record<string, string> = {
+		"Content-Type": "application/json",
+	  };
+  
+	  if (accessToken) {
+		headers["Authorization"] = `Bearer ${accessToken}`;
+	  }
+  
+	  const response = await fetch(`${apiUrl}products/view-product/${productTitle}`, {
+		method: "GET",
+		headers :{
+			Authorization : `Bearer ${accessToken}`
+		  }
+		// headers,
+		// credentials: "include",
+	  });
+  
+	  if (!response.ok) {
+		throw new Error(`Failed to fetch product: ${response.status}`);
+	  }
+  
+	  return await response.json();
+	} catch (error) {
+	  console.error("Error fetching product:", error);
+	  return null;
+	}
+  };
+
 export async function generateMetadata({ params }: { params: Params }) {
 	const { productTitle } = params;
 
-	const apiData = await getData(productTitle);
+	// const apiData = await getData(productTitle);
+	const apiData: any = productDetails(params?.productTitle);
 	const product = apiData?.data;
 
 	return {
@@ -65,7 +104,9 @@ export async function generateMetadata({ params }: { params: Params }) {
 const Page = async ({ params }: { params: Params }) => {
 	const { productTitle } = params;
 
-	const apiData = await getData(productTitle);
+	// const apiData = await getData(productTitle);
+
+	const apiData = await productDetails(params?.productTitle);
 
 	if (apiData?.status_code !== 6000) {
 		return (
@@ -118,19 +159,16 @@ const Page = async ({ params }: { params: Params }) => {
 				</div>
 
 				<TopSection
-
 					productTitle={productTitle}
 					Product={product}
 					// reviewProduct={review}
-					// recentProduct={recentProduct} 
+					// recentProduct={recentProduct}
 				/>
 
 				<div className="md:hidden mb-[15px] w-full">
 					<BreadCrumps product={product} />
 				</div>
-				<RecentlyViewed className=" py-[32px]" />
-
-
+				<RecentlyViewed product={product} className=" py-[32px]" />
 			</div>
 		</Wrapper>
 	);

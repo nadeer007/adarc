@@ -10,7 +10,7 @@ export default function ProductMainDetail({ productTitle,product }: any) {
         <div className='pt-[24px] '>
             <div className='pb-[16px] border-b-[.6px] border-solid border-primary_border'>
                {product?.brand?.name && <div className='mb-[12px]'>
-                    <Link href={''} className='text-link_blue text-[12px] block rubik_medium underline'>
+                    <Link href={`/${product?.brand?.slug}?brand=${product?.brand?.slug}`} className='text-link_blue text-[12px] block rubik_medium underline'>
                         {product?.brand?.name}
                     </Link>
                 </div>}
@@ -28,7 +28,7 @@ export default function ProductMainDetail({ productTitle,product }: any) {
                     <SelectionComponent productTitle={productTitle} title={item?.name} data={item} />
                 ))}
             </div>}
-            { product?.short_description?.length >= 1 && <div className='py-[16px]  border-b-[.6px] border-solid border-primary_border'>
+            { product?.short_description?.length >= 5 && <div className='py-[16px]  border-b-[.6px] border-solid border-primary_border'>
                 <AboutComponent data={product?.short_description} />
             </div>}
            {product?.specs.length >= 1 &&  <div className='hidden md:block py-[16px]'>

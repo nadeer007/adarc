@@ -104,6 +104,12 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'din_black';
+  src: url('../../public/assets/fonts/DIN-Black.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
 
 .opensans_regular {
   font-family: 'opensans_regular' !important;
@@ -138,6 +144,10 @@
 
 .inter_regular {
   font-family: 'inter_regular' !important;
+}
+
+.din_black {
+  font-family: 'din_black' !important;
 }
 
 @layer utilities {
@@ -226,7 +236,7 @@ iframe.VIpgJd-ZVi9od-ORHb-OEVmcd  {
 }
 
 select.goog-te-combo {
-  color: white !important;
+  color: #FDB514 !important;
 }
 
 .navbar {
@@ -337,3 +347,5 @@ img.no_border{
 .slick-dots{
   background-color: #000;
 }
+
+

@@ -19,14 +19,57 @@ function FirstMenu({ onClose }: any) {
 	const { clearAccessToken, userInfo } = useZustandStore();
 	const [isActiveMegaMenu, setActiveMegaMenu] = useState(false);
 	const [activeIndex, setActiveIndex] = useState<any>(10000);
+	const [activeSlug, setActiveSlug] = useState(null)
+
 	const [data, setData] = useState<any[]>([]); // Adjust type based on your data structure
+	const responsiveData = {
+		data: [
+
+			{
+				pk: "2222222",
+				name: "Powered by Asus",
+				slug: "powered-by-asus",
+				icon: "",
+				small_icon: "",
+				departments: [
+					{
+						pk: "b8d0f7a7-28fb-4dee-abe1-91431b3e324b",
+						slug: "powered-by-content-creation",
+						name: "CONTENT CREATION",
+						icon: null,
+						small_icon: null
+					},
+					{
+						pk: "b8d0f7a7-28fb-4dee-abe1-91431b3e324b",
+						slug: "powered-by-asus-gaming",
+						name: "GAMING PC",
+						icon: null,
+						small_icon: null
+					}
+				]
+			}
+			,
+			{
+				pk: "1111111111",
+				name: "Powered by MSI",
+				slug: "powered-by-msi",
+				icon: "",
+				small_icon: "",
+				departments: []
+			}
+		]
+	};
 
 	const getData = async () => {
 		try {
 			const response = await fetchApiData<any>(
 				"products/list-all-categories/"
 			);
-			setData(response.data);
+			const combinedData =
+				[...response.data, ...responsiveData.data]
+				;
+
+			setData(combinedData);
 		} catch (error) {
 			console.error("Error fetching data:", error);
 		}
@@ -41,7 +84,7 @@ function FirstMenu({ onClose }: any) {
 	}, []);
 
 	return (
-		<div className="w-full rounded-tl-[6px]  rounded-bl-[6px] h-full py-4 flex flex-col justify-between overflow-y-scroll no-scrollbar relative">
+		<div className="w-full rounded-tl-[6px] no-scrollbar  rounded-bl-[6px] h-full py-4 flex flex-col justify-between overflow-y-scroll  relative">
 			<div className="w-full">
 				<div className="flex   justify-between px-2 ">
 					{isActiveMegaMenu ? (
@@ -50,7 +93,8 @@ function FirstMenu({ onClose }: any) {
 							onClick={() => {
 								setActiveMegaMenu(false);
 								setActiveIndex(null);
-							}}>
+							}}
+						>
 							<Image
 								src={LeftArrow}
 								alt="LeftArrow"
@@ -85,7 +129,7 @@ function FirstMenu({ onClose }: any) {
 						</svg>
 					</button>
 				</div>
-				<div className="w-full overflow-scroll ">
+				<div className="w-full overflow-y-scroll no-scrollbar ">
 					{!isActiveMegaMenu && (
 						<div className="flex flex-col gap-1 w-full mb-4">
 							<button
@@ -110,16 +154,18 @@ function FirstMenu({ onClose }: any) {
 							Shop by Category
 						</h4>
 					)}
-					<div className="max-h-[600px] overflow-scroll">
+					<div className="max-h-[600px] overflow-y-scroll no-scrollbar">
 						{!isActiveMegaMenu &&
 							data?.map((section: any, index: any) => (
 								<div
 									onClick={() => {
 										if (isActiveMegaMenu == false) {
-											setActiveMegaMenu(true);
-											setActiveIndex(index);
+											router.push(`/${section?.slug}`);
+											onClose()
 										} else {
 											setActiveMegaMenu(false);
+											setActiveSlug(null)
+
 											setActiveIndex(null);
 										}
 									}}
@@ -137,8 +183,20 @@ function FirstMenu({ onClose }: any) {
 											{section.name}
 										</h4>
 									</div>
+									{section?.departments?.length > 0 && <div
+										onClick={(e) => {
+											if (isActiveMegaMenu == false) {
+												setActiveMegaMenu(true);
+												setActiveIndex(index);
+												e.stopPropagation();
+												setActiveSlug(section?.slug)
+											} else {
+												setActiveMegaMenu(false);
+												setActiveSlug(null)
 
-									<div
+												setActiveIndex(null);
+											}
+										}}
 										className={cn(
 											"transition-transform duration-300",
 											index == activeIndex
@@ -152,6 +210,9 @@ function FirstMenu({ onClose }: any) {
 											alt={"vectorIcon"}
 										/>
 									</div>
+
+									}
+
 								</div>
 							))}
 						{isActiveMegaMenu && (
@@ -160,6 +221,8 @@ function FirstMenu({ onClose }: any) {
 									setActiveMegaMenu={setActiveMegaMenu}
 									setActiveIndex={setActiveIndex}
 									data={data?.[activeIndex]?.departments}
+									activeSlug={activeSlug}
+									onClose={onClose}
 								/>
 							</div>
 						)}

@@ -16,7 +16,7 @@ export default function Page() {
     const page = searchParams.get('page') || 1;
     const getData = async () => {
   
-      const response = await fetchApiData<any>(`products/list-products?page=${page}`);
+      const response = await fetchApiData<any>(`products/list-products?categories=powered-by-asus&page=${page}&per_page=10`);
       console.log(response, "response");
   
       if (response.status_code === 6000) {
@@ -53,7 +53,7 @@ export default function Page() {
           </picture>
         </div>
 
-        <section className="bg-black text-white py-8 rounded-lg">
+        <section className="bg-[#1c1c1c] text-white py-8 rounded-lg ">
           <div className="container mx-auto px-4">
             <h2 className="text-3xl font-bold mb-4">
               Powered by ASUS, Dominate with the best
@@ -64,17 +64,17 @@ export default function Page() {
           </div>
         </section>
 
-        <section className="py-6">
+        <section className="py-6 ">
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <Link
               href="/powered-by-asus/powered-by-asus-gaming/"
-              className="px-6 py-3 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
+              className="px-6 py-3 bg-[#4472c4] text-white rounded hover:bg-blue-700 transition"
             >
               Powered by ASUS: Gaming
             </Link>
             <Link
               href="/powered-by-asus/powered-by-content-creation/"
-              className="px-6 py-3 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
+              className="px-6 py-3 bg-[#4472c4] text-white rounded hover:bg-blue-700 transition"
             >
               Powered by ASUS: Content Creation
             </Link>
@@ -82,7 +82,11 @@ export default function Page() {
         </section>
       </div>
 
-      <ProductSection data={data} paginationData={paginationData} cardStyle="w-[19%] max-lg:w-[24%] mb-2 max-sm:w-[32%]"/>
+      <ProductSection 
+      isAsusPage={true}
+      data={data} paginationData={paginationData} cardStyle="w-[19%] max-lgs:w-[24%] mb-2 max-mdx:w-[32%] max-sm:w-[49%]" title="Available PBA PCs"/>
+
+
     </Wrapper>
   );
 }

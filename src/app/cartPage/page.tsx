@@ -70,6 +70,7 @@ export default function Page() {
       { requireAuth: true, checkAccessToken: true }
     );
     if (response?.status_code == 6000) {
+      console.log('vghkjv',response?.data)
       setCartlist(response?.data?.cart_items);
       setCartAmountDetails(response?.data?.cart_amount_details);
       setTimeout(() => {
@@ -99,8 +100,6 @@ export default function Page() {
 
   useEffect(() => {
     getList("loader");
-    console.log("inside====");
-    console.log("hello");
   }, [isRefresh]);
 
   const router = useRouter();
@@ -226,7 +225,7 @@ export default function Page() {
 
         <AddressSection
           addressData={addressData}
-       
+
           onClose={() => setAddressSection(false)}
           getAddressData={getAddressData}
         />
@@ -246,8 +245,14 @@ export default function Page() {
             <div className="flex flex-col max-mc:items-center mc:flex-row mc:justify-between mc:relative w-full gap-[16px] min-h-[calc(100vh-200px)]">
               <div className="md:w-[80%] mc:w-[65.55%]">
                 <div className="h-auto mb-5 w-full border border-solid border-Platinum px-[12px] sm:px-[24px] py-[16px] rounded-[4px]">
+                  {
+                    selectedAddress?.city?.region?.delivery_time ? <TitleComponent title={`Free shipping Arrives at ${selectedAddress?.city?.region?.delivery_time}`}
+                      titleClass="text-[20px] font-semibold mb-3" /> : "No delevery date"
+                  }
                   <div className="flex justify-between items-center">
                     <div className="flex items-center gap-[2px]">
+
+
                       <TitleComponent title="Delivery to " />
                       <TitleComponent
                         titleClass="underline"

@@ -1,166 +1,160 @@
 "use client";
-import React, { useRef, useEffect, useState } from "react";
-import productData from "../../../../data.json";
+
+import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import Arrow from "../../../../public/assets/icons/whitearrow.svg";
-import Slider from "react-slick";
-import ScrollIcon from "@/components/includes/ScrollIcon";
-import { GrNext } from "react-icons/gr";
-import { div } from "framer-motion/client";
 import Link from "next/link";
+import { GrNext } from "react-icons/gr";
 
-export default function MainBanner({data}:any) {
-
-	console.log(data,'hoii')
-	const desktopRef = useRef<HTMLDivElement>(null);
-	const mobileRef = useRef<HTMLDivElement>(null);
+export default function DesktopBanner({banners, data }: any) {
+	const containerRef = useRef<HTMLDivElement>(null);
 	const [direction, setDirection] = useState<"right" | "left">("right");
-	const [isMobile, setIsMobile] = useState(false);
+	const [atStart, setAtStart] = useState(true);
+	const [atEnd, setAtEnd] = useState(false);
+	const [hydrated, setHydrated] = useState(false);
 
-	// Detect screen size
+	console.log(banners,'drgsr')
+
+	// Defer hydration to avoid LCP impact
 	useEffect(() => {
-		const handleResize = () => {
-			setIsMobile(window.innerWidth < 640); // Tailwind sm breakpoint
-		};
-
-		handleResize(); // Initial check
-		window.addEventListener("resize", handleResize);
-		return () => window.removeEventListener("resize", handleResize);
+		if ("requestIdleCallback" in window) {
+			(requestIdleCallback as any)(() => setHydrated(true));
+		} else {
+			setTimeout(() => setHydrated(true), 100); // Fallback
+		}
 	}, []);
 
-	// Auto-scroll logic
-	const scrollBanner = () => {
-		const container = isMobile ? mobileRef.current : desktopRef.current;
-		if (container) {
-			const containerWidth = container.offsetWidth;
+	const checkScrollPosition = () => {
+		const container = containerRef.current;
+		if (!container) return;
 
-			if (direction === "right") {
-				container.scrollLeft += containerWidth;
-				if (
-					container.scrollLeft + containerWidth >=
-					container.scrollWidth
-				) {
-					setDirection("left");
-				}
-			} else {
-				container.scrollLeft -= containerWidth;
-				if (container.scrollLeft <= 0) {
-					setDirection("right");
-				}
+		const scrollLeft = container.scrollLeft;
+		const containerWidth = container.offsetWidth;
+		const scrollWidth = container.scrollWidth;
+
+		setAtStart(scrollLeft <= 10);
+		setAtEnd(scrollLeft + containerWidth >= scrollWidth - 10);
+	};
+
+	const scroll = (dir: "left" | "right") => {
+		const container = containerRef.current;
+		if (!container) return;
+		const containerWidth = container.offsetWidth;
+
+		container.scrollBy({
+			left: dir === "right" ? containerWidth : -containerWidth,
+			behavior: "smooth",
+		});
+	};
+
+	const autoScroll = () => {
+		const container = containerRef.current;
+		if (!container) return;
+		const containerWidth = container.offsetWidth;
+
+		if (direction === "right") {
+			container.scrollLeft += containerWidth;
+			if (
+				container.scrollLeft + containerWidth >=
+				container.scrollWidth
+			) {
+				setDirection("left");
+			}
+		} else {
+			container.scrollLeft -= containerWidth;
+			if (container.scrollLeft <= 0) {
+				setDirection("right");
 			}
 		}
 	};
 
-	const handleClick = (sign: string) => {
-		const container = isMobile ? mobileRef.current : desktopRef.current;
-		if (container) {
-			const containerWidth = container.offsetWidth;
-			container.scrollLeft +=
-				sign === "+" ? containerWidth : -containerWidth;
-		}
-	};
-
 	useEffect(() => {
-		const interval = setInterval(scrollBanner, 3000); // Adjust delay as needed
+		if (!hydrated) return;
+
+		const interval = setInterval(autoScroll, 4000);
 		return () => clearInterval(interval);
-	}, [direction, isMobile]);
-
-	const CustomNextArrow = (props: any) => {
-		const { onClick } = props;
-		return (
-			<div
-				onClick={onClick}
-				className="h-[50px] cursor-pointer hidden w-[50px] min-h-[50px] min-w-[50px] md:flex items-center justify-center rounded-full absolute right-3 top-1/2 -translate-y-1/2 z-10 shadow-xl bg-[#f5f5f5]">
-				<GrNext size="25" />
-			</div>
-		);
-	};
-
-	const CustomPrevArrow = (props: any) => {
-		const { onClick } = props;
-		return (
-			<div
-				onClick={onClick}
-				className="h-[50px] hidden cursor-pointer rotate-180 w-[50px] min-h-[50px] min-w-[50px] md:flex items-center justify-center rounded-full absolute left-3 top-1/2 -translate-y-1/2 z-10 shadow-xl bg-[#f5f5f5]">
-				<GrNext size="25" />
-			</div>
-		);
-	};
-
-	var settings = {
-		dots: false,
-		infinite: true,
-		speed: 700,
-		slidesToShow: 1,
-		slidesToScroll: 1,
-		autoplay: true,
-		autoplaySpeed: 2500,
-		cssEase: "linear",
-		nextArrow: <CustomNextArrow />,
-		prevArrow: <CustomPrevArrow />,
-	};
-	const [mounted, setMounted] = useState(false);
+	}, [direction, hydrated]);
 
 	useEffect(() => {
-		setMounted(true);
-	}, []);
+		if (!hydrated) return;
+
+		const container = containerRef.current;
+		if (!container) return;
+
+		checkScrollPosition();
+		container.addEventListener("scroll", checkScrollPosition);
+		return () =>
+			container.removeEventListener("scroll", checkScrollPosition);
+	}, [hydrated]);
 
 	const firstBanner = data?.[0];
+
 	return (
-		<div className="w-full   relative">
-			{/* Desktop Banner */}
-			<div className="w-full hidden sm:block">
-				{/* ✅ LCP image shown immediately */}
-				{!mounted && firstBanner && (
-					<div className="w-full relative max-w-[1100px] pt-[34.27%] flex items-center justify-center">
+		<div className="w-full hidden sm:block relative">
+			<div className="relative max-w-[1300px] mx-auto rounded-md overflow-hidden">
+				{/* ✅ Immediately load first image for LCP */}
+				{firstBanner && (
+					<Link
+						href={firstBanner.link || "#"}
+						className={`block relative w-full pt-[34.27%] ${
+							hydrated ? "hidden" : "block"
+						}`}>
 						<Image
-							src={firstBanner?.image}
+							src={firstBanner.image}
 							alt="Main banner"
-							width={730}
-							height={302}
+							fill
 							priority
-							className="w-full h-full absolute top-0 left-0 right-0"
+							className="rounded-md object-cover"
 						/>
-					</div>
+					</Link>
 				)}
 
-				{/* ✅ Hydrate slider only after mount */}
-				{mounted && data && (
-					<Slider {...settings} className=" max-w-[1100px]">
-						{data?.map((item:any, index:any) => (
-							<Link
-							href={item?.link}
-								key={index}
-								className=" relative w-full pt-[34.27%]  flex items-center justify-center">
-								<Image
-									src={item?.image}
-									alt="banner"
-									width={1100}
-									height={302}
-									className="w-full h-full absolute top-0 left-0 right-0"
-									priority={index === 0}
-								/>
-							</Link>
-						))}
-					</Slider>
+				{/* ✅ Defer slider until after hydration */}
+				{hydrated && (
+					<>
+						<div
+							ref={containerRef}
+							className="flex transition-all duration-500 ease-in-out overflow-x-auto scroll-smooth no-scrollbar snap-x snap-mandatory">
+							{data.map((item:any, index:any) => (
+								<Link
+									href={item?.link || "#"}
+									key={index}
+									className="w-full min-w-full flex-shrink-0 relative pt-[34.27%] snap-start">
+
+									<Image
+										src={item?.image}
+										alt={`banner-${index}`}
+										fill
+										className="object-cover rounded-md"
+										loading={index === 0 ? "eager" : "lazy"}
+										priority={index === 0}
+									/>
+								</Link>
+							))}
+						</div>
+
+						{/* Prev Button */}
+						<button
+							onClick={() => !atStart && scroll("left")}
+							className={`absolute top-1/2 left-3 -translate-y-1/2 z-10 bg-white shadow-md rounded-full p-2 hidden md:flex transition-opacity ${
+								atStart
+									? "opacity-30 cursor-default"
+									: "opacity-100"
+							}`}>
+							<GrNext size={20} className="rotate-180" />
+						</button>
+
+						{/* Next Button */}
+						<button
+							onClick={() => !atEnd && scroll("right")}
+							className={`absolute top-1/2 right-3 -translate-y-1/2 z-10 bg-white shadow-md rounded-full p-2 hidden md:flex transition-opacity ${
+								atEnd
+									? "opacity-30 cursor-default"
+									: "opacity-100"
+							}`}>
+							<GrNext size={20} />
+						</button>
+					</>
 				)}
-			</div>
-			<div
-				ref={mobileRef}
-				className="flex sm:hidden overflow-x-scroll no-scrollbar w-full customer_slider_panel">
-				{data?.map((item:any, index:any) => (
-					<div
-						key={index}
-						className="scroll_image w-full h-[200px] min-h-[200px] flex-shrink-0 flex">
-						<Image
-							src={item?.image}
-							alt="banner"
-							width={335}
-							height={160}
-							className=" w-full h-[200px] min-h-[200px]  "
-						/>
-					</div>
-				))}
 			</div>
 		</div>
 	);

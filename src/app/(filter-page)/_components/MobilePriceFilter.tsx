@@ -1,16 +1,24 @@
 import CustomButton from '@/components/buttons/CustomButton';
-import React, { useState,forwardRef, useImperativeHandle } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
+import React, { useState, forwardRef, useImperativeHandle, useEffect } from 'react';
 
-function MobilePriceFilter({ priceData, setPriceData,priceFilterRef }: any) {
+function MobilePriceFilter({ priceData, setPriceData, priceFilterRef }: any) {
   const { min_price = '', max_price = '' } = priceData;
-
+  const searchParams = useSearchParams();
+  const router = useRouter();
   const [newMinPrice, setNewMinPrice] = useState(min_price);
   const [newMaxPrice, setNewMaxPrice] = useState(max_price);
+ useEffect(() => {
+  const minFromUrl = searchParams.get('min_price');
+  const maxFromUrl = searchParams.get('max_price');
 
+  setNewMinPrice(minFromUrl ?? '');  // if null, set to ''
+  setNewMaxPrice(maxFromUrl ?? '');
+}, [searchParams]);
   const handleMinChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let value = e.target.value;
     if (parseFloat(value) < 0) {
-      value = ''; 
+      value = '';
     }
     setNewMinPrice(value);
   };
@@ -27,17 +35,26 @@ function MobilePriceFilter({ priceData, setPriceData,priceFilterRef }: any) {
     const min = parseFloat(newMinPrice);
     const max = parseFloat(newMaxPrice);
 
-    // Validation: max should be greater than min
     if (!isNaN(min) && !isNaN(max) && max <= min) {
       alert('Max price should be greater than Min price.');
       return;
     }
 
-    setPriceData({
-      ...priceData,
-      min_price: newMinPrice,
-      max_price: newMaxPrice,
-    });
+    const params = new URLSearchParams(Array.from(searchParams.entries()));
+
+    if (newMinPrice) {
+      params.set('min_price', newMinPrice);
+    } else {
+      params.delete('min_price');
+    }
+
+    if (newMaxPrice) {
+      params.set('max_price', newMaxPrice);
+    } else {
+      params.delete('max_price');
+    }
+
+    router.push(`?${params.toString()}`, { scroll: false });
   };
 
   useImperativeHandle(priceFilterRef, () => ({
@@ -68,8 +85,8 @@ function MobilePriceFilter({ priceData, setPriceData,priceFilterRef }: any) {
           />
         </div>
       </div>
-      <button className='hidden'  onClick={handleClick}>click</button>
-   
+      <button className='hidden' onClick={handleClick}>click</button>
+
     </div>
   );
 }

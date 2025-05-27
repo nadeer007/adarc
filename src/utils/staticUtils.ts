@@ -220,7 +220,7 @@ export const accountMenu = [
                 id: 3,
                 icon: manage_address,
                 title: 'Manage Addresses',
-                route: '/my-account/manage-addresses/'
+                route: '/my-account/manage-addresses'
             },
         ]
     },
@@ -231,14 +231,14 @@ export const accountMenu = [
                 id: 4,
                 icon: review_ratings,
                 title: 'My Reviews & Ratings',
-                route: '/my-account/my-reviews/'
+                route: '/my-account/my-reviews'
             },
           
             {
                 id: 6,
                 icon: my_wishlist,
                 title: 'My Wishlist',
-                route: '/my-account/wishlist/'
+                route: '/my-account/wishlist'
             },
         ]
     }

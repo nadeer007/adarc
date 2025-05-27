@@ -6,14 +6,21 @@ export default function TitleComponent({
   titleClass,
   containerClass,
   lineThrough = false,
-}: any) {
+  onClick
+}: {
+  title: any,
+  titleClass?: any,
+  containerClass?: any,
+  lineThrough?: any,
+  onClick?: any
+}) {
   const formattedTitle =
     typeof title === 'string'
       ? title.charAt(0).toUpperCase() + title.slice(1)
       : title;
 
   return (
-    <div className={cn('', containerClass)}>
+    <div className={cn('', containerClass)} onClick={onClick}>
       <h5
         className={cn(
           'text-[12px] leading-[14.22px] text-BLACK',

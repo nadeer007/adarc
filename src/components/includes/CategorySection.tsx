@@ -3,8 +3,8 @@ import RoundSection from './RoundSection';
 import fetchApiData from '@/config/fetch-api-data';
 
 const getData = async () => {
-  const response = await fetchApiData<any>('products/list-categories/');
-  console.log(response,"reponse");
+  const response = await fetchApiData<any>('products/shop-by-categories/');
+  console.log(response,"imagessss");
   return response;
 }
 

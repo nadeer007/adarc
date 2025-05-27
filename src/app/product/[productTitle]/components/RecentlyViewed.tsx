@@ -5,11 +5,18 @@ import fetchApiData from "@/config/fetch-api-data";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
-function RecentlyViewed({ className }: any) {
+function RecentlyViewed({ className,product }: any) {
+	console.log(product,'hello');
+	
+	
 	const getrecentData = async () => {
-		const response = await fetchApiData<any>("products/list-products/");
+		console.log('rrrrrrrrr')
+
+		const response = await fetchApiData<any>(`products/list-products?similar_product=${product?.slug}`);
 		setRecentView(response?.data);
+		console.log(response?.data,'dataaaaa')
 	};
+
 
 	const [recentView, setRecentView] = useState([]);
 
@@ -63,25 +70,28 @@ function RecentlyViewed({ className }: any) {
 
 	return (
 		<>
-			<div className={`${className} hidden md:block  `}>
+			{/* <div className={`${className} hidden md:block  `}>
 				<RectangleSection
 					className=""
 					datas={recentView}
-					// moreItems={false}
-					sectionTitle={"Recently Viewed"}
+					moreItems={false}
+					sectionTitle={"Similiar Products"}
 					slider_settings={slider_settings}
+					isViewMore={false}       
+					isViewBy={false}   
+					viewMoreLink="/" 
 				/>
-			</div>
-      <div className="md:hidden "> 
+			</div> */}
+      <div className=" pb-4"> 
       <h2 >Similiar Products</h2>
-      <div className="mt-2 flex  overflow-x-scroll px-[10px] py-[5px] gap-[4px]  ">
+      <div className="mt-2 flex  overflow-x-scroll gap-[5px]  ">
 				{recentView?.map((data: any, index: any) => (
 					<Link
-						key={index}
-						href={`/product/${data?.slug}`}
-						className="min-w-[47.5%]">
-						<ProductCard data={data} />
-					</Link>
+					key={index}
+					href={`/product/${data?.slug}`}
+					className=" w-[241px]">
+					<ProductCard data={data} />
+				</Link>
 				))}
 			</div>
       </div>

@@ -27,11 +27,11 @@ interface ApiResponse<T> {
 
 
 export default function LargeCard({ ischeckOut, isSelectedItems, setSelectedItems, moveItem, isRefresh, setRefresh, getList, removeItem, isCart = false, wishlist = false, product, cart = false, onClick, myOrder = false, myReviews = false }: any) {
-    console.log(product, "product");
+    console.log(product, "productproductproductproduct");
 
     const [isratingModal, setRatingModal] = useState(false)
-    console.log(isratingModal,"isratingModal");
-    
+    console.log(isratingModal, "isratingModal");
+
     const [isLoading, setLoader] = useState(false)
     const [quantity, setQuantity] = useState<any>(product?.quantity || 1);
     const [returnModal, setReturnModal] = useState<any>(false)
@@ -95,7 +95,7 @@ export default function LargeCard({ ischeckOut, isSelectedItems, setSelectedItem
     return (
         <>
             <Modal isOpen={isratingModal} onClose={() => setRatingModal(false)} className='w-[530px] p-8'>
-                <RatingReviewModal product={product} setRatingModal={setRatingModal}/>
+                <RatingReviewModal product={product} setRatingModal={setRatingModal} />
             </Modal>
 
             <Modal isOpen={returnModal} onClose={() => setReturnModal(false)} className=' p-8'>
@@ -185,32 +185,52 @@ export default function LargeCard({ ischeckOut, isSelectedItems, setSelectedItem
                         </div>
                     </div>
                     <div className=' flex justify-end max-lg:w-full  items-center '>
-                        <PriceComponent isHome={false} badge={product?.product?.badge} data={product?.product?.price_details} isOffer={!myOrder ? true : false} />
+                        <div className='max-lg:mt-[-60px]'>
+                            <PriceComponent
+                                isHome={false}
+                                badge={product?.product?.badge}
+                                data={product?.product?.price_details}
+                                isOffer={!myOrder ? true : false} />
+                        </div>
+
 
                         {
-                            myOrder && <div className='absolute bottom-[10px] '>
+                            (myOrder && product?.current_status !== "closed") && <div className='absolute bottom-[10px] '>
                                 <div className='flex gap-3 text-[16px] rubik_regular '>
 
                                     {
-                                        product?.current_status !== "completed" ?
-                                            <button className='text-[#C73E1D] underline'
+                                        (product?.is_return_available)
+                                        &&
+                                        <>
+                                            <button className='text-[#222222] underline'
                                                 onClick={(e) => {
                                                     e.stopPropagation();
-                                                    setCancelModal(true);
+                                                    setReturnModal(true);
                                                 }}
-                                            >Cancel</button>
-                                            :
-                                            <>
-                                                <button className='text-[#222222] underline'
-                                                    onClick={(e) => {
-                                                        e.stopPropagation();
-                                                        setReturnModal(true);
-                                                    }}
-                                                >
-                                                    Return Product
-                                                </button>
-                                                <button className='text-[#222222] underline'>Invoice</button>
-                                            </>
+                                            >
+                                                Return Product
+                                            </button>
+
+                                        </>
+
+                                    }   {
+
+                                        (product?.current_status !== "shipped") &&
+                                        <button className='text-[#C73E1D] underline'
+                                            onClick={(e) => {
+                                                e.stopPropagation();
+                                                setCancelModal(true);
+                                            }}
+                                        >
+                                            Cancel
+                                        </button>
+
+                                    }
+
+                                    {
+                                        (product?.current_status === "delivered") &&
+                                        <button className='text-[#222222] underline'>Invoice</button>
+
                                     }
                                 </div>
                             </div>
@@ -260,12 +280,12 @@ export default function LargeCard({ ischeckOut, isSelectedItems, setSelectedItem
                     </div>}
 
                     {!ischeckOut && <div className='flex'>
-                        <button className='flex'  onClick={(e: any) => { e.stopPropagation(); removeItem() }}><MdDeleteForever color='red' size={20} />
+                        <button className='flex' onClick={(e: any) => { e.stopPropagation(); removeItem() }}><MdDeleteForever color='red' size={20} />
                         </button>
                         {/* <UnderLinedButton title={Strings.button.remove} /> */}
                     </div>}
                     {product?.inStock && <div>
-                        
+
                         <UnderLinedButton onClick={(e: any) => { e.stopPropagation() }} title={wishlist ? Strings.button.addCart : Strings.button.saveLater} />
                     </div>}
                     {!wishlist && !ischeckOut && product?.product?.stock_status?.status != 'not available' &&

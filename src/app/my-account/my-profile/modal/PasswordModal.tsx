@@ -30,7 +30,7 @@ function PasswordModal({
     });
     const handleSetPassword = async () => {
         try {
-            const responseData = await postApiData("users/update-password/", {
+            const responseData = await postApiData<any>("users/update-password/", {
 
                 current_password: formData?.current_password,
                 new_password: formData?.new_password,

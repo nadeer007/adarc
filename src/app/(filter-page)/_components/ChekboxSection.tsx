@@ -1,61 +1,46 @@
 import React, { useState, useEffect } from 'react';
-import { useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 function CheckboxSection({
   filter,
-  setListData,
   index
 }: any) {
   const [showAll, setShowAll] = useState(false);
   const searchParams = useSearchParams();
+  const router = useRouter()
 
   // Determine the checkboxes to display
   const visibleCheckboxes = showAll ? filter.filter_data : filter?.filter_data.slice(0, 2);
-  console.log(filter, "filterfsdfsdfds");
 
-  // // Sync checkbox state with URL parameters
-  // useEffect(() => {
-  //   const currentParam = searchParams.get(filter.slug);
-  //   if (currentParam) {
-  //     const selectedValues = currentParam.split(',');
-  //     const updatedFilterData = filter.filter_data.map((item: any) => ({
-  //       ...item,
-  //       is_selected: selectedValues.includes(item.slug)
-  //     }));
-
-  //     setListData((prevData: any) =>
-  //       prevData.map((f: any) =>
-  //         f.id === filter.id ? { ...f, filter_data: updatedFilterData } : f
-  //       )
-  //     );
-  //   } else {
-  //     // If no URL parameter exists, uncheck all
-  //     const updatedFilterData = filter.filter_data.map((item: any) => ({
-  //       ...item,
-  //       is_selected: false
-  //     }));
-
-  //     setListData((prevData: any) =>
-  //       prevData.map((f: any) =>
-  //         f.id === filter.id ? { ...f, filter_data: updatedFilterData } : f
-  //       )
-  //     );
-  //   }
-  // }, [searchParams, filter.slug]);
 
   const handleCheckboxChange = (slug: string) => {
-    // Update the selected state of the clicked checkbox
-    const updatedFilterData = filter.filter_data.map((item: any) =>
-      item.slug === slug ? { ...item, is_selected: !item.is_selected } : item
-    );
+  const currentParams = new URLSearchParams(Array.from(searchParams.entries()));
+  const paramKey = filter.slug;
 
-    // Update the parent state with the modified filter data
-    setListData((prevData: any) =>
-      prevData.map((f: any) =>
-        f.id === filter.id ? { ...f, filter_data: updatedFilterData } : f
-      )
-    );
-  };
+  // Get current selected values as array
+  const existing = currentParams.get(paramKey)?.split(',').filter(Boolean) || [];
+
+  let updated: string[];
+
+  if (existing.includes(slug)) {
+    // Remove if already selected
+    updated = existing.filter(val => val !== slug);
+  } else {
+    // Add if not selected
+    updated = [...existing, slug];
+  }
+
+  // Update or delete param
+  if (updated.length > 0) {
+    currentParams.set(paramKey, updated.join(','));
+  } else {
+    currentParams.delete(paramKey);
+  }
+
+  // Push the new URL
+  router.push(`?${currentParams.toString()}`, { scroll: false });
+};
+
 
   return (
     <div className="flex flex-col gap-4 mt-4 max-h-[300px] overflow-y-scroll" >
@@ -67,7 +52,12 @@ function CheckboxSection({
           <div className="flex items-center gap-2">
             <input
               type="checkbox"
-              checked={item?.is_selected || false}
+              checked={
+                searchParams
+                  .get(filter.slug)
+                  ?.split(',')
+                  .includes(item.slug) || false
+              }
               onChange={() => handleCheckboxChange(item.slug)}
               className="cursor-pointer max-md:w-[15px] max-md:h-[15px] h-[18px] w-[18px]"
             // style={{ height: 18, width: 18 }}

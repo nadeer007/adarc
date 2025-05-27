@@ -10,7 +10,7 @@ const HamburgerMenu = ({onClose}:any) => {
  
 
   return (
-    <div className="hamburger-menu h-full">
+    <div className="hamburger-menu h-full no-scrollbar">
       <FirstMenu onClose={onClose}/>
     </div>
   );

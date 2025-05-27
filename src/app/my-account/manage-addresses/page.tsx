@@ -31,10 +31,6 @@ function Page() {
         setAddForm(true);
     }
 
-
-
-
-
     const getAddressData = async () => {
         try {
             const responseData = await fetchApiData<any>("users/list-address/", {
@@ -55,15 +51,12 @@ function Page() {
 
     return (
         <div className='flex flex-col max-w-[1000px] p-4 gap-2'>
-
-
             {!isAddForm &&
                 <button className='flex justify-start text-[#0457C8] rubik_medium text-[14px]' onClick={handleAdd}>
                     {/* {getIcon({ icon: "plus", className: 'h-[16px] w-[4px]' })} */}
                     <h5>ADD A NEW ADDRESS</h5>
                 </button>
             }
-
             {isAddForm &&
 
                 <div className=" border rounded-md bg-white border-primary_border border-solid">
@@ -72,7 +65,7 @@ function Page() {
                     </div>
                     <div className='p-4'>
                         <AddressForm
-                        
+
                             isEdit={isEdit}
                             setEdit={setEdit}
                             setAddForm={setAddForm}
@@ -86,10 +79,9 @@ function Page() {
 
                 </div>
             }
-
-
-            {addressData.length > 0 && addressData?.map((address, index) => (
-                <AddressCard key={index}
+            {addressData?.length > 0 && addressData?.map((address, index) => (
+                <AddressCard
+                    key={index}
                     getAddressData={getAddressData}
                     setSelectedCountry={setSelectedCountry}
                     setFormData={setFormData}

@@ -13,7 +13,7 @@ function LeftFilterSection({
     filterList: any;
     priceData: any;
     setPriceData: any;
-    setListData: any
+    setListData: any;
 }) {
     const [active, setActive] = useState<number[]>([]);
 
@@ -36,7 +36,7 @@ function LeftFilterSection({
 
     return (
         <div className="w-[260px] max-lg:w-[240px] max-md:w-[210px] max-[710px]:w-[200px] overflow-x-hidden   block mr-4 p-2 max-w-[260px] max-sm:hidden">
-            {filterList?.map((filter: any, index: any) => {
+            {filterList.length > 0 && filterList?.map((filter: any, index: any) => {
                 const isPriceFilter = filter?.slug === "price";
                 const Component = isPriceFilter ? PriceFilter : ChekboxSection;
 

@@ -10,7 +10,7 @@ export default function EmptySection({ title, message, button = true }: any) {
     return (
         <div className='items-center justify-center flex flex-col gap-[20px]'>
             <div className='w-[224px] h-[224px] items-center justify-center flex '>
-                <Image width={100} height={100} className='w-[100%] h-[100%]' src={EmptyIcon} alt='emptyImage' />
+                <Image width={100} height={100} className='w-[100%] h-[100%]' src={'/assets/icons/emptyNewImage.svg'} alt='emptyImage' />
             </div>
             <div className=''>
                 <p className='text-center text-black text-[20px] leading-[24px] rubik_medium'>{title}</p>

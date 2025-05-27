@@ -1,6 +1,5 @@
 "use client"
 import React, { useEffect, useState } from 'react';
-import TitleComponent from '@/app/[productTitle]/components/TitleComponent';
 import CustomButton from '@/components/buttons/CustomButton';
 import CustomTextInput from '@/components/input/CustomTextInput';
 import PasswordModal from '../modal/PasswordModal';
@@ -44,9 +43,10 @@ export default function Form() {
             const { status_code, message } = responseData;
 
             if (status_code === 6000) {
-                router.refresh()
-                window.location.reload()
+                // router.refresh()
+                // window.location.reload()
                 // Handle success
+                getProfileData()
             } else if (status_code === 6001) {
                 if (message?.body) {
                     setErrorFields((prevData) => ({

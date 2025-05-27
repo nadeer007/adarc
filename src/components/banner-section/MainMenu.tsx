@@ -8,6 +8,7 @@ import { cn } from '@/utils/utils'
 import Link from 'next/link'
 
 export default function MainMenu({ data }: any) {
+    
     const [isActiveMegaMenu, setActiveMegaMenu] = useState(false)
     const [activeIndex, setActiveIndex] = useState<any>(null)
     const [activeSection, setActiveSection] = useState<any>('')
@@ -42,11 +43,11 @@ export default function MainMenu({ data }: any) {
                         }}
 
 
-                        key={index} className="flex px-4 justify-between items-center cursor-pointer py-4">
+                        key={index} className="flex px-4 group justify-between items-center cursor-pointer py-4">
                         <div className='flex gap-1'>
-                            <Icon src={section?.icon} height={'24px'} width={'24px'} alt={'vectorIcon'} />
+                            <Icon src={section?.small_icon} height={'24px'} width={'24px'} alt={'vectorIcon'} />
 
-                            <h4 className=' opensans_regular font-normal'>{section?.name}</h4>
+                            <h4 className=' opensans_regular group-hover:text-blue-500 group-hover:underline transition-all transform duration-200  rubik_medium'>{section?.name}</h4>
                         </div>
                         {/* <div>{getIcon({ icon: 'vector_black', className: 'w-[15px] rotate-0' })}</div>
              */}
