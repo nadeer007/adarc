@@ -26,9 +26,8 @@ const getBannerData = async () => {
 //   const response = await fetchApiData<any>('products/homepage-products/');
 //   return response;
 // }
-const cookieStore = await cookies();
-const accessToken = cookieStore.get("accessToken")?.value;
-const getProductsData = async () => {
+
+const getProductsData = async (accessToken:any) => {
 	try {
 		const apiUrl = process.env.API_URL;
 
@@ -139,7 +138,9 @@ const Page = async function () {
 		banners = bannerData?.data;
 	}
 
-	const productsData = await getProductsData();
+  const cookieStore = await cookies();
+const accessToken = cookieStore.get("accessToken")?.value;
+	const productsData = await getProductsData(accessToken);
 	let productsDatas = null;
 
 	if (productsData?.status_code === 6000) {
